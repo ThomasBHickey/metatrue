@@ -1,0 +1,55 @@
+//	Copyright 2014 Thomas B. Hickey (thomasbhickey@gmail.com)
+//
+//	Licensed under the Apache License, Version 2.0 (the "License");
+//	you may not use this file except in compliance with the License.
+//	You may obtain a copy of the License at
+//
+//		http://www.apache.org/licenses/LICENSE-2.0
+//
+//	Unless required by applicable law or agreed to in writing, software
+//	distributed under the License is distributed on an "AS IS" BASIS,
+//	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//	See the License for the specific language governing permissions and
+//	limitations under the License.
+
+package metatrue
+
+import (
+	"fmt"
+)
+
+var history string
+var bad int
+
+func Main() error {
+	var err error
+	history = "fatal_error_stop"
+	t_open_out()
+	fmt.Println("metatrue.Main beginning")
+	err = check_constants()
+	if err != nil {
+		wterm_ln("Ouch--my internal constants have been clobbered!", "---case ", err.Error())
+		goto final_end
+	}
+	goto start_of_MT
+start_of_MT:
+
+	fmt.Println("mt start_of_MT")
+	getFirstLineOfInput()
+	history = "spotless"
+	goto end_of_MT
+	err = final_cleanup()
+	if err != nil {
+		fmt.Println("error calling final_cleanup:", err)
+		goto final_end
+	}
+end_of_MT:
+	err = close_files_and_terminate()
+	if err != nil {
+		fmt.Println("error calling close_files_and_terminate:", err)
+		goto final_end
+	}
+final_end:
+	fmt.Println("metatrue.Main final_end")
+	return nil
+}
