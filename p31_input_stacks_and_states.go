@@ -30,7 +30,7 @@ type in_state_record struct {
 
 // s628
 var (
-	input_stack  [stack_size+1]in_state_record
+	input_stack [stack_size + 1]in_state_record
 	//input_stack  [30+1]in_state_record
 	input_ptr    = 0
 	max_in_stack = 0

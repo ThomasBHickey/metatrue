@@ -41,7 +41,8 @@ start_of_MT:
 	fmt.Println("mt start_of_MT")
 	initializeOutputRoutines()
 	fmt.Println("start_of_MT")
-	getFirstLineOfInput()
+	err = getFirstLineOfInputAndPrepareToStart()
+	fmt.Println("first line of input", buffer[first:last])
 	history = spotless
 	if start_sym > 0 {
 		cur_sym = start_sym
@@ -76,7 +77,7 @@ func close_files_and_terminate() error {
 }
 
 // Section 1211
-func getFirstLineOfInput() {
-	fmt.Println("getFirstLineOfInput()")
+func getFirstLineOfInputAndPrepareToStart() error {
+	fmt.Println("getFirstLineOfInputAndPrepareToStart()")
 	initializeTheInputRoutines()
 }

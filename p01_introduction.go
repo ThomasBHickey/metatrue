@@ -21,5 +21,10 @@ import (
 // s4
 func initialize() {}
 
+// s11
+const (
+	buf_size = 500
+)
+
 // s13
 var bad int

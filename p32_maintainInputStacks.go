@@ -36,7 +36,10 @@ var (
 
 func initializeTheInputRoutines() {
 	fmt.Println("initializeTheInputRoutines")
-	init_terminal()
+	err := init_terminal()
+	if err != nil {
+		return err
+	}
 	cur_input.limit = last
 	first = last + 1
 }

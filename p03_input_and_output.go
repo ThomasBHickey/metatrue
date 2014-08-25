@@ -18,15 +18,24 @@ import (
 	"errors"
 	"fmt"
 	"os"
+	"strings"
 )
 
 // s29
 var (
-	buffer []byte
+	buffer [buf_size + 1]byte
 	first,
 	last int
 	max_buf_stack = 0
 )
+
+// s30
+func input_ln(f os.File, bypass_eoln bool) bool {
+	//var last_nonblank int
+	if bypass_eoln {
+	}
+	return true
+}
 
 // s31
 var (
@@ -38,16 +47,30 @@ var (
 func t_open_in() {}
 
 // s33
-func update_terminal(){}
-func clear_terminal(){}
-func wake_up_terminal(){}
+func update_terminal()  {}
+func clear_terminal()   {}
+func wake_up_terminal() {}
 
 // s36
 func init_terminal() error {
 	fmt.Println("init_terminal")
 	t_open_in()
+	fmt.Println("len of args:", len(os.Args), "args:", os.Args[1:])
+	if len(os.Args) > 1 {
+		bs := ([]byte)(strings.Join(os.Args[1:], " "))
+		fmt.Println("bs:", bs)
+		for pos, b := range bs {
+			buffer[pos] = b
+		}
+		first = 0
+		last = len(bs)
+		return nil
+	}
 	for {
 		wake_up_terminal()
+		fmt.Print("**")
+		update_terminal()
+
 		fmt.Fprint(term_out, "! End of file on the terminal... why?")
 		return errors.New("EOF on terminal")
 	}
