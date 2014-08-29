@@ -12,7 +12,7 @@ const (
 	stack_size      = 30  // max # of simultaneous input sources
 	screen_width    = 768 // pixels in each row of screen display
 	max_in_open     = 6   // max input files
-	bistack_size    = 785
+	bistack_size    = 785  // bistack_size
 )
 
 func check_constants() error {
