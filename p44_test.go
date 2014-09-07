@@ -17,5 +17,9 @@
 package metatrue
 
 import (
-//"fmt"
+    "testing"
+    //"fmt"
 )
+
+func TestX44(t *testing.T) {
+}

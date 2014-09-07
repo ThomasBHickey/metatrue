@@ -11,11 +11,13 @@
 //	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //	See the License for the specific language governing permissions and
 //	limitations under the License.
+//
+// MetaTrue is to a great extent a reimplementation of Donald Knuth's MetaFont
 
 package metatrue
 
 import (
-	"fmt"
+    "fmt"
 )
 
 // s652
@@ -34,7 +36,7 @@ var (
 	//max_buf_stack = 0
 )
 
-func initializeTheInputRoutines() {
+func initializeTheInputRoutines() error {
 	fmt.Println("initializeTheInputRoutines")
 	err := init_terminal()
 	if err != nil {
@@ -42,6 +44,8 @@ func initializeTheInputRoutines() {
 	}
 	cur_input.limit = last
 	first = last + 1
+	fmt.Println("initializeTheInputRoutines returning OK")
+	return nil
 }
 
 // s659

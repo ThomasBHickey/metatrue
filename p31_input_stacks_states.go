@@ -19,3 +19,22 @@ package metatrue
 import (
 //"fmt"
 )
+
+// s627
+// dropped the trailing "_field" for each field
+type in_state_record struct {
+	index,
+	start,
+	loc,
+	limit,
+	name int
+}
+
+// s628
+var (
+	input_stack [stack_size + 1]in_state_record
+	//input_stack  [30+1]in_state_record
+	input_ptr    = 0
+	max_in_stack = 0
+	cur_input    in_state_record
+)

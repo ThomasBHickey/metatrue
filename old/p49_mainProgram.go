@@ -39,9 +39,15 @@ func Start() error {
 	ready_already = 314159
 start_of_MT:
 	fmt.Println("mt start_of_MT")
-	initializeOutputRoutines()
+	if err != nil {
+		return err
+	}
 	fmt.Println("start_of_MT")
 	err = getFirstLineOfInputAndPrepareToStart()
+	if err != nil {
+		return err
+	}
+	fmt.Println("first:", first,", last:", last)
 	fmt.Println("first line of input", buffer[first:last])
 	history = spotless
 	if start_sym > 0 {
@@ -79,5 +85,5 @@ func close_files_and_terminate() error {
 // Section 1211
 func getFirstLineOfInputAndPrepareToStart() error {
 	fmt.Println("getFirstLineOfInputAndPrepareToStart()")
-	initializeTheInputRoutines()
+	return initializeTheInputRoutines()
 }

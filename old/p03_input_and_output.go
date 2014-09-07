@@ -11,8 +11,6 @@
 //	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //	See the License for the specific language governing permissions and
 //	limitations under the License.
-//
-// MetaTrue is to a great extent a reimplementation of Donald Knuth's MetaFont
 
 package metatrue
 
@@ -44,12 +42,9 @@ var (
 	term_in  = os.Stdin
 	term_out = os.Stdout
 )
-//s 32
-func t_open_in(){
-}
 
-func t_open_out(){
-}
+// s32
+func t_open_in() {}
 
 // s33
 func update_terminal()  {}

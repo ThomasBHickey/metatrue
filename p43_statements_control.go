@@ -17,5 +17,11 @@
 package metatrue
 
 import (
-//"fmt"
+    "fmt"
 )
+
+// s1017
+func main_control() error {
+	fmt.Println("main_control not yet written")
+	return nil
+}

@@ -11,11 +11,27 @@
 //	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //	See the License for the specific language governing permissions and
 //	limitations under the License.
-//
-// MetaTrue is to a great extent a reimplementation of Donald Knuth's MetaFont
 
 package metatrue
 
 import (
-//"fmt"
+	"fmt"
 )
+
+// s54, 55
+const (
+	no_print = iota
+	term_only
+	log_only
+	term_and_log
+	pseudo
+	new_string
+	max_selector
+)
+
+var term_offset int = 0
+var file_offset int = 0
+
+func initializeOutputRoutines() {
+	fmt.Println("initializeOutputRoutines")
+}

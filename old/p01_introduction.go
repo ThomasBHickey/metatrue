@@ -11,11 +11,20 @@
 //	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //	See the License for the specific language governing permissions and
 //	limitations under the License.
-//
-// MetaTrue is to a great extent a reimplementation of Donald Knuth's MetaFont
 
 package metatrue
 
 import (
 //"fmt"
 )
+
+// s4
+func initialize() {}
+
+// s11
+const (
+	buf_size = 500
+)
+
+// s13
+var bad int

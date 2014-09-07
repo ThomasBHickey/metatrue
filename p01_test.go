@@ -17,5 +17,19 @@
 package metatrue
 
 import (
-//"fmt"
+	"testing"
+	//"fmt"
 )
+
+func TestX01(t *testing.T) {
+	switch true {
+	case (half_error_line < 30) || (half_error_line > error_line-15):
+		t.Error("bad 1")
+	case max_print_line < 60:
+		t.Error("bad 2")
+	case header_size%4 != 0:
+		t.Error("bad 6")
+	case (lig_table_size < 255) || (lig_table_size > 32510):
+		t.Error("bad 7")
+	}
+}

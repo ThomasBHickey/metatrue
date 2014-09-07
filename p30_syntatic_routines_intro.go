@@ -19,3 +19,8 @@ package metatrue
 import (
 //"fmt"
 )
+
+// s624
+var cur_cmd,
+	cur_mod,
+	cur_sym int
