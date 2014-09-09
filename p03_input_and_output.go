@@ -17,25 +17,54 @@
 package metatrue
 
 import (
+    "bufio"
+    //"bytes"
 	"errors"
 	"fmt"
+	"io"
 	"os"
 	"strings"
 )
 
+// s 24
+type eight_bits byte
+// don't think we need alpha_file and byte_file
+
+// s 25
+// try to do without name_of_file and name_length
+
+// s 26, 27 opening/closing files
+// just use os.Open
+
 // s29
 var (
-	buffer [buf_size + 1]byte
+	buffer [buf_size + 1] rune
 	first,
 	last int
 	max_buf_stack = 0
 )
 
 // s30
-func input_ln(f os.File, bypass_eoln bool) bool {
-	//var last_nonblank int
-	if bypass_eoln {
-	}
+func input_ln(f io.Reader, bypass_eoln bool) bool {
+    r := bufio.NewReader(f)
+    line, err := r.ReadString('\n') //r.ReadBytes('\n')
+    if err!=nil && err!=io.EOF{
+        return false
+    }
+    if err==io.EOF && len(line)==0 {
+        return false
+    }
+    //line = bytes.Trim(line, " \t\n")
+    runes := []rune(line)
+    if len(runes)+last >= max_buf_stack {
+        // s 34
+        overflow("buffer_size", buf_size)  // this won't return
+    }
+    last = first
+    for _, r := range runes {
+        buffer[last] = r
+        last++
+    }
 	return true
 }
 
@@ -62,13 +91,13 @@ func init_terminal() error {
 	t_open_in()
 	fmt.Println("len of args:", len(os.Args), "args:", os.Args[1:])
 	if len(os.Args) > 1 {
-		bs := ([]byte)(strings.Join(os.Args[1:], " "))
-		fmt.Println("bs:", bs)
-		for pos, b := range bs {
-			buffer[pos] = b
+		rs := ([]rune)(strings.Join(os.Args[1:], " "))
+		fmt.Println("bs:", rs)
+		for pos, r := range rs {
+			buffer[pos] = r
 		}
 		first = 0
-		last = len(bs)
+		last = len(rs)
 		fmt.Println("init_terminal returning OK")
 		return nil
 	}

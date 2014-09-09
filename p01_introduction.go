@@ -20,14 +20,29 @@ import (
 //"fmt"
 )
 
+//s 4
+//Don't think we need to pull everthing together in Go
+
+//2 6
+// skip the labels
+
 //s 7
+// not macros, but should work fine
 const (
 	debug = true
 	stats = true
 )
 
+//s 8
+// We're not going to do any preloading
+
+//s 9, 10
+// Pascal stuff handled outside the code in Go
+
 //s 11
 const (
+	//mem_max       // We're not going to mange memory this way
+	//max_internal    // internals are just a map
 	buf_size        = 500 // max chars present in current lines of open files
 	error_line      = 72
 	half_error_line = 42
@@ -35,12 +50,19 @@ const (
 	screen_width    = 768
 	screen_depth    = 1024
 	stack_size      = 30 //simultaneous input sources
-	max_wiggle      = 300
-	path_size       = 300
-	bistack_size    = 785
-	header_size     = 100
-	lig_table_size  = 5000
-	max_kerns = 500
+	//max_strings // skipped
+	//string_vacancies
+	//pool_size
+	move_size  = 5000
+	max_wiggle = 300
+	//gf_buf_size  // depend on Go's buffering?
+	file_name_size = 40 // might not need this
+	//pool_name
+	path_size      = 300
+	bistack_size   = 785
+	header_size    = 100
+	lig_table_size = 5000
+	max_kerns      = 500
 	max_font_dimen = 50
 )
 
@@ -54,29 +76,13 @@ const (
 var bad int
 
 // s 14
-// func checkConstantsForConsistency() error {
-// 	switch true {
-// 	case (half_error_line < 30) || (half_error_line > error_line-15):
-// 		bad = 1
-// 	case max_print_line < 60:
-// 		bad = 2
-// 	case header_size%4 != 0:
-// 		bad = 6
-// 	case (lig_table_size < 255) || (lig_table_size > 32510):
-// 		bad = 7
-// 	}
+// check constants in p01_Test.go
 
-	// 	if (half_error_line < 30) || (half_error_line > error_line-15) {
-	// 		bad = 1
-	// 	}
-	// 	if max_print_line < 60 {
-	// 		bad = 2
-	// 	}
-	// 	if header_size%4 != 0 {
-	// 		bad = 6
-	// 	}
-	// 	if (lig_table_size < 255) || (lig_table_size > 32510) {
-	// 		bad = 7
-	// 	}
+// s15
+// try to do without labels for now
 
-//}
+// s16 macros
+// most of these we won't need since
+// we don't have to worry about as many
+// portability issues
+

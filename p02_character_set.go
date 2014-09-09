@@ -19,3 +19,7 @@ package metatrue
 import (
 //"fmt"
 )
+
+// s21
+// It's going to be Unicode all the way, so we don't need the character encodings?
+// That's the plan, anyway!
