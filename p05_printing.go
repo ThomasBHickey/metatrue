@@ -18,6 +18,7 @@ package metatrue
 
 import (
 //"fmt"
+    "os"
 )
 
 // s54
@@ -65,6 +66,62 @@ func wlog_cr() {
 
 // s57
 
+func print_ln() {
+	switch selector {
+	case term_and_log:
+		wterm_cr()
+		wlog_cr()
+		term_offset = 0
+		file_offset = 0
+	case log_only:
+		wlog_cr()
+		file_offset = 0
+	case term_only:
+		wterm_cr()
+		term_offset = 0
+	case no_print, psudo, new_string:
+	}
+}
 
-
+// s58
+func print_char(r rune) {
+    sr = string(rune)
+	switch selector {
+	case term_and_log:
+	    wterm(sr)
+	    wlog(sr)
+	    term_offset++
+	    file_offset++
+	    if term_offset==max_printLine{
+	        wterm_cr()
+	        term_offset=0
+	    }
+	    if file_offset==max_print_line{
+	        wlog_cr()
+	        file_offset=0
+	    }
+	case log_only:
+	    wlog(sr)
+	    file_offset++
+	    if file_offset==max_print_line {
+	        print_ln()
+	    }
+	case term_only:
+	    wterm(sr)
+	    term_offset++
+	    if term_offset==max_print_line{
+	        print_ln()
+	    }
+	case noprint:
+	case psuedo:
+	    if tally<trick_count {
+	        trick_buf[tqally %error_line] = r
+	    }
+	case new_string:
+	    if pool_ptr < pool_size {
+	        append_char(r)
+	    }
+	}
+	tally++
+}
 

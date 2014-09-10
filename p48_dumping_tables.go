@@ -19,3 +19,6 @@ package metatrue
 import (
 //"fmt"
 )
+
+// s1184
+var base_ident = 0

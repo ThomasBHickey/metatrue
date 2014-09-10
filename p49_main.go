@@ -43,6 +43,7 @@ func Start() error {
 	if err != nil {
 		return err
 	}
+	initialize_output_routines()
 	fmt.Println("start_of_MT")
 	err = getFirstLineOfInputAndPrepareToStart()
 	if err != nil {
