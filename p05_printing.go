@@ -19,3 +19,52 @@ package metatrue
 import (
 //"fmt"
 )
+
+// s54
+const (
+	no_print = iota
+	term_only
+	log_only
+	term_and_log
+	pseudo
+	new_string
+	max_selector = new_string
+)
+
+var (
+	log_file    *os.File
+	selector    int = term_only
+	dig         [23]int
+	tally       int = 0 // s55
+	term_offset int = 0
+	file_offset int = 0
+	trick_buf   [error_line + 1]rune
+	trick_count int
+	first_count int
+)
+
+// s56
+func wterm(msgs ...string) {
+	write(term_out, msgs)
+}
+func wterm_ln(msgs ...string) {
+	write_ln(term_out, msgs)
+}
+func wterm_cr() {
+	write_ln(term_out)
+}
+func wlog(msgs ...string) {
+	write(log_file, msgs)
+}
+func wlog_ln(msgs ...string) {
+	write_ln(log_file, msgs)
+}
+func wlog_cr() {
+	write_ln(log_file)
+}
+
+// s57
+
+
+
+

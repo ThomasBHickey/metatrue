@@ -17,8 +17,28 @@
 package metatrue
 
 import (
-//"fmt"
+    "fmt"
+    "os"
 )
+
+// s68
+
+const (
+    batch_mode = iota
+    nonstop_mode
+    scroll_mode
+    error_stop_mode
+    )
+
+func print_err(msg string){
+    if interaction==error_stop_mode {
+        wake_up_terminal()
+        print_nl("! ")
+        print(msg)
+    }
+}
+
+var interaction int = error_stop_mode
 
 // s71, 72
 const (
@@ -31,3 +51,40 @@ const (
 var deletions_allowed = true
 var history int
 var error_count int = 0
+
+// s74
+func help(msgs ...string){
+    for msg := range msgs {
+        print(msg)
+    }
+}
+
+// s 76
+func jump_out(){
+    close_files_and_terminate()
+    os.Exit(1)
+}
+
+
+// s88
+func succumb(){
+    if interaction==error_stop_mode{
+        interaction = scroll_mode}
+    if log_opened { mterror()}
+    if debug {
+        if interaction > batch_mode {
+            debug_help()
+        }
+    }
+    history = fatal_error_stop;
+}
+
+
+// s89
+func overflow(errmsg string, n int){
+    normalize_selector()
+    print_err(fmt.Sprintf("METATRUE capacity exceeded, sorry [%s=%d]", errmsg, n))
+    help("If you really absolutely need more capacity",
+    "you can ask a wizard to enlarge me.")
+    succumb()
+}
