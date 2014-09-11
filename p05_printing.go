@@ -17,8 +17,8 @@
 package metatrue
 
 import (
-//"fmt"
-    "os"
+	//"fmt"
+	"os"
 )
 
 // s54
@@ -85,43 +85,82 @@ func print_ln() {
 
 // s58
 func print_char(r rune) {
-    sr = string(rune)
+	sr = string(rune)
 	switch selector {
 	case term_and_log:
-	    wterm(sr)
-	    wlog(sr)
-	    term_offset++
-	    file_offset++
-	    if term_offset==max_printLine{
-	        wterm_cr()
-	        term_offset=0
-	    }
-	    if file_offset==max_print_line{
-	        wlog_cr()
-	        file_offset=0
-	    }
+		wterm(sr)
+		wlog(sr)
+		term_offset++
+		file_offset++
+		if term_offset == max_printLine {
+			wterm_cr()
+			term_offset = 0
+		}
+		if file_offset == max_print_line {
+			wlog_cr()
+			file_offset = 0
+		}
 	case log_only:
-	    wlog(sr)
-	    file_offset++
-	    if file_offset==max_print_line {
-	        print_ln()
-	    }
+		wlog(sr)
+		file_offset++
+		if file_offset == max_print_line {
+			print_ln()
+		}
 	case term_only:
-	    wterm(sr)
-	    term_offset++
-	    if term_offset==max_print_line{
-	        print_ln()
-	    }
+		wterm(sr)
+		term_offset++
+		if term_offset == max_print_line {
+			print_ln()
+		}
 	case noprint:
 	case psuedo:
-	    if tally<trick_count {
-	        trick_buf[tqally %error_line] = r
-	    }
+		if tally < trick_count {
+			trick_buf[tqally%error_line] = r
+		}
 	case new_string:
-	    if pool_ptr < pool_size {
-	        append_char(r)
-	    }
+		if pool_ptr < pool_size {
+			append_char(r)
+		}
 	}
 	tally++
 }
 
+// s59
+func print(s string) {
+	for _, r := range s {
+		print_char(r)
+	}
+}
+
+// s60
+func slow_print(s string) {
+	print(s)
+}
+
+// s61
+func initialize_the_output_routines() {
+	wterm(banner)
+	if base_ident == "" {
+		wterm_ln(" (no base preloaded)")
+	}
+	update_terminal()
+}
+
+// s62
+func odd(i int) int {
+	return (i % 2) == 1
+}
+
+func print_nl(s string) {
+	if ((term_offset > 0) && (odd(selector))) || ((file_offset > 0) && (selector >= log_only)) {
+		print_ln()
+	}
+	print(s)
+}
+
+// s63
+func print_the_digs(k int) {
+	for k > 0 {
+		print_char(fmt.Sprintf("%d", k))
+	}
+}
