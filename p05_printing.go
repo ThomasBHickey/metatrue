@@ -17,7 +17,7 @@
 package metatrue
 
 import (
-	//"fmt"
+	"fmt"
 	"os"
 )
 
@@ -79,20 +79,20 @@ func print_ln() {
 	case term_only:
 		wterm_cr()
 		term_offset = 0
-	case no_print, psudo, new_string:
+	case no_print, pseudo, new_string:
 	}
 }
 
 // s58
 func print_char(r rune) {
-	sr = string(rune)
+	sr := string(r)
 	switch selector {
 	case term_and_log:
 		wterm(sr)
 		wlog(sr)
 		term_offset++
 		file_offset++
-		if term_offset == max_printLine {
+		if term_offset == max_print_line {
 			wterm_cr()
 			term_offset = 0
 		}
@@ -112,15 +112,12 @@ func print_char(r rune) {
 		if term_offset == max_print_line {
 			print_ln()
 		}
-	case noprint:
-	case psuedo:
+	case no_print:
+	case pseudo:
 		if tally < trick_count {
-			trick_buf[tqally%error_line] = r
+			trick_buf[tally%error_line] = r
 		}
 	case new_string:
-		if pool_ptr < pool_size {
-			append_char(r)
-		}
 	}
 	tally++
 }
@@ -147,8 +144,16 @@ func initialize_the_output_routines() {
 }
 
 // s62
-func odd(i int) int {
+// Evidently a native Pascal operation
+func odd(i int) bool {
 	return (i % 2) == 1
+}
+
+func Abs(x int) int {
+	if x >= 0 {
+		return x
+	}
+	return -x
 }
 
 func print_nl(s string) {
@@ -161,6 +166,17 @@ func print_nl(s string) {
 // s63
 func print_the_digs(k int) {
 	for k > 0 {
-		print_char(fmt.Sprintf("%d", k))
+		print_char(rune(fmt.Sprintf("%d", k)[0]))
 	}
+}
+
+// s64
+// not sure this will pass Trap, but worth a try!
+func print_int(n int) {
+	print(fmt.Sprintf("%d", n))
+}
+
+// s65
+func print_dd(n int) {
+	print_int(Abs(n) % 100)
 }

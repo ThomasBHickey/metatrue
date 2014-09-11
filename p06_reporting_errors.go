@@ -54,7 +54,7 @@ var error_count int = 0
 
 // s74
 func help(msgs ...string){
-    for msg := range msgs {
+    for _, msg := range msgs {
         print(msg)
     }
 }
@@ -65,6 +65,17 @@ func jump_out(){
     os.Exit(1)
 }
 
+// s77
+func mterror(){
+    if history<error_message_issued {
+        history = error_message_issued
+    }
+    print_char('.')
+    show_context()
+    if interaction==error_stop_mode {
+        // s78
+    }
+}
 
 // s88
 func succumb(){

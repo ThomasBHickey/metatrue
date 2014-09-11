@@ -20,13 +20,16 @@ import (
 //"fmt"
 )
 
-//s 4
+// s2
+var banner = "This is METATRUE, Version 1"
+
+// s 4
 //Don't think we need to pull everthing together in Go
 
-//2 6
+// s 6
 // skip the labels
 
-//s 7
+// s 7
 // not macros, but should work fine
 const (
 	debug = true

@@ -21,4 +21,4 @@ import (
 )
 
 // s1184
-var base_ident = 0
+var base_ident = ""
