@@ -17,8 +17,9 @@
 package metatrue
 
 import (
+    "bufio"
 	"fmt"
-	"os"
+	//"os"
 )
 
 // s54
@@ -33,7 +34,7 @@ const (
 )
 
 var (
-	log_file    *os.File
+	log_file    *bufio.Writer
 	selector    int = term_only
 	dig         [23]int
 	tally       int = 0 // s55
@@ -45,20 +46,20 @@ var (
 )
 
 // s56
-func wterm(msgs ...string) {
-	write(term_out, msgs)
+func wterm(msg string) {
+	write(term_out, msg)
 }
-func wterm_ln(msgs ...string) {
-	write_ln(term_out, msgs)
+func wterm_ln(msg string) {
+	write_ln(term_out, msg)
 }
 func wterm_cr() {
 	write_ln(term_out)
 }
-func wlog(msgs ...string) {
-	write(log_file, msgs)
+func wlog(msg string) {
+	write(log_file, msg)
 }
-func wlog_ln(msgs ...string) {
-	write_ln(log_file, msgs)
+func wlog_ln(msg string) {
+	write_ln(log_file, msg)
 }
 func wlog_cr() {
 	write_ln(log_file)

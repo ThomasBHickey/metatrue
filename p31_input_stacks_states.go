@@ -38,3 +38,8 @@ var (
 	max_in_stack = 0
 	cur_input    in_state_record
 )
+
+// s635
+func show_context(){
+    print_error("showContext not yet implemented")
+}
