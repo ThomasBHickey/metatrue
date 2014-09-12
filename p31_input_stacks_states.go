@@ -41,5 +41,5 @@ var (
 
 // s635
 func show_context(){
-    print_error("showContext not yet implemented")
+    print_err("showContext not yet implemented")
 }

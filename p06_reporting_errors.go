@@ -17,25 +17,25 @@
 package metatrue
 
 import (
-    "fmt"
-    "os"
+	"fmt"
+	"os"
 )
 
 // s68
 
 const (
-    batch_mode = iota
-    nonstop_mode
-    scroll_mode
-    error_stop_mode
-    )
+	batch_mode = iota
+	nonstop_mode
+	scroll_mode
+	error_stop_mode
+)
 
-func print_err(msg string){
-    if interaction==error_stop_mode {
-        wake_up_terminal()
-        print_nl("! ")
-        print(msg)
-    }
+func print_err(msg string) {
+	if interaction == error_stop_mode {
+		wake_up_terminal()
+		print_nl("! ")
+		print(msg)
+	}
 }
 
 var interaction int = error_stop_mode
@@ -53,52 +53,70 @@ var history int
 var error_count int = 0
 
 // s74
-func help(msgs ...string){
-    for _, msg := range msgs {
-        print(msg)
-    }
+func help(msgs ...string) {
+	for _, msg := range msgs {
+		print(msg)
+	}
 }
 
 // s 76
-func jump_out(err error){
-    if err!=nil {
-        fmt.Println("MF Terminating", err)
-    }
-    close_files_and_terminate()
-    os.Exit(1)
+func jump_out(err error) {
+	if err != nil {
+		fmt.Println("MF Terminating", err)
+	}
+	close_files_and_terminate()
+	os.Exit(1)
 }
 
 // s77
-func mterror(){
-    if history<error_message_issued {
-        history = error_message_issued
-    }
-    print_char('.')
-    show_context()
-    if interaction==error_stop_mode {
-        // s78
-    }
+func mterror() {
+	if history < error_message_issued {
+		history = error_message_issued
+	}
+	print_char('.')
+	show_context()
+	if interaction == error_stop_mode {
+		// s78
+	}
+}
+
+// s87
+func normalize_selector() {
+	if log_opened {
+		selector = term_and_log
+	} else {
+		selector = term_only
+	}
+	if job_name == "" {
+		open_log_file()
+	}
+	if interaction == batch_mode {
+		selector--
+	}
+
 }
 
 // s88
-func succumb(){
-    if interaction==error_stop_mode{
-        interaction = scroll_mode}
-    if log_opened { mterror()}
-    if debug {
-        if interaction > batch_mode {
-            debug_help()
-        }
-    }
-    history = fatal_error_stop;
+func succumb() {
+	if interaction == error_stop_mode {
+		interaction = scroll_mode
+	}
+	if log_opened {
+		mterror()
+	}
+	if debug {
+		if interaction > batch_mode {
+			debug_help()
+		}
+	}
+	history = fatal_error_stop
 }
 
-
 // s89
-func overflow(errmsg string, n int){
-    normalize_selector()
-    print_err(fmt.Sprintf("METATRUE capacity exceeded, sorry [%s=%d]", errmsg, n))
-    help("If you really absolutely need more capacity",
-    "you can ask a wizard to enlarge me.")
-    succumb()
+func overflow(errmsg string, n int) {
+	normalize_selector()
+	print_err(fmt.Sprintf("METATRUE capacity exceeded, sorry [%s=%d]", errmsg, n))
+	help("If you really absolutely need more capacity",
+		"you can ask a wizard to enlarge me.")
+	succumb()
 }

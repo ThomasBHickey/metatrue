@@ -19,3 +19,8 @@ package metatrue
 import (
 //"fmt"
 )
+
+// s1205
+func debug_help(){
+    print_err("debug_help (s1205) not yet written")
+}

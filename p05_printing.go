@@ -45,6 +45,9 @@ var (
 	first_count int
 )
 
+// s55
+// see s61 below
+
 // s56
 func wterm(msg string) {
 	write(term_out, msg)
@@ -136,7 +139,7 @@ func slow_print(s string) {
 }
 
 // s61
-func initialize_the_output_routines() {
+func initialize_output_routines() {
 	wterm(banner)
 	if base_ident == "" {
 		wterm_ln(" (no base preloaded)")

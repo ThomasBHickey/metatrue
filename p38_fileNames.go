@@ -19,3 +19,15 @@ package metatrue
 import (
 //"fmt"
 )
+
+// s782
+var (
+    job_name string
+    log_opened bool
+    log_name string
+    )
+    
+// s788
+func open_log_file(){
+    print_err("open_log_file not implemented yet")
+}
