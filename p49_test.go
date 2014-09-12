@@ -22,4 +22,5 @@ import (
 )
 
 func TestX49(t *testing.T) {
+    Start()
 }

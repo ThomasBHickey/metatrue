@@ -50,7 +50,7 @@ func Start() error {
 		return err
 	}
 	fmt.Println("first:", first,", last:", last)
-	fmt.Println("first line of input", buffer[first:last])
+	fmt.Println("first line of input", string(buffer[cur_input.loc:last]))
 	history = spotless
 	if start_sym > 0 {
 		cur_sym = start_sym
