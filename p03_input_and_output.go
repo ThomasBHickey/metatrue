@@ -19,7 +19,7 @@ package metatrue
 import (
 	"bufio"
 	//"bytes"
-	"errors"
+	//"errors"
 	"fmt"
 	"io"
 	"os"
@@ -102,32 +102,47 @@ func t_open_out() {
 }
 
 // s33
-func update_terminal()  {}
+func update_terminal()  {
+    term_out.Flush()
+    }
 func clear_terminal()   {}
 func wake_up_terminal() {}
 
 // s36
+func bufferText(s string){
+    s = strings.Trim(s, " \n\t")
+    rs := ([]rune)(s)
+    for pos, r := range rs{
+        buffer[pos] = r
+    }
+    cur_input.loc = first
+    last  = len(rs)
+}
+
 func init_terminal() error {
 	fmt.Println("init_terminal")
 	t_open_in()
-	fmt.Println("len of args:", len(os.Args), "args:", os.Args[1:])
+	//fmt.Println("len of args:", len(os.Args), "args:", os.Args[1:])
 	if len(os.Args) > 1 {
-		rs := ([]rune)(strings.Join(os.Args[1:], " "))
-		fmt.Println("bs:", rs)
-		for pos, r := range rs {
-			buffer[pos] = r
-		}
-		first = 0
-		last = len(rs)
-		fmt.Println("init_terminal returning OK")
-		return nil
+	    text := strings.Join(os.Args[1:], " ")
+	    bufferText(text)
+	    if cur_input.loc<last {
+	        return nil
+	    }
+
 	}
 	for {
 		wake_up_terminal()
 		fmt.Print("**")
 		update_terminal()
-
-		fmt.Fprint(term_out, "! End of file on the terminal... why?")
-		return errors.New("EOF on terminal")
+		text, err := term_in.ReadString('\n')
+		if err!=nil {
+		    fmt.Fprintln(term_out, "! End of file on the terminal... why?")
+		    return err
+		}
+		bufferText(text)
+		if cur_input.loc<last{
+		    return nil
+		}
 	}
 }
