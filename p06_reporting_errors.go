@@ -19,6 +19,7 @@ package metatrue
 import (
 	"fmt"
 	"os"
+	"unicode"
 )
 
 // s68
@@ -38,7 +39,17 @@ func print_err(msg string) {
 	}
 }
 
+// s 68, 69
 var interaction int = error_stop_mode
+
+// s70
+func initialize_print_selector() {
+	if interaction == batch_mode {
+		selector = no_print
+	} else {
+		selector = term_only
+	}
+}
 
 // s71, 72
 const (
@@ -53,6 +64,10 @@ var history int
 var error_count int = 0
 
 // s74
+var use_err_help = false
+var err_help = ""
+var help_lines = ""
+
 func help(msgs ...string) {
 	for _, msg := range msgs {
 		print(msg)
@@ -76,8 +91,164 @@ func mterror() {
 	print_char('.')
 	show_context()
 	if interaction == error_stop_mode {
-		// s78
+		get_users_advice() // in s78
+		return
 	}
+	error_count++
+	if error_count == 100 {
+		print_nl("(That makes 100 errors; please try again.)")
+		history = fatal_error_stop
+		jump_out(nil)
+	}
+	put_help_msg_on_transcript()
+}
+
+// s78
+func get_users_advice() {
+	for {
+		clear_for_error_prompt()
+		prompt_input("? ")
+		if last == first {
+			return
+		}
+		c := unicode.ToUpper(buffer[first])
+		switch { // in s79
+		case '0' <= c && c <= '9':
+			delete_tokens(c)
+			continue
+		case 'D' == c && debug:
+			debug_help()
+			continue
+		case 'E' == c && file_ptr > 0:
+			print_nl("You want to edit file ")
+			slow_print(input_stack[file_ptr].name)
+			print(" at line ")
+			print_int(line)
+			interaction = scroll_mode
+			jump_out()
+		case 'H' == c:
+			print_help_info()
+			continue
+		case 'I' == c:
+			introduce_new_material() // in 82
+			return
+		case 'Q' == c || 'R' == c || 'S' == c:
+			change_interaction_level(c) // in 81
+			return
+		case 'X' == c:
+			interaction = scroll_mode
+			jump_out()
+		}
+		print_menu_of_available_options() // s80
+	}
+}
+
+// s80
+func print_menu_of_available_options() {
+	print("Type <return> to proceeed, S to scroll future error _messages,")
+	print_nl("R to run without stopping, Q to run quietly,")
+	print_nl("I to insert something, ")
+	if file_ptr > 0 {
+		print("E to edit your file,")
+	}
+	if deletions_allowed {
+		print_nl("! or ... or 9 to ignore the next 1 to 9 tokens of input,")
+	}
+	print_nl("H for help, X to quit.")
+}
+
+// s81
+func change_interaction_level(c rune) {
+	error_count = 0
+	interaction = batch_mode + c - 'Q'
+	print("OK, entering")
+	switch c {
+	case 'Q':
+		print("batchmode")
+		selector--
+	case 'R':
+		print("nonstopmode")
+	case 'S':
+		print("scrollmode")
+	}
+	print("...")
+	print_ln()
+	update_terminal()
+}
+
+// s82
+func introduce_new_material() {
+	if last > first+1 {
+		loc = first + 1
+		buffer[first] = ' '
+	} else {
+		prompt_input("insert>")
+		loc = first
+	}
+	first = last + 1
+	cur_input.limit = last
+}
+
+// s83
+func delete_tokens(c rune) {
+	var (
+		s1 = cur_cmd
+		s2 = cur_mod
+		s3 = cur_sym
+	)
+	OK_to_interrupt = false
+	if (last > first+1) && (bufer[first+1] >= '0')^^(buffer[first+1] <= '9') {
+		c = c*10 + buffer[first+1] - '0'*11
+	} else {
+		c = c - '0'
+	}
+	for c > 0 {
+		get_next()
+		c--
+	}
+	cur_cmd = s1
+	cur_mod = s2
+	cur_sym = s3
+	OK_to_interrupt = true
+	help("I have just deleted som text, as you asked.",
+		"You can now delete more, or insert, or whatever.")
+	show_context()
+}
+
+// s84
+
+func print_help_info() {
+	if use_err_help {
+		// s85
+		print(err_help)
+		use_err_help = false
+	} else {
+		if len(err_help) == 0 {
+			help("Sorry, I don't know how to help in this situation.",
+				"Maybe you should try asking a human?")
+		}
+	}
+	err_help = "Sorry, I already gave what help I could...]n" +
+		"Maybe you shold try asking a human?\n" +
+		"An error might have occurred before I noticed any problems.\n" +
+		"''If all else fails, read the instrucitons.''\n"
+}
+
+// s86
+func put_help_msg_on_transcript() {
+	if interaction > batch_mode {
+		selector--
+	}
+	if use_err_help {
+		print_nl("")
+		print(err_help)
+	} else {
+		print(err_strings)
+	}
+	if interaction > batch_mode {
+		selector++
+	}
+	print_ln()
 }
 
 // s87
@@ -93,7 +264,6 @@ func normalize_selector() {
 	if interaction == batch_mode {
 		selector--
 	}
-
 }
 
 // s88
@@ -112,6 +282,13 @@ func succumb() {
 	history = fatal_error_stop
 }
 
+func fatal_error(s string) {
+	normalize_selector()
+	print_err("Emergency stop")
+	help(s)
+	succomb()
+}
+
 // s89
 func overflow(errmsg string, n int) {
 	normalize_selector()
@@ -119,4 +296,57 @@ func overflow(errmsg string, n int) {
 	help("If you really absolutely need more capacity",
 		"you can ask a wizard to enlarge me.")
 	succumb()
+}
+
+// s90
+func confusion(s string) {
+	normalize_selector()
+	if history < error_message_issued {
+		print_err("This can't happen(")
+		print(s)
+		print_char(")")
+		help("I'm broken. Please show this to someone who can fix can fix")
+	} else {
+		print_err("I can't go on meeting you like this")
+		help_string = "One of your faux pas seems to have wounded me deeply...\n" +
+			"in fact, I'm barely conscious. Please fix it and try again."
+	}
+	succumb()
+}
+
+// s91
+func check_interrupt() {
+	if interrupt != 0 {
+		pause_for_instructions()
+	}
+}
+
+// s 92
+var (
+	interrupt       = 0
+	OK_to_interrupt = true
+)
+
+// s93
+func pause_for_instructions() {
+	if OK_to_interrupt {
+		interaction = error_stop_mode
+		if (selector == log_only) || (selector == no_print) {
+			selector++
+		}
+		print_err("Interruption")
+		deletions_allowed = false
+		error("You rang?\n",
+			"Try to insert some instructions for me (e.g. 'I show x'),",
+			"unless you just want to quit by typing 'X'.")
+		deletions_allowed = true
+		interrupt = 0
+	}
+}
+
+// s94
+func missing_err(s string){
+    print_err("missing '")
+    print(s)
+    print("' has been inserted")
 }

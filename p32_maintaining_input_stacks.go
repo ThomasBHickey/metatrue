@@ -25,6 +25,17 @@ func back_input() {
 	fmt.Println("back_input not yet written")
 }
 
+// s655
+
+// s656
+func clear_for_error_prompt(){
+    for file_state || terminal_input || (input_ptr>0) || (loc==limit){
+        end_file_reading()
+    }
+    print_ln()
+    clear_terminal()
+}
+
 // Section 657
 // initializeTheInputRoutines is only called once in s1211, so global
 // initializations (e.g. scanner_status) are fine

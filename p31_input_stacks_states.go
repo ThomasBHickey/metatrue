@@ -26,18 +26,35 @@ type in_state_record struct {
 	index,
 	start,
 	loc,
-	limit,
-	name int
+	limit int
+	name string
 }
 
 // s628
 var (
 	input_stack [stack_size + 1]in_state_record
-	//input_stack  [30+1]in_state_record
 	input_ptr    = 0
 	max_in_stack = 0
 	cur_input    in_state_record
 )
+
+// s631
+func terminal_input() bool {
+    return cur_input.name==""
+}
+func cur_file(){
+    return input_file[index]
+}
+
+// s633
+var (
+    param_stack [param_size+1] int
+    param_ptr int
+    max_param_stack int
+    )
+    
+// s634
+var file_ptr int
 
 // s635
 func show_context(){
