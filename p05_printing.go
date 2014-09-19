@@ -184,3 +184,25 @@ func print_int(n int) {
 func print_dd(n int) {
 	print_int(Abs(n) % 100)
 }
+
+// s66
+func prompt_input(s string) {
+    wake_up_terminal()
+    print(s)
+    term_input()
+}
+
+func term_input() {
+    update_terminal()
+    if ! input_ln(term_in, true) {
+        fatal_error("end of file on the terminal!")
+    }
+    term_offset = 0
+    selector--
+    if last != first{
+        print(string(buffer[first:last]))
+    }
+    print_ln()
+    buffer[last] = '%'
+    selector++
+}

@@ -17,6 +17,7 @@
 package metatrue
 
 import (
+    "bufio"
 //"fmt"
 )
 
@@ -45,6 +46,14 @@ func terminal_input() bool {
 func cur_file(){
     return input_file[index]
 }
+
+var (
+    in_open int
+    open_parens int
+    input_file []*bufio.Reader
+    line int
+    line_stack [max_in_open+1] int
+    )
 
 // s633
 var (

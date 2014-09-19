@@ -21,6 +21,7 @@ import (
 	"os"
 	"unicode"
 )
+var help_string string
 
 // s68
 
@@ -125,7 +126,7 @@ func get_users_advice() {
 			print(" at line ")
 			print_int(line)
 			interaction = scroll_mode
-			jump_out()
+			jump_out(nil)
 		case 'H' == c:
 			print_help_info()
 			continue
@@ -137,7 +138,7 @@ func get_users_advice() {
 			return
 		case 'X' == c:
 			interaction = scroll_mode
-			jump_out()
+			jump_out(nil)
 		}
 		print_menu_of_available_options() // s80
 	}
@@ -160,7 +161,7 @@ func print_menu_of_available_options() {
 // s81
 func change_interaction_level(c rune) {
 	error_count = 0
-	interaction = batch_mode + c - 'Q'
+	interaction = batch_mode + int(c - 'Q')
 	print("OK, entering")
 	switch c {
 	case 'Q':
@@ -179,11 +180,11 @@ func change_interaction_level(c rune) {
 // s82
 func introduce_new_material() {
 	if last > first+1 {
-		loc = first + 1
+		cur_input.loc = first + 1
 		buffer[first] = ' '
 	} else {
 		prompt_input("insert>")
-		loc = first
+		cur_input.loc = first
 	}
 	first = last + 1
 	cur_input.limit = last
@@ -197,7 +198,7 @@ func delete_tokens(c rune) {
 		s3 = cur_sym
 	)
 	OK_to_interrupt = false
-	if (last > first+1) && (bufer[first+1] >= '0')^^(buffer[first+1] <= '9') {
+	if (last > first+1) && (buffer[first+1] >= '0')&&(buffer[first+1] <= '9') {
 		c = c*10 + buffer[first+1] - '0'*11
 	} else {
 		c = c - '0'
@@ -243,7 +244,7 @@ func put_help_msg_on_transcript() {
 		print_nl("")
 		print(err_help)
 	} else {
-		print(err_strings)
+		print(help_string)
 	}
 	if interaction > batch_mode {
 		selector++
@@ -286,7 +287,7 @@ func fatal_error(s string) {
 	normalize_selector()
 	print_err("Emergency stop")
 	help(s)
-	succomb()
+	succumb()
 }
 
 // s89
@@ -304,7 +305,7 @@ func confusion(s string) {
 	if history < error_message_issued {
 		print_err("This can't happen(")
 		print(s)
-		print_char(")")
+		print_char(')')
 		help("I'm broken. Please show this to someone who can fix can fix")
 	} else {
 		print_err("I can't go on meeting you like this")
@@ -336,9 +337,10 @@ func pause_for_instructions() {
 		}
 		print_err("Interruption")
 		deletions_allowed = false
-		error("You rang?\n",
+		help("You rang?\n",
 			"Try to insert some instructions for me (e.g. 'I show x'),",
 			"unless you just want to quit by typing 'X'.")
+		mterror()
 		deletions_allowed = true
 		interrupt = 0
 	}

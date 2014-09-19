@@ -17,5 +17,56 @@
 package metatrue
 
 import (
-//"fmt"
+	//"fmt"
+	"math/big"
 )
+
+// s95
+const el_gordo = 017777777777 // 2^31 -1
+
+// s96
+// we'll just code half(#) inline ourselves
+
+// s97, s98
+var arith_error bool = false
+
+// s99
+func chekc_arith() {
+	if arith_error {
+		clear_arith()
+	}
+}
+
+func clear_arith() {
+	print_err("Arithmetic overflow")
+	help("Uh, oh. A little while ago one of the quantities that I was",
+		"computing got too large, so I'm afraid your answers will be",
+		"somewhat askew. You'll probably have to adopt different",
+		"tactics next time. But I shall try to carry on anyway.")
+	mterror(nil)
+	arith_error = false
+}
+
+// s100 Since we're going with Go's rational package, shouldn't need slow_add
+
+// s101
+const (
+	quater_unit        = 040000  // 2^14 is 0.25
+	half_unit          = 0100000 // 2^15 is 0.5
+	three_quarter_unit = 0140000 // 3*2^14 is 0.75
+	unity              = 0200000 // 2^16 is 1.0
+	two                = 0400000 // 2^17 is 2.0
+	three              = 0600000 // 2^17 + 2^16 is 3.0
+)
+
+// s102
+type scaled big.Rat
+
+func round_decimals(k int) *scaled {
+	var a int64
+	for k > 0 {
+		k--
+		a = (a + dig[k]*two) / 10
+	}
+	return big.NewRat((a+1)>>1, unity)
+}
