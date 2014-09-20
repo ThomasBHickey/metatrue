@@ -17,9 +17,10 @@
 package metatrue
 
 import (
-	//"fmt"
-	"math/big"
-	"strings"
+    "bytes"
+	"fmt"
+	//"math/big"
+	//"strings"
 )
 
 // s95
@@ -48,7 +49,10 @@ func clear_arith() {
 	arith_error = false
 }
 
-// s100 Since we're going with Go's rational package, shouldn't need slow_add
+// s100 Originally planned on using Go's rational package.  But not too much
+// magic in it, and it looks as though there is substantial overhead in 
+// using it.  int64 should avoid the normal overflow problems people run
+// into with MetaFont and still make it possible to match MetaFont's results
 
 // s101
 const (
@@ -61,26 +65,58 @@ const (
 )
 
 // s102
-type scaled big.Rat
+//type scaled big.Rat
+type scaled int64
 
-func round_decimals(k int) *scaled {
+func round_decimals(k int) scaled {
 	var a int64
 	for k > 0 {
 		k--
 		a = (a + int64(dig[k])*two) / 10
+		//a = (a + dig[k]*two) / 10
 	}
-	return (*scaled)(big.NewRat((a+1)>>1, unity))
+	//return (*scaled)(big.NewRat((a+1)>>1, unity))
+	return scaled((a+1)/2)
 }
 
 // add this for easier testing
-func (sc *scaled) floatString() string {
-	ts := (*big.Rat)(sc).FloatString(5)
-	if strings.HasSuffix(ts, ".00000") {
-		return ts[:len(ts)-6]
-	}
-	return ts
+// The big.Rat.FloatString routine returned "0.66667" for 2/3's
+// this routine appears to return "0.66666"
+func (s scaled) floatString() string {
+// 	ts := (*big.Rat)(sc).FloatString(5)
+// 	if strings.HasSuffix(ts, ".00000") {
+// 		return ts[:len(ts)-6]
+// 	}
+// 	return ts
+    buf := []byte{}
+    buffer := bytes.NewBuffer(buf)
+    var delta scaled
+    if s<0 {
+        buffer.WriteByte('-')
+        //print_char('-')
+        s = -s
+    }
+    fmt.Fprintf(buffer, "%d", s/unity)
+    //print_int(s/unity)
+    s = 10*(s % unity)+5
+    if s!=5{
+        delta = scaled(10)
+        buffer.WriteByte('.')
+        //print_char('.')
+        for {
+            if delta>unity {
+                s = s + 0100000-(delta/2)
+            }
+            buffer.WriteByte(byte('0'+(s/unity)))
+            //print_char('0'+(s/unity))
+            s = 10*(s%unity)
+            delta = delta*10
+            if s<=delta { break}
+        }
+    }     
+    return buffer.String()
 }
 
-func print_scaled(sc *scaled) {
-	print(sc.floatString())
+func print_scaled(s scaled){
+    print(s.floatString())
 }

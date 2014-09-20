@@ -17,7 +17,7 @@
 package metatrue
 
 import (
-	"math/big"
+	//"math/big"
 	"testing"
 	//"fmt"
 )
@@ -26,10 +26,10 @@ func TestX07(t *testing.T) {
 	dig[0] = 1
 	dig[1] = 2
 	dig[2] = 5
-	rat := (*big.Rat)(round_decimals(3))
-	//fmt.Println("sc .125?", rat.String())
-	if rat.String() != "1/8" {
-		t.Fail()
+	sc := round_decimals(3)
+	//fmt.Println("sc .125?", sc.floatString())
+	if sc.floatString() != "0.125" {
+		t.Error("expected 0.125, got", sc.floatString())
 	}
 	//fmt.Println("denom", rat.Denom())
 	//fmt.Println("FloatString on .125 rat", rat.FloatString(5))
@@ -38,23 +38,23 @@ func TestX07(t *testing.T) {
 }
 
 func TestS103(t *testing.T) {
-	sc := (*scaled)(big.NewRat(1, 3))
+	sc := (scaled)(unity/3)
 	tsThird := sc.floatString()
 	//fmt.Println("floatString of 1/3", tsThird)
 	if tsThird != "0.33333" {
 		t.Error("Expected", "0.33333", "got", tsThird)
 	}
-	ts1 := (*scaled)(big.NewRat(1, 1)).floatString()
+	ts1 := (scaled)(unity).floatString()
 	//fmt.Println("floatString of 1", ts1)
 	if ts1 != "1" {
 		t.Error("Expected", "1", "got", ts1)
 	}
-	ts2Thirds := (*scaled)(big.NewRat(2, 3)).floatString()
-	if ts2Thirds != "0.66667" {
-		t.Error("Expected 0.66667, got", ts2Thirds)
+	ts2Thirds := (scaled)(two/3).floatString()
+	if ts2Thirds != "0.66666" {
+		t.Error("Expected 0.66666, got", ts2Thirds)
 	}
-	tsneg := (*scaled)(big.NewRat(-2, 3)).floatString()
-	if tsneg != "-0.66667" {
-	    t.Error("expected - 2/3, got", tsneg)
+	tsneg := (scaled)(-two/3).floatString()
+	if tsneg != "-0.66666" {
+	    t.Error("expected -0.66666, got", tsneg)
 	}
 }
