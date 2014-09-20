@@ -17,8 +17,8 @@
 package metatrue
 
 import (
-    "bufio"
-//"fmt"
+	"bufio"
+	//"fmt"
 )
 
 // s627
@@ -33,7 +33,7 @@ type in_state_record struct {
 
 // s628
 var (
-	input_stack [stack_size + 1]in_state_record
+	input_stack  [stack_size + 1]in_state_record
 	input_ptr    = 0
 	max_in_stack = 0
 	cur_input    in_state_record
@@ -41,31 +41,37 @@ var (
 
 // s631
 func terminal_input() bool {
-    return cur_input.name==""
+	return cur_input.name == ""
 }
-func cur_file(){
-    return input_file[index]
+
+func cur_file() *bufio.Reader {
+	return input_file[cur_input.index]
 }
 
 var (
-    in_open int
-    open_parens int
-    input_file []*bufio.Reader
-    line int
-    line_stack [max_in_open+1] int
-    )
+	in_open     int
+	open_parens int
+	input_file  []*bufio.Reader
+	line        int
+	line_stack  [max_in_open + 1]int
+)
+
+// s 632
+func file_state() bool {
+	return cur_input.index <= max_in_open
+}
 
 // s633
 var (
-    param_stack [param_size+1] int
-    param_ptr int
-    max_param_stack int
-    )
-    
+	param_stack     [param_size + 1]int
+	param_ptr       int
+	max_param_stack int
+)
+
 // s634
 var file_ptr int
 
 // s635
-func show_context(){
-    print_err("showContext not yet implemented")
+func show_context() {
+	print_err("showContext not yet implemented")
 }

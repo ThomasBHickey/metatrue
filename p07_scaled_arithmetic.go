@@ -43,7 +43,7 @@ func clear_arith() {
 		"computing got too large, so I'm afraid your answers will be",
 		"somewhat askew. You'll probably have to adopt different",
 		"tactics next time. But I shall try to carry on anyway.")
-	mterror(nil)
+	mterror()
 	arith_error = false
 }
 
@@ -66,7 +66,7 @@ func round_decimals(k int) *scaled {
 	var a int64
 	for k > 0 {
 		k--
-		a = (a + dig[k]*two) / 10
+		a = (a + int64(dig[k])*two) / 10
 	}
-	return big.NewRat((a+1)>>1, unity)
+	return (*scaled)(big.NewRat((a+1)>>1, unity))
 }

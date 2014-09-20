@@ -17,8 +17,14 @@
 package metatrue
 
 import (
-    "fmt"
+	"fmt"
 )
+
+// s648
+func pop_input(){
+    input_ptr--
+    cur_input = input_stack[input_ptr]
+}
 
 // s652
 func back_input() {
@@ -26,14 +32,23 @@ func back_input() {
 }
 
 // s655
+func end_file_reading() {
+	first = cur_input.start
+	line = line_stack[cur_input.index]
+	if cur_input.index != in_open {
+		confusion("endinput")
+	}
+	pop_input()
+	in_open--
+}
 
 // s656
-func clear_for_error_prompt(){
-    for file_state || terminal_input || (input_ptr>0) || (loc==limit){
-        end_file_reading()
-    }
-    print_ln()
-    clear_terminal()
+func clear_for_error_prompt() {
+	for file_state() || terminal_input() || (input_ptr > 0) || (cur_input.loc == cur_input.limit) {
+		end_file_reading()
+	}
+	print_ln()
+	clear_terminal()
 }
 
 // Section 657
@@ -41,10 +56,10 @@ func clear_for_error_prompt(){
 // initializations (e.g. scanner_status) are fine
 
 var (
-	//input_ptr    = 0
-	//max_in_stack = 0
-	in_open = 0
-	//max_buf_stack = 0
+//input_ptr    = 0
+//max_in_stack = 0
+//in_open = 0
+//max_buf_stack = 0
 )
 
 func initializeTheInputRoutines() error {

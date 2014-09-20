@@ -17,5 +17,12 @@
 package metatrue
 
 import (
+    "errors"
 //"fmt"
 )
+
+// s667
+func get_next(){
+    //mterror("get_next not implemented yet!")
+    jump_out(errors.New("get_next not implemented yet!"))
+}
