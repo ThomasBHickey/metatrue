@@ -17,9 +17,22 @@
 package metatrue
 
 import (
+    "math/big"
     "testing"
     //"fmt"
 )
 
 func TestX07(t *testing.T) {
+    dig[0] = 1
+    dig[1] = 2
+    dig[2] = 5
+    rat := (*big.Rat)(round_decimals(3))
+    //fmt.Println("sc .125?", rat.String())
+    if rat.String()!="1/8" {
+        t.Fail()
+    }
+    //fmt.Println("denom", rat.Denom())
+    //fmt.Println("FloatString on .125 rat", rat.FloatString(5))
+    //rat2 := big.NewRat(1, 3)
+    //fmt.Println("FloatString on 1/3", rat2.FloatString(10))
 }
