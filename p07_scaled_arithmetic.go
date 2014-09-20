@@ -19,6 +19,7 @@ package metatrue
 import (
 	//"fmt"
 	"math/big"
+	"strings"
 )
 
 // s95
@@ -69,4 +70,17 @@ func round_decimals(k int) *scaled {
 		a = (a + int64(dig[k])*two) / 10
 	}
 	return (*scaled)(big.NewRat((a+1)>>1, unity))
+}
+
+// add this for easier testing
+func (sc *scaled) floatString() string {
+	ts := (*big.Rat)(sc).FloatString(5)
+	if strings.HasSuffix(ts, ".00000") {
+		return ts[:len(ts)-6]
+	}
+	return ts
+}
+
+func print_scaled(sc *scaled) {
+	print(sc.floatString())
 }
