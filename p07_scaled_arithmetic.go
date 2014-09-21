@@ -153,7 +153,7 @@ type angle int64
 
 // s107
 // not worrying about overflow
-func make_fraction(p, q int) fraction {
+func make_fraction(p, q int64) fraction {
 	return fraction((fraction_two*p + q) / (2 * q))
 }
 
@@ -200,6 +200,105 @@ func take_scaled(q int64, f scaled) int64 {
 
 // s114
 // not worrying about overflow
-func make_scaled(p, q int) scaled {
+func make_scaled(p, q int64) scaled {
 	return scaled((two*p + q) / (2 * q))
+}
+
+// s116
+func velocity(st, ct, sf, cf fraction, t scaled) fraction {
+	var acc, num, denom int64
+	acc = take_fraction(int64(st-(sf/16)), sf-(st/16))
+	acc = take_fraction(acc, ct-cf)
+
+	num = fraction_two + take_fraction(acc, 379625062)
+	denom = fraction_three +
+		take_fraction(int64(ct), 497706707) +
+		take_fraction(int64(cf), 307599661)
+	if t != unity {
+		num = int64(make_scaled(int64(num), int64(t)))
+	}
+	if num/4 >= denom {
+		return fraction_four
+	} else {
+		return make_fraction(num, denom)
+	}
+}
+
+// s117
+// ignoring overflow, this isn't too hard, but lets do ala Knuth
+func ab_vs_cd(a, b, c, d int) int {
+	// ab := a*b
+	// cd := c*d
+	// if ab>cd { return 1}
+	// if ab<cd { return -1}
+	// return 0
+	var q, r int
+	if a < 0 {
+		a = -a
+		b = -b
+	}
+	if c < 0 {
+		c = -c
+		d = -d
+	}
+	if d <= 0 {
+		if b >= 0 {
+			if ((a == 0) || (b == 0)) && ((c == 0) || (d == 0)) {
+				return 0
+			} else {
+				return 1
+			}
+		}
+		if d == 0 {
+			if a == 0 {
+				return 0
+			} else {
+				return -1
+			}
+		}
+		q = a
+		a = c
+		c = q
+		q = -b
+		b = -d
+		d = q
+	} else {
+		if b < 0 {
+			if a > 0 {
+				return -1
+			}
+			if c == 0 {
+				return 0
+			} else {
+				return -1
+			}
+		}
+	}
+	for {
+		q = a / d
+		r = c / b
+		if q != r {
+			if q > r {
+				return 1
+			} else {
+				return -1
+			}
+		}
+		q = a % d
+		r = c % b
+		if r == 0 {
+			if q == 0 {
+				return 0
+			} else {
+				return 1
+			}
+		}
+		if q == 0 {
+			return -1
+		}
+		a = b
+		b = q
+		c = d
+		d = r
+	}
 }

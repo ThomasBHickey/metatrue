@@ -120,3 +120,12 @@ func TestS114(t *testing.T){
         t.Error("make_fraction", make_fraction(1,2))
     }
 }
+
+func TestS117(t *testing.T){
+    if ab_vs_cd(1,2,3,4)!=-1 {
+        t.Error("1,2,3,4 failed ab_vs_cd")
+    }
+    if ab_vs_cd(1,2,1,2)!=0{
+        t.Error("1,2,1,2 failed ab_vs_cd", ab_vs_cd(1,2,1,2))
+    }
+}
