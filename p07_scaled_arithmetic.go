@@ -302,3 +302,42 @@ func ab_vs_cd(a, b, c, d int) int {
 		d = r
 	}
 }
+
+// s119
+func floor_scaled(x scaled) scaled {
+	if x >= 0 {
+		return x - (x % unity)
+	}
+	be_careful := x + 1
+	return x + ((-be_careful) % unity) + 1 - unity
+}
+
+func floor_unscaled(x scaled) int64 {
+	if x >= 0 {
+		return int64(x / unity)
+	}
+	be_careful := x + 1
+	return int64(-(1 + ((-be_careful) / unity)))
+}
+
+func round_unscaled(x scaled) int64 {
+	if x >= half_unit {
+		return int64(1 + ((x - half_unit) / unity))
+	}
+	if x >= -half_unit {
+		return 0
+	}
+	be_careful := x + 1
+	return int64(-(1 + ((-be_careful - half_unit) / unity)))
+}
+
+func round_fraction(x fraction) scaled {
+	if x >= 2048 {
+		return scaled(1 + ((x - 2048) / 4096))
+	}
+	if x >= -2048 {
+		return 0
+	}
+	be_careful := x + 1
+	return scaled(-(1 + ((-be_careful - 2048) / 4096)))
+}
