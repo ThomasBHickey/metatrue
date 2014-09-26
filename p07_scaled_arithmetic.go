@@ -51,8 +51,12 @@ func clear_arith() {
 
 // s100 Originally planned on using Go's rational package.  But not too much
 // magic in it, and it looks as though there is substantial overhead in
-// using it.  int64 should avoid the normal overflow problems people run
-// into with MetaFont and still make it possible to match MetaFont's results
+// using it.
+
+// Eventually initMT could be changed to int64 to extend some ranges.
+// To start we'll using int32 to match 'old' MetaFont
+type intMT int32
+
 
 // s101
 const (
@@ -65,14 +69,13 @@ const (
 )
 
 // s102
-//type scaled big.Rat
-type scaled int64
+type scaled intMT
 
 func round_decimals(k int) scaled {
-	var a int64
+	var a intMT
 	for k > 0 {
 		k--
-		a = (a + int64(dig[k])*two) / 10
+		a = (a + intMT(dig[k])*two) / 10
 		//a = (a + dig[k]*two) / 10
 	}
 	//return (*scaled)(big.NewRat((a+1)>>1, unity))
@@ -139,7 +142,7 @@ const (
 	fraction_four  = 010000000000
 )
 
-type fraction int64
+type fraction intMT
 
 // s106
 const (
@@ -149,17 +152,17 @@ const (
 	three_sixty_deg = 02640000000
 )
 
-type angle int64
+type angle intMT
 
 // s107
 // not worrying about overflow
-func make_fraction(p, q int64) fraction {
+func make_fraction(p, q intMT) fraction {
 	return fraction((fraction_two*p + q) / (2 * q))
 }
 
 // s109
 // still not worrying about overflow!
-func take_fraction(q int64, f fraction) int64 {
+func take_fraction(q intMT, f fraction) intMT {
 	negative := f < 0
 	if q < 0 {
 		negative = !negative
@@ -174,8 +177,8 @@ func take_fraction(q int64, f fraction) int64 {
 	// 	fmt.Printf("q             %x\n", q)
 	// 	fmt.Printf("f+fraction_half: %x\n", f+fraction_half)
 	// 	fmt.Printf("fraction_one:    %x\n", fraction_one)
-	// 	fmt.Printf("q*f+1/2): %x", q*int64(f)+fraction_half)
-	p := (q*int64(f) + fraction_half) / fraction_one
+	// 	fmt.Printf("q*f+1/2): %x", q*intMT(f)+fraction_half)
+	p := (q*intMT(f) + fraction_half) / fraction_one
 	if negative {
 		p = -p
 	}
@@ -183,7 +186,7 @@ func take_fraction(q int64, f fraction) int64 {
 }
 
 // s112
-func take_scaled(q int64, f scaled) int64 {
+func take_scaled(q intMT, f scaled) intMT {
 	negative := f < 0
 	if q < 0 {
 		negative = !negative
@@ -191,7 +194,7 @@ func take_scaled(q int64, f scaled) int64 {
 	if negative {
 		f = -f
 	}
-	p := (q*int64(f) + half_unit) / unity
+	p := (q*intMT(f) + half_unit) / unity
 	if negative {
 		p = -p
 	}
@@ -200,22 +203,22 @@ func take_scaled(q int64, f scaled) int64 {
 
 // s114
 // not worrying about overflow
-func make_scaled(p, q int64) scaled {
+func make_scaled(p, q intMT) scaled {
 	return scaled((two*p + q) / (2 * q))
 }
 
 // s116
 func velocity(st, ct, sf, cf fraction, t scaled) fraction {
-	var acc, num, denom int64
-	acc = take_fraction(int64(st-(sf/16)), sf-(st/16))
+	var acc, num, denom intMT
+	acc = take_fraction(intMT(st-(sf/16)), sf-(st/16))
 	acc = take_fraction(acc, ct-cf)
 
 	num = fraction_two + take_fraction(acc, 379625062)
 	denom = fraction_three +
-		take_fraction(int64(ct), 497706707) +
-		take_fraction(int64(cf), 307599661)
+		take_fraction(intMT(ct), 497706707) +
+		take_fraction(intMT(cf), 307599661)
 	if t != unity {
-		num = int64(make_scaled(int64(num), int64(t)))
+		num = intMT(make_scaled(intMT(num), intMT(t)))
 	}
 	if num/4 >= denom {
 		return fraction_four
@@ -312,23 +315,23 @@ func floor_scaled(x scaled) scaled {
 	return x + ((-be_careful) % unity) + 1 - unity
 }
 
-func floor_unscaled(x scaled) int64 {
+func floor_unscaled(x scaled) intMT {
 	if x >= 0 {
-		return int64(x / unity)
+		return intMT(x / unity)
 	}
 	be_careful := x + 1
-	return int64(-(1 + ((-be_careful) / unity)))
+	return intMT(-(1 + ((-be_careful) / unity)))
 }
 
-func round_unscaled(x scaled) int64 {
+func round_unscaled(x scaled) intMT {
 	if x >= half_unit {
-		return int64(1 + ((x - half_unit) / unity))
+		return intMT(1 + ((x - half_unit) / unity))
 	}
 	if x >= -half_unit {
 		return 0
 	}
 	be_careful := x + 1
-	return int64(-(1 + ((-be_careful - half_unit) / unity)))
+	return intMT(-(1 + ((-be_careful - half_unit) / unity)))
 }
 
 func round_fraction(x fraction) scaled {

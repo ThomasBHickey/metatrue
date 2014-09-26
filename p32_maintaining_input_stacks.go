@@ -21,9 +21,9 @@ import (
 )
 
 // s648
-func pop_input(){
-    input_ptr--
-    cur_input = input_stack[input_ptr]
+func pop_input() {
+	input_ptr--
+	cur_input = input_stack[input_ptr]
 }
 
 // s652
@@ -33,7 +33,11 @@ func back_input() {
 
 // s655
 func end_file_reading() {
+	fmt.Println("end_file_reading()", cur_input)
 	first = cur_input.start
+	fmt.Println("first", first)
+	fmt.Println("cur_input.index", cur_input.index)
+	fmt.Println("line_stack", line_stack)
 	line = line_stack[cur_input.index]
 	if cur_input.index != in_open {
 		confusion("endinput")
@@ -44,7 +48,11 @@ func end_file_reading() {
 
 // s656
 func clear_for_error_prompt() {
-	for file_state() || terminal_input() || (input_ptr > 0) || (cur_input.loc == cur_input.limit) {
+	for file_state() && terminal_input() && (input_ptr > 0) && (cur_input.loc == cur_input.limit) {
+		//fmt.Println("clear_for_error file_state", file_state())
+		//fmt.Println("terminal_input", terminal_input())
+		//fmt.Println("input_ptr", input_ptr)
+		//fmt.Println("loc, limit", cur_input.loc, cur_input.limit)
 		end_file_reading()
 	}
 	print_ln()

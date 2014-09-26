@@ -67,12 +67,13 @@ var error_count int = 0
 // s74
 var use_err_help = false
 var err_help = ""
-var help_lines = ""
+var help_lines = []string{}
 
 func help(msgs ...string) {
-	for _, msg := range msgs {
-		print(msg)
-	}
+	//for _, msg := range msgs {
+	//	print(msg)
+	//}
+	help_lines = msgs
 }
 
 // s 76

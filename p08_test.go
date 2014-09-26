@@ -21,5 +21,11 @@ import (
     //"fmt"
 )
 
-func TestX08(t *testing.T) {
+func TestS121(t *testing.T) {
+	if square_rt(three+unity) != two {
+		t.Error("bad sqrt?", square_rt(three+unity))
+		}
+	if square_rt(unity-two) != 0 {
+		t.Error("bad sqrt of negative?")
+	}
 }

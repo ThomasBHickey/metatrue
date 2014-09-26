@@ -44,6 +44,12 @@ func TestS101(t *testing.T) {
 	}
 }
 
+func TestS103a(t *testing.T) {
+	var neg scaled 
+	neg = unity-two
+	fmt.Println("neg", neg)
+	fmt.Println("neg as scaled", neg.floatString())
+	}
 func TestS095(t *testing.T) {
 	bi := (int64(1) << 31) - 1
 	if el_gordo != bi {

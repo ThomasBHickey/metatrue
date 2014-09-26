@@ -17,9 +17,28 @@
 package metatrue
 
 import (
-    "testing"
-    //"fmt"
+	"testing"
+	//"fmt"
 )
 
-func TestX09(t *testing.T) {
+func TestS154(t *testing.T) {
+	switch true {
+	// mem_max doesn't matter
+	case (min_quarterword > 0) || (max_quarterword < 127):
+		t.Error("bad 11")
+	case (min_halfword > 0) || (max_halfword < 32767):
+		t.Error("bad 12")
+	case (min_quarterword < min_halfword) || (max_quarterword > max_halfword):
+		t.Error("bad 13")
+	case (buf_size > max_halfword):
+		t.Error("bad 16")
+	case (max_quarterword-min_quarterword < 255) || (max_halfword-min_halfword < 65535):
+		t.Error("bad 17")
+	}
+}
+
+func TestS155(t *testing.T){
+    if ho(2)!=2 { t.Error("s155 ho failed")}
+    if qo(2)!=2 { t.Error("s155 qo failed")}
+    if qi(2)!=2 { t.Error("s155 qi failed")}
 }
