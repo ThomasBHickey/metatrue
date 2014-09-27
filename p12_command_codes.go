@@ -130,3 +130,36 @@ const (
 func end_of_statement() bool {
 	return cur_cmd > comma
 }
+
+type command_code int
+
+const (
+	undefined        = 0 //{no type has been declared}
+	unknown_tag      = 1 //{this constant is added to certain type codes below}
+	vacuous          = 1 //{no expression was present}
+	boolean_type     = 2 //{\&{boolean} with a known value}
+	unknown_boolean  = boolean_type + unknown_tag
+	string_type      = 4 //{\&{string} with a known value}
+	unknown_string   = string_type + unknown_tag
+	pen_type         = 6 //{\&{pen} with a known value}
+	unknown_pen      = pen_type + unknown_tag
+	future_pen       = 8 //{subexpression that will become a \&{pen} at a higher level}
+	path_type        = 9 //{\&{path} with a known value}
+	unknown_path     = path_type + unknown_tag
+	picture_type     = 11 //{\&{picture} with a known value}
+	unknown_picture  = picture_type + unknown_tag
+	transform_type   = 13 //{\&{transform} variable or capsule}
+	pair_type        = 14 //{\&{pair} variable or capsule}
+	numeric_type     = 15 //{variable that has been declared \&{numeric} but not used}
+	known            = 16 //{\&{numeric} with a known value}
+	dependent        = 17 //{a linear combination with |fraction| coefficients}
+	proto_dependent  = 18 //{a linear combination with |scaled| coefficients}
+	independent      = 19 //{\&{numeric} with unknown value}
+	token_list       = 20 //{variable name or suffix argument or text argument}
+	structured       = 21 //{variable with subscripts and attributes}
+	unsuffixed_macro = 22 //{variable defined with \&{vardef} but no \.{\AT!\#}}
+	suffixed_macro   = 23 //{variable defined with \&{vardef} and \.{\AT!\#}}
+)
+
+var unknown_types = [...]int{unknown_boolean, unknown_string,
+	unknown_pen, unknown_picture, unknown_path}

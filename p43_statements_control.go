@@ -17,11 +17,21 @@
 package metatrue
 
 import (
-    "fmt"
+	//"fmt"
 )
 
 // s1017
-func main_control() error {
-	fmt.Println("main_control not yet written")
-	return nil
+func main_control() {
+	for {
+		do_statement()
+		if cur_cmd == end_group {
+			print_err("Extra `endgroup'")
+			help("I'm not currently working on a `begingroup',",
+				"so I had better not try to end anything.")
+			flush_error(0)
+		}
+		if cur_cmd == stop {
+			break
+		}
+	}
 }

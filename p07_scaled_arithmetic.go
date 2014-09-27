@@ -68,8 +68,10 @@ const (
 	three              = 0600000 // 2^17 + 2^16 is 3.0
 )
 
-// s102
 type scaled intMT
+type small_number byte
+
+// s102
 
 func round_decimals(k int) scaled {
 	var a intMT

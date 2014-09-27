@@ -19,3 +19,53 @@ package metatrue
 import (
 //"fmt"
 )
+
+
+// s796, s797
+
+var cur_exp intMT
+var cur_type small_number
+
+// s808
+func flush_cur_exp(v scaled) {
+	switch cur_type {
+	case unknown_types,
+		transform_type,
+		pair_type,
+		dependent,
+		proto_dependent,
+		independent:
+		recycle_value(cur_exp)
+		free_node(cur_exp, value_node_size)
+	case pen_type:
+		delete_pen_ref(cur_exp)
+	case string_type:
+		delete_str_ref(cur_exp)
+	case future_pen, path_type:
+		toss_knot_list(cur_exp)
+	case picture_type:
+		toss_edges(cur_exp)
+	}
+	cur_type = known
+	cur_exp = intMT(v)
+}
+
+// s809
+func recycle_value() {
+}
+
+// s820
+func flush_error(v scaled) {
+	mterror()
+	flush_cur_exp(v)
+}
+
+func put_get_error() {
+	back_error()
+	get_x_next()
+}
+
+func put_get_flush_error(v scaled) {
+	put_get_error()
+	flush_cur_exp(v)
+}
