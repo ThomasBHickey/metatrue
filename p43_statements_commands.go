@@ -20,6 +20,11 @@ import (
 	//"fmt"
 )
 
+// s989
+func do_statement(){
+    fatal_error("do_statement in 43/s989 not implemented")
+}
+
 // s1017
 func main_control() {
 	for {

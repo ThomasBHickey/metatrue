@@ -55,7 +55,7 @@ func clear_arith() {
 
 // Eventually initMT could be changed to int64 to extend some ranges.
 // To start we'll using int32 to match 'old' MetaFont
-type intMT int32
+type integer int32
 
 
 // s101
@@ -68,16 +68,16 @@ const (
 	three              = 0600000 // 2^17 + 2^16 is 3.0
 )
 
-type scaled intMT
+type scaled integer
 type small_number byte
 
 // s102
 
 func round_decimals(k int) scaled {
-	var a intMT
+	var a integer
 	for k > 0 {
 		k--
-		a = (a + intMT(dig[k])*two) / 10
+		a = (a + integer(dig[k])*two) / 10
 		//a = (a + dig[k]*two) / 10
 	}
 	//return (*scaled)(big.NewRat((a+1)>>1, unity))
@@ -144,7 +144,7 @@ const (
 	fraction_four  = 010000000000
 )
 
-type fraction intMT
+type fraction integer
 
 // s106
 const (
@@ -154,17 +154,17 @@ const (
 	three_sixty_deg = 02640000000
 )
 
-type angle intMT
+type angle integer
 
 // s107
 // not worrying about overflow
-func make_fraction(p, q intMT) fraction {
+func make_fraction(p, q integer) fraction {
 	return fraction((fraction_two*p + q) / (2 * q))
 }
 
 // s109
 // still not worrying about overflow!
-func take_fraction(q intMT, f fraction) intMT {
+func take_fraction(q integer, f fraction) integer {
 	negative := f < 0
 	if q < 0 {
 		negative = !negative
@@ -179,8 +179,8 @@ func take_fraction(q intMT, f fraction) intMT {
 	// 	fmt.Printf("q             %x\n", q)
 	// 	fmt.Printf("f+fraction_half: %x\n", f+fraction_half)
 	// 	fmt.Printf("fraction_one:    %x\n", fraction_one)
-	// 	fmt.Printf("q*f+1/2): %x", q*intMT(f)+fraction_half)
-	p := (q*intMT(f) + fraction_half) / fraction_one
+	// 	fmt.Printf("q*f+1/2): %x", q*integer(f)+fraction_half)
+	p := (q*integer(f) + fraction_half) / fraction_one
 	if negative {
 		p = -p
 	}
@@ -188,7 +188,7 @@ func take_fraction(q intMT, f fraction) intMT {
 }
 
 // s112
-func take_scaled(q intMT, f scaled) intMT {
+func take_scaled(q integer, f scaled) integer {
 	negative := f < 0
 	if q < 0 {
 		negative = !negative
@@ -196,7 +196,7 @@ func take_scaled(q intMT, f scaled) intMT {
 	if negative {
 		f = -f
 	}
-	p := (q*intMT(f) + half_unit) / unity
+	p := (q*integer(f) + half_unit) / unity
 	if negative {
 		p = -p
 	}
@@ -205,22 +205,22 @@ func take_scaled(q intMT, f scaled) intMT {
 
 // s114
 // not worrying about overflow
-func make_scaled(p, q intMT) scaled {
+func make_scaled(p, q integer) scaled {
 	return scaled((two*p + q) / (2 * q))
 }
 
 // s116
 func velocity(st, ct, sf, cf fraction, t scaled) fraction {
-	var acc, num, denom intMT
-	acc = take_fraction(intMT(st-(sf/16)), sf-(st/16))
+	var acc, num, denom integer
+	acc = take_fraction(integer(st-(sf/16)), sf-(st/16))
 	acc = take_fraction(acc, ct-cf)
 
 	num = fraction_two + take_fraction(acc, 379625062)
 	denom = fraction_three +
-		take_fraction(intMT(ct), 497706707) +
-		take_fraction(intMT(cf), 307599661)
+		take_fraction(integer(ct), 497706707) +
+		take_fraction(integer(cf), 307599661)
 	if t != unity {
-		num = intMT(make_scaled(intMT(num), intMT(t)))
+		num = integer(make_scaled(integer(num), integer(t)))
 	}
 	if num/4 >= denom {
 		return fraction_four
@@ -317,23 +317,23 @@ func floor_scaled(x scaled) scaled {
 	return x + ((-be_careful) % unity) + 1 - unity
 }
 
-func floor_unscaled(x scaled) intMT {
+func floor_unscaled(x scaled) integer {
 	if x >= 0 {
-		return intMT(x / unity)
+		return integer(x / unity)
 	}
 	be_careful := x + 1
-	return intMT(-(1 + ((-be_careful) / unity)))
+	return integer(-(1 + ((-be_careful) / unity)))
 }
 
-func round_unscaled(x scaled) intMT {
+func round_unscaled(x scaled) integer {
 	if x >= half_unit {
-		return intMT(1 + ((x - half_unit) / unity))
+		return integer(1 + ((x - half_unit) / unity))
 	}
 	if x >= -half_unit {
 		return 0
 	}
 	be_careful := x + 1
-	return intMT(-(1 + ((-be_careful - half_unit) / unity)))
+	return integer(-(1 + ((-be_careful - half_unit) / unity)))
 }
 
 func round_fraction(x fraction) scaled {

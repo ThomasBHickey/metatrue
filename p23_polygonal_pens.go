@@ -19,3 +19,9 @@ package metatrue
 import (
 //"fmt"
 )
+
+
+// s487
+func add_pen_ref(pr pointer){
+    fatal_error("add_pen_ref not defined")
+}

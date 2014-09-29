@@ -23,13 +23,13 @@ import (
 // s153
 
 const (
-	// if intMT  is int32 bits:
+	// if integer  is int32 bits:
 	min_quarterword = 0
 	max_quarterword = 255
 	min_halfword    = 0
 	max_halfword    = 65535
 
-// if intMT is int64 bits:
+// if integer is int64 bits:
 //min_quarterword = 0
 //max_quaterword = 0xFFFF
 //min_halfword = 0
@@ -47,10 +47,10 @@ func qi(i int) int { return i }
 // s156
 
 type (
-	// for intMT int32
+	// for integer int32
 	quarterword byte
 	halfword    uint16
-	// if intMT int64
+	// if integer int64
 	//quarterword uint16
 	//halfword uint32
 	two_choices   byte

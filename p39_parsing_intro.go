@@ -23,35 +23,36 @@ import (
 
 // s796, s797
 
-var cur_exp intMT
+var cur_exp integer
 var cur_type small_number
 
 // s808
 func flush_cur_exp(v scaled) {
-	switch cur_type {
-	case unknown_types,
-		transform_type,
-		pair_type,
-		dependent,
-		proto_dependent,
-		independent:
-		recycle_value(cur_exp)
-		free_node(cur_exp, value_node_size)
-	case pen_type:
-		delete_pen_ref(cur_exp)
-	case string_type:
-		delete_str_ref(cur_exp)
-	case future_pen, path_type:
-		toss_knot_list(cur_exp)
-	case picture_type:
-		toss_edges(cur_exp)
-	}
-	cur_type = known
-	cur_exp = intMT(v)
+    fatal_error("flush_cur_exp not implemented")
+// 	switch cur_type {
+// 	case unknown_types,
+// 		transform_type,
+// 		pair_type,
+// 		dependent,
+// 		proto_dependent,
+// 		independent:
+// 		recycle_value(cur_exp)
+// 		free_node(cur_exp, value_node_size)
+// 	case pen_type:
+// 		delete_pen_ref(cur_exp)
+// 	case string_type:
+// 		delete_str_ref(cur_exp)
+// 	case future_pen, path_type:
+// 		toss_knot_list(cur_exp)
+// 	case picture_type:
+// 		toss_edges(cur_exp)
+// 	}
+// 	cur_type = known
+// 	cur_exp = integer(v)
 }
 
 // s809
-func recycle_value() {
+func recycle_value(integer) {
 }
 
 // s820
@@ -61,11 +62,13 @@ func flush_error(v scaled) {
 }
 
 func put_get_error() {
-	back_error()
-	get_x_next()
+    fatal_error("put_get_error not implemented")
+	//back_error()
+	//get_x_next()
 }
 
 func put_get_flush_error(v scaled) {
-	put_get_error()
-	flush_cur_exp(v)
+    fatal_error("put_get_flush not implemented")
+	//put_get_error()
+	//flush_cur_exp(v)
 }

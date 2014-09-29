@@ -19,3 +19,49 @@ package metatrue
 import (
 //"fmt"
 )
+
+
+// The dynamic memory in MetaTrue has been reorganized from MetaFont
+//  The two upper and lower regions are now maintained in separate 
+// Go slices.
+
+// s158
+type pointer halfword
+const null = mem_min
+type himemNode struct{
+}
+
+type (
+    node2 struct {w1, w2 integer}
+    node3 struct {w1, w2, w3 integer}
+    allnode interface{}
+    )
+
+
+
+// s159
+var (
+    lomem = make([]interface{}, 1000)
+    himem []two_halves
+    lo_mem_max pointer
+    hi_mem_max pointer  // himem grows upwards too
+    )
+    
+func test() {
+    n2p := *&node2{1,2}
+    //n3p := &node3{1,2,3}
+    lomem.append(lomem, interface{}(n2p))
+}
+
+// s160
+var var_used, dyn_used integer
+
+// s161
+// we hope Go inlines this sort of thing!
+func link(mw two_halves) halfword {
+    return mw.rh
+}
+
+func info(mw two_halves) halfword{
+    return mw.lh
+}

@@ -73,6 +73,7 @@ const (
 const (
 	max_in_open = 6
 	param_size  = 150
+	mem_min = 0
 )
 
 // s13
