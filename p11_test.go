@@ -17,9 +17,12 @@
 package metatrue
 
 import (
-    "testing"
-    //"fmt"
+	"testing"
+	//"fmt"
 )
 
-func TestX11(t *testing.T) {
+func TestS175(t *testing.T) {
+	if inf_val != end_attr+1 {
+		t.Error("Problem in s175", inf_val, end_attr)
+	}
 }

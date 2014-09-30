@@ -53,8 +53,8 @@ type (
 	// if integer int64
 	//quarterword uint16
 	//halfword uint32
-	two_choices   byte
-	three_choices byte
+	//two_choices   byte
+	//three_choices byte
 	two_halves    struct {
 		lh, rh halfword
 	}
@@ -66,6 +66,9 @@ type (
 		b0, b1, b2, b3 quarterword
 	}
 )
+func (Node two_halves) Type() string {
+    return "two_halves"
+}
 
 // s157
 // I don't think we'll have things we don't know what type they are

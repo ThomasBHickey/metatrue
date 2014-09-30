@@ -22,6 +22,7 @@ import (
 )
 
 func TestS163(t *testing.T) {
-    p := get_avail()
+    p := get_avail(two_halves{})
     fmt.Println("get_avail()", p)
+    fmt.Println("Type: ", mem[p].Type())
 }
