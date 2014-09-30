@@ -33,7 +33,7 @@ var banner = "This is METATRUE, Version 1"
 // not macros, but should work fine
 const (
 	debug = true
-	stats = true
+	stat  = true
 )
 
 //s 8
@@ -44,7 +44,7 @@ const (
 
 //s 11
 const (
-	//mem_max       // We're not going to mange memory this way
+	mem_max = 30000 // prevent runaways
 	//max_internal    // internals are just a map
 	buf_size        = 500 // max chars present in current lines of open files
 	error_line      = 72
@@ -73,7 +73,8 @@ const (
 const (
 	max_in_open = 6
 	param_size  = 150
-	mem_min = 0
+	mem_min     = 0
+	mem_top = 30000
 )
 
 // s13
@@ -89,4 +90,3 @@ var bad int
 // most of these we won't need since
 // we don't have to worry about as many
 // portability issues
-

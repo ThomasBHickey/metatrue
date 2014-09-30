@@ -19,3 +19,8 @@ package metatrue
 import (
 //"fmt"
 )
+
+// S217
+func show_token_list(p pointer, q integer, l, null_tally integer){
+    fatal_error("show_token_list not implemented")
+}

@@ -19,3 +19,22 @@ package metatrue
 import (
 //"fmt"
 )
+
+
+// S175
+const (
+    null_coords = iota
+    mull_pen
+    dep_head
+    zero_val
+    temp_val
+    end_attr = temp_val
+    inf_val
+    bad_vardef
+    lo_mem_stat_max
+    sentinel = mem_top
+    temp_head = mem_top -1
+    hold_head = mem_top -2
+    hi_mem_stat_min = mem_top -2
+    )
+    

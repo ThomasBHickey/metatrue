@@ -21,6 +21,20 @@ import (
 //"fmt"
 )
 
+// s665
+func runaway() {
+    if scanner_status > flushing {
+        print_nl("Runaway ")
+        switch scanner_status {
+            case absorbing: print("text")
+            case var_defining, op_defining: print("definition")
+            case loop_defining: print("loop?")
+        }
+        print_ln()
+        show_token_list(link(hold_head), null, error_line-10, 0)
+    }
+}
+
 // s667
 func get_next(){
     //mterror("get_next not implemented yet!")

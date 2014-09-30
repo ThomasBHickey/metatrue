@@ -20,48 +20,59 @@ import (
 //"fmt"
 )
 
-
 // The dynamic memory in MetaTrue has been reorganized from MetaFont
-//  The two upper and lower regions are now maintained in separate 
+//  The two upper and lower regions are now maintained in separate
 // Go slices.
 
 // s158
 type pointer halfword
+
 const null = mem_min
-type himemNode struct{
-}
-
-type (
-    node2 struct {w1, w2 integer}
-    node3 struct {w1, w2, w3 integer}
-    allnode interface{}
-    )
-
-
 
 // s159
-var (
-    lomem = make([]interface{}, 1000)
-    himem []two_halves
-    lo_mem_max pointer
-    hi_mem_max pointer  // himem grows upwards too
-    )
-    
-func test() {
-    n2p := *&node2{1,2}
-    //n3p := &node3{1,2,3}
-    lomem.append(lomem, interface{}(n2p))
+type Node interface {
+	Name() string
 }
+
+var (
+	lo_mem     = []Node{}
+	hi_mem     []two_halves
+	lo_mem_max pointer
+	hi_mem_max pointer // both grow upwards
+)
 
 // s160
 var var_used, dyn_used integer
 
 // s161
 // we hope Go inlines this sort of thing!
-func link(mw two_halves) halfword {
-    return mw.rh
+func link(p pointer) pointer {
+	return pointer(hi_mem[p].rh)
 }
 
-func info(mw two_halves) halfword{
-    return mw.lh
+func info(mw two_halves) halfword {
+	return mw.lh
+}
+
+var avail pointer
+var mem_end pointer
+
+// s 163
+// single word
+func get_avail() pointer {
+	if avail == null {
+		hi_mem = append(hi_mem, two_halves{0, 0})
+		avail = pointer(len(hi_mem) - 1)
+		if avail > mem_max {
+			runaway()
+			overflow("hi_mem memory size", mem_max)
+		}
+	}
+	p := avail
+	avail = link(avail)
+    hi_mem[avail].rh = null // link(p) = null
+	if stat {
+		dyn_used++
+	}
+	return p
 }

@@ -18,8 +18,10 @@ package metatrue
 
 import (
     "testing"
-    //"fmt"
+    "fmt"
 )
 
-func TestX10(t *testing.T) {
+func TestS163(t *testing.T) {
+    p := get_avail()
+    fmt.Println("get_avail()", p)
 }
