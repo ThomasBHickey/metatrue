@@ -21,5 +21,8 @@ import (
     //"fmt"
 )
 
-func TestX12(t *testing.T) {
+func TestS198(t *testing.T) {
+    if string_class!=4 {
+        t.Error("right_paren_class", right_paren_class)
+    }
 }

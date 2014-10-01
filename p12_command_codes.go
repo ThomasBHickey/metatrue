@@ -163,3 +163,27 @@ const (
 
 var unknown_types = [...]int{unknown_boolean, unknown_string,
 	unknown_pen, unknown_picture, unknown_path}
+	
+// s198
+const (
+    digit_class = iota
+    period_class
+    space_class
+    percent_class
+    string_class
+    right_paren_class = 8
+    //isolated_classes = {5,6,7,8}
+    letter_class=9
+    left_bracket_class = 17
+    right_bracket_class = 18
+    invalid_class = 20
+    max_class = 20
+    )
+var isolated_classes = [...]int{5,6,7,8}
+var char_class [256]byte
+
+func setup_char_class(){
+    for k:=0; k<256;k++ {
+        char_class[k] = invalid_class
+    }
+}

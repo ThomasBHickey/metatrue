@@ -79,3 +79,8 @@ func get_avail(node Node) pointer {
 	}
 	return pos
 }
+
+// S172
+func free_node(p pointer) {
+    free_mem = append(free_mem, p)
+}
