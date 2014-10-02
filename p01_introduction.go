@@ -29,6 +29,7 @@ var banner = "This is METATRUE, Version 1"
 func initialize() {
     set_initial_values_of_key_variables()
     get_strings_started()
+    set_up_internals()
 }
 
 // s 6

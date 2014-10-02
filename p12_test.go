@@ -33,6 +33,13 @@ func TestS190(t *testing.T){
     }
 }
 
+func TestS191(t *testing.T){
+    initialize() // should call set_up_internals
+    if len(internal)!=max_given_internal+1 {
+        t.Error("S191 internal length wrong", len(internal), max_given_internal)
+    }
+}
+
 func TestS198(t *testing.T) {
     if string_class!=4 {
         t.Error("right_paren_class", right_paren_class)

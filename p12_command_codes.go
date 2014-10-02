@@ -510,6 +510,18 @@ const (
 	max_given_internal = boundary_char
 )
 
+var (
+	internal []scaled
+	int_name []str_number
+)
+
+// s191
+func set_up_internals() {
+	for k := 0; k <= max_given_internal; k++ {
+		internal = append(internal, 0)
+	}
+}
+
 // s198
 const (
 	digit_class = iota

@@ -21,6 +21,9 @@ import (
 )
 
 // s37...
+type (
+    str_number halfword
+)
 
 var (
     string_to_pos = make(map[string] pointer)
