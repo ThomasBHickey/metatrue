@@ -23,7 +23,13 @@ import (
 
 func TestS189(t *testing.T){
     if pen_offset_of != 100 {
-        t.Error("S189 constants bad", pen_offset_of)
+        t.Error("S189 constants bad", pen_offset_of, y_scaled)
+    }
+}
+
+func TestS190(t *testing.T){
+    if max_given_internal!=41 {
+        t.Error("S190 constants bad", max_given_internal)
     }
 }
 

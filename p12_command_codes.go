@@ -221,101 +221,295 @@ func print_type(t small_number) {
 
 // s188
 const (
-    root = iota
-    saved_root
-    structured_root
-    subscr
-    attr
-    x_part_sector
-    y_part_sector
-    xx_part_sector
-    xy_part_sector
-    yx_part_sector
-    yy_part_sector
-    capsule
-    token
-    )
-    
+	root = iota
+	saved_root
+	structured_root
+	subscr
+	attr
+	x_part_sector
+	y_part_sector
+	xx_part_sector
+	xy_part_sector
+	yx_part_sector
+	yy_part_sector
+	capsule
+	token
+)
+
 // s189
 const (
-    true_code = iota+30
-    false_code
-    null_picture_code
-    null_pen_code
-    job_name_op
-    read_string_op
-    pen_circle
-    normal_deviate
-    odd_op
-    known_op
-    unknown_op
-    not_op
-    decimal
-    reverse
-    make_path_op
-    make_pen_op
-    total_weight_op
-    oct_op
-    hex_op
-    ASCII_op
-    char_op
-    length_op
-    turning_op
-    x_part
-    y_part
-    xx_part
-    xy_part
-    yx_part
-    yy_part
-    sqrt_op
-    m_exp_op
-    m_log_op
-    sin_d_op
-    cos_d_op
-    floor_op
-    uniform_deviate
-    char_exists_op
-    angle_op
-    cycle_op
-    plus
-    minus
-    times
-    over
-    pythag_add
-    pythag_sub
-    or_op
-    and_op
-    less_than
-    less_or_equal
-    greater_than
-    greater_or_equal
-    equal_to
-    unequal_to
-    concatenate
-    rotated_by
-    slanted_by
-    scaled_by
-    shifted_by
-    transformed_by
-    x_scaled
-    y_scaled
-    z_scaled
-    intersect
-    double_dot
-    substring_of
-    min_of
-    subpath_of
-    direction_time_of
-    point_of
-    precontrol_of
-    postcontrol_of
-    pen_offset_of
+	true_code = iota + 30
+	false_code
+	null_picture_code
+	null_pen_code
+	job_name_op
+	read_string_op
+	pen_circle
+	normal_deviate
+	odd_op
+	known_op
+	unknown_op
+	not_op
+	decimal
+	reverse
+	make_path_op
+	make_pen_op
+	total_weight_op
+	oct_op
+	hex_op
+	ASCII_op
+	char_op
+	length_op
+	turning_op
+	x_part
+	y_part
+	xx_part
+	xy_part
+	yx_part
+	yy_part
+	sqrt_op
+	m_exp_op
+	m_log_op
+	sin_d_op
+	cos_d_op
+	floor_op
+	uniform_deviate
+	char_exists_op
+	angle_op
+	cycle_op
+	plus
+	minus
+	times
+	over
+	pythag_add
+	pythag_sub
+	or_op
+	and_op
+	less_than
+	less_or_equal
+	greater_than
+	greater_or_equal
+	equal_to
+	unequal_to
+	concatenate
+	rotated_by
+	slanted_by
+	scaled_by
+	shifted_by
+	transformed_by
+	x_scaled
+	y_scaled
+	z_scaled
+	intersect
+	double_dot
+	substring_of
+	//min_of
+	subpath_of
+	direction_time_of
+	point_of
+	precontrol_of
+	postcontrol_of
+	pen_offset_of
+	min_of = substring_of
 )
-    
-    
-    
-    
-    
+
+func print_op(c quarterword) {
+	if c <= numeric_type {
+		print_type(small_number(c))
+	} else {
+		switch c {
+		case true_code:
+			print("true")
+		case false_code:
+			print("false")
+		case null_picture_code:
+			print("nullpicture")
+		case null_pen_code:
+			print("nullpen")
+		case job_name_op:
+			print("jobname")
+		case read_string_op:
+			print("readstring")
+		case pen_circle:
+			print("pencircle")
+		case normal_deviate:
+			print("normaldeviate")
+		case odd_op:
+			print("odd")
+		case known_op:
+			print("known")
+		case unknown_op:
+			print("unknown")
+		case not_op:
+			print("not")
+		case decimal:
+			print("decimal")
+		case reverse:
+			print("reverse")
+		case make_path_op:
+			print("makepath")
+		case make_pen_op:
+			print("makepen")
+		case total_weight_op:
+			print("totalweight")
+		case oct_op:
+			print("oct")
+		case hex_op:
+			print("hex")
+		case ASCII_op:
+			print("ASCII")
+		case char_op:
+			print("char")
+		case length_op:
+			print("length")
+		case turning_op:
+			print("turningnumber")
+		case x_part:
+			print("xpart")
+		case y_part:
+			print("ypart")
+		case xx_part:
+			print("xxpart")
+		case xy_part:
+			print("xypart")
+		case yx_part:
+			print("yxpart")
+		case yy_part:
+			print("yypart")
+		case sqrt_op:
+			print("sqrt")
+		case m_exp_op:
+			print("mexp")
+		case m_log_op:
+			print("mlog")
+		case sin_d_op:
+			print("sind")
+		case cos_d_op:
+			print("cosd")
+		case floor_op:
+			print("floor")
+		case uniform_deviate:
+			print("uniformdeviate")
+		case char_exists_op:
+			print("charexists")
+		case angle_op:
+			print("angle")
+		case cycle_op:
+			print("cycle")
+		case plus:
+			print_char('+')
+		case minus:
+			print_char('-')
+		case times:
+			print_char('*')
+		case over:
+			print_char('/')
+		case pythag_add:
+			print("++")
+		case pythag_sub:
+			print("+-+")
+		case or_op:
+			print("or")
+		case and_op:
+			print("and")
+		case less_than:
+			print_char('<')
+		case less_or_equal:
+			print("<=")
+		case greater_than:
+			print_char('>')
+		case greater_or_equal:
+			print(">=")
+		case equal_to:
+			print_char('=')
+		case unequal_to:
+			print("<>")
+		case concatenate:
+			print("&")
+		case rotated_by:
+			print("rotated")
+		case slanted_by:
+			print("slanted")
+		case scaled_by:
+			print("scaled")
+		case shifted_by:
+			print("shifted")
+		case transformed_by:
+			print("transformed")
+		case x_scaled:
+			print("xscaled")
+		case y_scaled:
+			print("yscaled")
+		case z_scaled:
+			print("zscaled")
+		case intersect:
+			print("intersectiontimes")
+		case substring_of:
+			print("substring")
+		case subpath_of:
+			print("subpath")
+		case direction_time_of:
+			print("directiontime")
+		case point_of:
+			print("point")
+		case precontrol_of:
+			print("precontrol")
+		case postcontrol_of:
+			print("postcontrol")
+		case pen_offset_of:
+			print("penoffset")
+		default:
+			print("..")
+		}
+	}
+}
+
+// s190
+const (
+	tracing_titles = iota + 1
+	tracing_equations
+	tracing_capsules
+	tracing_choices
+	tracing_specs
+	tracing_pens
+	tracing_command
+	tracing_restores
+	tracing_macros
+	tracing_edges
+	tracing_output
+	tracing_stats
+	tracing_online
+	year
+	month
+	day
+	time
+	char_code
+	char_ext
+	char_wd
+	char_ht
+	char_dp
+	char_ic
+	char_dx
+	char_dy
+	design_size
+	hppp
+	vppp
+	x_offset
+	y_offset
+	pausing
+	showstopping
+	fontmaking
+	proofing
+	smoothing
+	autorounding
+	granularity
+	fillin
+	turning_check
+	warning_check
+	boundary_char
+	max_given_internal = boundary_char
+)
+
 // s198
 const (
 	digit_class = iota
