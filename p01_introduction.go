@@ -24,7 +24,12 @@ import (
 var banner = "This is METATRUE, Version 1"
 
 // s 4
-//Don't think we need to pull everthing together in Go
+//Don't think we need to pull everthing together in Go, but do
+// need an initialization routine
+func initialize() {
+    set_initial_values_of_key_variables()
+    get_strings_started()
+}
 
 // s 6
 // skip the labels

@@ -18,8 +18,13 @@ package metatrue
 
 import (
     "testing"
-    //"fmt"
+    "fmt"
 )
 
-func TestX04(t *testing.T) {
+func TestS47(t *testing.T) {
+    get_strings_started()
+    fmt.Println("length of strings", len(pos_to_string))
+    //for r:= rune(0); r<rune(256); r++{
+    //    fmt.Println(r, pos_to_string[r])
+    //}
 }

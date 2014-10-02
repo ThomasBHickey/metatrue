@@ -36,7 +36,7 @@ func Start() error {
 // 		wterm_ln("Ouch--my internal constants have been clobbered!", "---case ", err.Error())
 // 		goto final_end
 // 	}
-//	initialize()
+	initialize()
 	//ready_already = 314159
 //start_of_MT:
 	fmt.Println("mt start_of_MT")
