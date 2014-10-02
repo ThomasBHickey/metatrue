@@ -21,6 +21,12 @@ import (
     //"fmt"
 )
 
+func TestS189(t *testing.T){
+    if pen_offset_of != 100 {
+        t.Error("S189 constants bad", pen_offset_of)
+    }
+}
+
 func TestS198(t *testing.T) {
     if string_class!=4 {
         t.Error("right_paren_class", right_paren_class)

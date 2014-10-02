@@ -133,6 +133,8 @@ func end_of_statement() bool {
 
 type command_code int
 
+// s187
+
 const (
 	undefined        = 0 //{no type has been declared}
 	unknown_tag      = 1 //{this constant is added to certain type codes below}
@@ -163,27 +165,178 @@ const (
 
 var unknown_types = [...]int{unknown_boolean, unknown_string,
 	unknown_pen, unknown_picture, unknown_path}
-	
+
+func print_type(t small_number) {
+	switch t {
+	case vacuous:
+		print("vacuous")
+	case boolean_type:
+		print("boolean")
+	case unknown_boolean:
+		print("unknown boolean")
+	case string_type:
+		print("string")
+	case unknown_string:
+		print("unknown string")
+	case pen_type:
+		print("pen")
+	case unknown_pen:
+		print("unknown pen")
+	case future_pen:
+		print("future pen")
+	case path_type:
+		print("path")
+	case unknown_path:
+		print("unknown path")
+	case picture_type:
+		print("picture")
+	case unknown_picture:
+		print("unknown picture")
+	case transform_type:
+		print("transform")
+	case pair_type:
+		print("pair")
+	case known:
+		print("known numeric")
+	case dependent:
+		print("dependent")
+	case proto_dependent:
+		print("proto-dependent")
+	case numeric_type:
+		print("numeric")
+	case independent:
+		print("independent")
+	case token_list:
+		print("token list")
+	case structured:
+		print("structured")
+	case unsuffixed_macro:
+		print("unsuffixed macro")
+	case suffixed_macro:
+		print("suffixed macro")
+	default:
+		print("undefined")
+	}
+}
+
+// s188
+const (
+    root = iota
+    saved_root
+    structured_root
+    subscr
+    attr
+    x_part_sector
+    y_part_sector
+    xx_part_sector
+    xy_part_sector
+    yx_part_sector
+    yy_part_sector
+    capsule
+    token
+    )
+    
+// s189
+const (
+    true_code = iota+30
+    false_code
+    null_picture_code
+    null_pen_code
+    job_name_op
+    read_string_op
+    pen_circle
+    normal_deviate
+    odd_op
+    known_op
+    unknown_op
+    not_op
+    decimal
+    reverse
+    make_path_op
+    make_pen_op
+    total_weight_op
+    oct_op
+    hex_op
+    ASCII_op
+    char_op
+    length_op
+    turning_op
+    x_part
+    y_part
+    xx_part
+    xy_part
+    yx_part
+    yy_part
+    sqrt_op
+    m_exp_op
+    m_log_op
+    sin_d_op
+    cos_d_op
+    floor_op
+    uniform_deviate
+    char_exists_op
+    angle_op
+    cycle_op
+    plus
+    minus
+    times
+    over
+    pythag_add
+    pythag_sub
+    or_op
+    and_op
+    less_than
+    less_or_equal
+    greater_than
+    greater_or_equal
+    equal_to
+    unequal_to
+    concatenate
+    rotated_by
+    slanted_by
+    scaled_by
+    shifted_by
+    transformed_by
+    x_scaled
+    y_scaled
+    z_scaled
+    intersect
+    double_dot
+    substring_of
+    min_of
+    subpath_of
+    direction_time_of
+    point_of
+    precontrol_of
+    postcontrol_of
+    pen_offset_of
+)
+    
+    
+    
+    
+    
 // s198
 const (
-    digit_class = iota
-    period_class
-    space_class
-    percent_class
-    string_class
-    right_paren_class = 8
-    //isolated_classes = {5,6,7,8}
-    letter_class=9
-    left_bracket_class = 17
-    right_bracket_class = 18
-    invalid_class = 20
-    max_class = 20
-    )
-var isolated_classes = [...]int{5,6,7,8}
+	digit_class = iota
+	period_class
+	space_class
+	percent_class
+	string_class
+	right_paren_class = 8
+	//isolated_classes = {5,6,7,8}
+	letter_class        = 9
+	left_bracket_class  = 17
+	right_bracket_class = 18
+	invalid_class       = 20
+	max_class           = 20
+)
+
+var isolated_classes = [...]int{5, 6, 7, 8}
 var char_class [256]byte
 
-func setup_char_class(){
-    for k:=0; k<256;k++ {
-        char_class[k] = invalid_class
-    }
+func setup_char_class() {
+	for k := 0; k < 256; k++ {
+		char_class[k] = invalid_class
+	}
 }

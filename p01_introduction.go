@@ -50,7 +50,7 @@ const (
 //s 11
 const (
 	mem_max = 30000 // prevent runaways
-	//max_internal    // internals are a map
+	//max_internal    // internal is a slice
 	buf_size        = 500 // max chars present in current lines of open files
 	error_line      = 72
 	half_error_line = 42
