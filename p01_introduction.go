@@ -31,6 +31,7 @@ func initialize() {
     get_strings_started()
     set_up_internals()
     putPrimitivesIn_1()
+    initialize_table_entries()
 }
 
 // s 6

@@ -522,50 +522,134 @@ func set_up_internals() {
 	}
 }
 
+// s192
 func putPrimitivesIn_1() {
-primitive("tracingtitles",internal_quantity,tracing_titles)
-primitive("tracingequations",internal_quantity,tracing_equations)
-primitive("tracingcapsules",internal_quantity,tracing_capsules)
-primitive("tracingchoices",internal_quantity,tracing_choices)
-primitive("tracingspecs",internal_quantity,tracing_specs)
-primitive("tracingpens",internal_quantity,tracing_pens)
-primitive("tracingcommands",internal_quantity,tracing_commands)
-primitive("tracingrestores",internal_quantity,tracing_restores)
-primitive("tracingmacros",internal_quantity,tracing_macros)
-primitive("tracingedges",internal_quantity,tracing_edges)
-primitive("tracingoutput",internal_quantity,tracing_output)
-primitive("tracingstats",internal_quantity,tracing_stats)
-primitive("tracingonline",internal_quantity,tracing_online)
-primitive("year",internal_quantity,year)
-primitive("month",internal_quantity,month)
-primitive("day",internal_quantity,day)
-primitive("time",internal_quantity,time)
-primitive("charcode",internal_quantity,char_code)
-primitive("charext",internal_quantity,char_ext)
-primitive("charwd",internal_quantity,char_wd)
-primitive("charht",internal_quantity,char_ht)
-primitive("chardp",internal_quantity,char_dp)
-primitive("charic",internal_quantity,char_ic)
-primitive("chardx",internal_quantity,char_dx)
-primitive("chardy",internal_quantity,char_dy)
-primitive("designsize",internal_quantity,design_size)
-primitive("hppp",internal_quantity,hppp)
-primitive("vppp",internal_quantity,vppp)
-primitive("xoffset",internal_quantity,x_offset)
-primitive("yoffset",internal_quantity,y_offset)
-primitive("pausing",internal_quantity,pausing)
-primitive("showstopping",internal_quantity,showstopping)
-primitive("fontmaking",internal_quantity,fontmaking)
-primitive("proofing",internal_quantity,proofing)
-primitive("smoothing",internal_quantity,smoothing)
-primitive("autorounding",internal_quantity,autorounding)
-primitive("granularity",internal_quantity,granularity)
-primitive("fillin",internal_quantity,fillin)
-primitive("turningcheck",internal_quantity,turning_check)
-primitive("warningcheck",internal_quantity,warning_check)
-primitive("boundarychar",internal_quantity,boundary_char)
+	primitive("tracingtitles", internal_quantity, tracing_titles)
+	primitive("tracingequations", internal_quantity, tracing_equations)
+	primitive("tracingcapsules", internal_quantity, tracing_capsules)
+	primitive("tracingchoices", internal_quantity, tracing_choices)
+	primitive("tracingspecs", internal_quantity, tracing_specs)
+	primitive("tracingpens", internal_quantity, tracing_pens)
+	primitive("tracingcommands", internal_quantity, tracing_commands)
+	primitive("tracingrestores", internal_quantity, tracing_restores)
+	primitive("tracingmacros", internal_quantity, tracing_macros)
+	primitive("tracingedges", internal_quantity, tracing_edges)
+	primitive("tracingoutput", internal_quantity, tracing_output)
+	primitive("tracingstats", internal_quantity, tracing_stats)
+	primitive("tracingonline", internal_quantity, tracing_online)
+	primitive("year", internal_quantity, year)
+	primitive("month", internal_quantity, month)
+	primitive("day", internal_quantity, day)
+	primitive("time", internal_quantity, time)
+	primitive("charcode", internal_quantity, char_code)
+	primitive("charext", internal_quantity, char_ext)
+	primitive("charwd", internal_quantity, char_wd)
+	primitive("charht", internal_quantity, char_ht)
+	primitive("chardp", internal_quantity, char_dp)
+	primitive("charic", internal_quantity, char_ic)
+	primitive("chardx", internal_quantity, char_dx)
+	primitive("chardy", internal_quantity, char_dy)
+	primitive("designsize", internal_quantity, design_size)
+	primitive("hppp", internal_quantity, hppp)
+	primitive("vppp", internal_quantity, vppp)
+	primitive("xoffset", internal_quantity, x_offset)
+	primitive("yoffset", internal_quantity, y_offset)
+	primitive("pausing", internal_quantity, pausing)
+	primitive("showstopping", internal_quantity, showstopping)
+	primitive("fontmaking", internal_quantity, fontmaking)
+	primitive("proofing", internal_quantity, proofing)
+	primitive("smoothing", internal_quantity, smoothing)
+	primitive("autorounding", internal_quantity, autorounding)
+	primitive("granularity", internal_quantity, granularity)
+	primitive("fillin", internal_quantity, fillin)
+	primitive("turningcheck", internal_quantity, turning_check)
+	primitive("warningcheck", internal_quantity, warning_check)
+	primitive("boundarychar", internal_quantity, boundary_char)
 }
 
+// s193
+func initialize_table_entries_A() {
+	int_name[tracing_titles] = make_string("tracingtitles")
+	int_name[tracing_equations] = make_string("tracingequations")
+	int_name[tracing_capsules] = make_string("tracingcapsules")
+	int_name[tracing_choices] = make_string("tracingchoices")
+	int_name[tracing_specs] = make_string("tracingspecs")
+	int_name[tracing_pens] = make_string("tracingpens")
+	int_name[tracing_commands] = make_string("tracingcommands")
+	int_name[tracing_restores] = make_string("tracingrestores")
+	int_name[tracing_macros] = make_string("tracingmacros")
+	int_name[tracing_edges] = make_string("tracingedges")
+	int_name[tracing_output] = make_string("tracingoutput")
+	int_name[tracing_stats] = make_string("tracingstats")
+	int_name[tracing_online] = make_string("tracingonline")
+	int_name[year] = make_string("year")
+	int_name[month] = make_string("month")
+	int_name[day] = make_string("day")
+	int_name[time] = make_string("time")
+	int_name[char_code] = make_string("charcode")
+	int_name[char_ext] = make_string("charext")
+	int_name[char_wd] = make_string("charwd")
+	int_name[char_ht] = make_string("charht")
+	int_name[char_dp] = make_string("chardp")
+	int_name[char_ic] = make_string("charic")
+	int_name[char_dx] = make_string("chardx")
+	int_name[char_dy] = make_string("chardy")
+	int_name[design_size] = make_string("designsize")
+	int_name[hppp] = make_string("hppp")
+	int_name[vppp] = make_string("vppp")
+	int_name[x_offset] = make_string("xoffset")
+	int_name[y_offset] = make_string("yoffset")
+	int_name[pausing] = make_string("pausing")
+	int_name[showstopping] = make_string("showstopping")
+	int_name[fontmaking] = make_string("fontmaking")
+	int_name[proofing] = make_string("proofing")
+	int_name[smoothing] = make_string("smoothing")
+	int_name[autorounding] = make_string("autorounding")
+	int_name[granularity] = make_string("granularity")
+	int_name[fillin] = make_string("fillin")
+	int_name[turning_check] = make_string("turningcheck")
+	int_name[warning_check] = make_string("warningcheck")
+	int_name[boundary_char] = make_string("boundarychar")
+}
+
+// s194
+func fix_date_and_time(){
+    internal[time] = 12*60*unity
+    internal[day] = 4*unity
+    internal[month] = 7*unity
+    internal[year] = 1776*unity
+}
+
+// s195
+func begin_diagnostic(){
+    old_setting = selector
+    if (internal[tracing_online]==0) || (selector==term_and_log) {
+        selector--
+        if history==spotless {
+            history = warning_issued
+        }
+    }
+}
+
+func end_diagnostic(blank_line bool) {
+    print_nl("")
+    if blank_line { print_ln()}
+    selector = old_setting
+}
+
+// s196
+var old_setting int
+
+// s197
+func print_diagnostic(s, t str_number, nuline bool){
+    begin_diagnostic()
+    if nuline {
+        print_nl_sn(s)} else { print_sn(s)}
+    print(" at line ")
+    print_int(line)
+    print_sn(t)
+    print_char(':')
+}
 
 // s198
 const (
@@ -586,6 +670,7 @@ const (
 var isolated_classes = [...]int{5, 6, 7, 8}
 var char_class [256]byte
 
+// s199
 // Eventually we'll allow any Unicode chars, at least in variable
 // names, etc.
 
@@ -593,9 +678,41 @@ func setup_char_class() {
 	for k := 0; k < 256; k++ {
 		char_class[k] = invalid_class
 	}
-	for k := '0'; k<='9'; k++ {
-	    char_class[k] = digit_class
+	for k := '0'; k <= '9'; k++ {
+		char_class[k] = digit_class
 	}
 	char_class['.'] = period_class
-	
+	char_class[' '] = space_class
+	char_class['%'] = percent_class
+	char_class['"'] = string_class
+	char_class['_'] = letter_class
+	char_class['<'] = 10
+	char_class['='] = 10
+	char_class['>'] = 10
+	char_class[':'] = 10
+	char_class['`'] = 11
+	char_class['\''] = 11
+	char_class['+'] = 12
+	char_class['-'] = 12
+	char_class['/'] =13
+	char_class['*'] =13
+	char_class['\\'] =13
+	char_class['!'] = 14
+	char_class['?'] =14
+	char_class['#'] =15
+	char_class['&'] =15
+	char_class['@'] =15
+	char_class['$'] =15
+	char_class['^'] = 16
+	char_class['~'] = 16
+	char_class['['] = left_bracket_class
+	char_class[']'] = right_bracket_class
+	char_class['{'] =19
+	char_class['}'] =19
+	for k:=0; k<= ' '-1; k++ {
+	    char_class[k] = invalid_class
+	}
+	for k:=127; k<=255; k++ {
+	    char_class[k] = invalid_class
+	}
 }

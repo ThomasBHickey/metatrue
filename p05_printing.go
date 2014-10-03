@@ -133,6 +133,10 @@ func print(s string) {
 	}
 }
 
+func print_sn(sn str_number){
+    print(pos_to_string[sn])
+}
+
 // s60
 func slow_print(s string) {
 	print(s)
@@ -165,6 +169,10 @@ func print_nl(s string) {
 		print_ln()
 	}
 	print(s)
+}
+
+func print_nl_sn(sn str_number) {
+    print_nl(pos_to_string[sn])
 }
 
 // s63
