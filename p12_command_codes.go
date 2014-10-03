@@ -586,8 +586,16 @@ const (
 var isolated_classes = [...]int{5, 6, 7, 8}
 var char_class [256]byte
 
+// Eventually we'll allow any Unicode chars, at least in variable
+// names, etc.
+
 func setup_char_class() {
 	for k := 0; k < 256; k++ {
 		char_class[k] = invalid_class
 	}
+	for k := '0'; k<='9'; k++ {
+	    char_class[k] = digit_class
+	}
+	char_class['.'] = period_class
+	
 }
