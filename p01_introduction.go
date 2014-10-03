@@ -30,6 +30,7 @@ func initialize() {
     set_initial_values_of_key_variables()
     get_strings_started()
     set_up_internals()
+    putPrimitivesIn_1()
 }
 
 // s 6
