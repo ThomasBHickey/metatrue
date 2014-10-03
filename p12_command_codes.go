@@ -472,7 +472,7 @@ const (
 	tracing_choices
 	tracing_specs
 	tracing_pens
-	tracing_command
+	tracing_commands
 	tracing_restores
 	tracing_macros
 	tracing_edges
@@ -521,6 +521,51 @@ func set_up_internals() {
 		internal = append(internal, 0)
 	}
 }
+
+func putPrimitivesIn() {
+primitive("tracingtitles",internal_quantity,tracing_titles)
+primitive("tracingequations",internal_quantity,tracing_equations)
+primitive("tracingcapsules",internal_quantity,tracing_capsules)
+primitive("tracingchoices",internal_quantity,tracing_choices)
+primitive("tracingspecs",internal_quantity,tracing_specs)
+primitive("tracingpens",internal_quantity,tracing_pens)
+primitive("tracingcommands",internal_quantity,tracing_commands)
+primitive("tracingrestores",internal_quantity,tracing_restores)
+primitive("tracingmacros",internal_quantity,tracing_macros)
+primitive("tracingedges",internal_quantity,tracing_edges)
+primitive("tracingoutput",internal_quantity,tracing_output)
+primitive("tracingstats",internal_quantity,tracing_stats)
+primitive("tracingonline",internal_quantity,tracing_online)
+primitive("year",internal_quantity,year)
+primitive("month",internal_quantity,month)
+primitive("day",internal_quantity,day)
+primitive("time",internal_quantity,time)
+primitive("charcode",internal_quantity,char_code)
+primitive("charext",internal_quantity,char_ext)
+primitive("charwd",internal_quantity,char_wd)
+primitive("charht",internal_quantity,char_ht)
+primitive("chardp",internal_quantity,char_dp)
+primitive("charic",internal_quantity,char_ic)
+primitive("chardx",internal_quantity,char_dx)
+primitive("chardy",internal_quantity,char_dy)
+primitive("designsize",internal_quantity,design_size)
+primitive("hppp",internal_quantity,hppp)
+primitive("vppp",internal_quantity,vppp)
+primitive("xoffset",internal_quantity,x_offset)
+primitive("yoffset",internal_quantity,y_offset)
+primitive("pausing",internal_quantity,pausing)
+primitive("showstopping",internal_quantity,showstopping)
+primitive("fontmaking",internal_quantity,fontmaking)
+primitive("proofing",internal_quantity,proofing)
+primitive("smoothing",internal_quantity,smoothing)
+primitive("autorounding",internal_quantity,autorounding)
+primitive("granularity",internal_quantity,granularity)
+primitive("fillin",internal_quantity,fillin)
+primitive("turningcheck",internal_quantity,turning_check)
+primitive("warningcheck",internal_quantity,warning_check)
+primitive("boundarychar",internal_quantity,boundary_char)
+}
+
 
 // s198
 const (

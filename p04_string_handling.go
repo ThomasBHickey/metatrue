@@ -26,17 +26,17 @@ type (
 )
 
 var (
-    string_to_pos = make(map[string] pointer)
+    string_to_pos = make(map[string] str_number)
     pos_to_string []string
 )
 
 // s44
-func make_string(s string) pointer {
+func make_string(s string) str_number {
     pos, ok := string_to_pos[s]
     if ok {return pos}
-    string_to_pos[s] = pointer(len(pos_to_string))
+    string_to_pos[s] = str_number(len(pos_to_string))
     pos_to_string = append(pos_to_string, s)
-    return pointer(len(pos_to_string)-1)
+    return str_number(len(pos_to_string)-1)
 }
 
 // s47

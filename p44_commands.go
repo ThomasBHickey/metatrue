@@ -21,4 +21,4 @@ import (
 )
 
 // s1077
-var start_sym int
+var start_sym halfword

@@ -21,6 +21,8 @@ import (
 )
 
 // s624
-var cur_cmd,
-	cur_mod,
-	cur_sym int
+var (
+    cur_cmd eight_bits
+	cur_mod integer
+	cur_sym halfword
+	)
