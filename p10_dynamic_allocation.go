@@ -31,7 +31,7 @@ const null = mem_min
 
 // s159
 type Node interface {
-	Type() string
+	Type() quarterword
 }
 
 var (

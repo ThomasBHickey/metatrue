@@ -161,6 +161,7 @@ const (
 	structured       = 21 //{variable with subscripts and attributes}
 	unsuffixed_macro = 22 //{variable defined with \&{vardef} but no \.{\AT!\#}}
 	suffixed_macro   = 23 //{variable defined with \&{vardef} and \.{\AT!\#}}
+	symbolic         = 24 // added for single word nodes Th
 )
 
 var unknown_types = [...]int{unknown_boolean, unknown_string,
@@ -569,6 +570,7 @@ func putPrimitivesIn_1() {
 
 // s193
 func initialize_table_entries_A() {
+	// int_name has been pre-extended to accommodate these entries
 	int_name[tracing_titles] = make_string("tracingtitles")
 	int_name[tracing_equations] = make_string("tracingequations")
 	int_name[tracing_capsules] = make_string("tracingcapsules")
@@ -613,42 +615,47 @@ func initialize_table_entries_A() {
 }
 
 // s194
-func fix_date_and_time(){
-    internal[time] = 12*60*unity
-    internal[day] = 4*unity
-    internal[month] = 7*unity
-    internal[year] = 1776*unity
+func fix_date_and_time() {
+	internal[time] = 12 * 60 * unity
+	internal[day] = 4 * unity
+	internal[month] = 7 * unity
+	internal[year] = 1776 * unity
 }
 
 // s195
-func begin_diagnostic(){
-    old_setting = selector
-    if (internal[tracing_online]==0) || (selector==term_and_log) {
-        selector--
-        if history==spotless {
-            history = warning_issued
-        }
-    }
+func begin_diagnostic() {
+	old_setting = selector
+	if (internal[tracing_online] == 0) || (selector == term_and_log) {
+		selector--
+		if history == spotless {
+			history = warning_issued
+		}
+	}
 }
 
 func end_diagnostic(blank_line bool) {
-    print_nl("")
-    if blank_line { print_ln()}
-    selector = old_setting
+	print_nl("")
+	if blank_line {
+		print_ln()
+	}
+	selector = old_setting
 }
 
 // s196
 var old_setting int
 
 // s197
-func print_diagnostic(s, t str_number, nuline bool){
-    begin_diagnostic()
-    if nuline {
-        print_nl_sn(s)} else { print_sn(s)}
-    print(" at line ")
-    print_int(line)
-    print_sn(t)
-    print_char(':')
+func print_diagnostic(s, t str_number, nuline bool) {
+	begin_diagnostic()
+	if nuline {
+		print_nl_sn(s)
+	} else {
+		print_sn(s)
+	}
+	print(" at line ")
+	print_int(line)
+	print_sn(t)
+	print_char(':')
 }
 
 // s198
@@ -694,25 +701,25 @@ func setup_char_class() {
 	char_class['\''] = 11
 	char_class['+'] = 12
 	char_class['-'] = 12
-	char_class['/'] =13
-	char_class['*'] =13
-	char_class['\\'] =13
+	char_class['/'] = 13
+	char_class['*'] = 13
+	char_class['\\'] = 13
 	char_class['!'] = 14
-	char_class['?'] =14
-	char_class['#'] =15
-	char_class['&'] =15
-	char_class['@'] =15
-	char_class['$'] =15
+	char_class['?'] = 14
+	char_class['#'] = 15
+	char_class['&'] = 15
+	char_class['@'] = 15
+	char_class['$'] = 15
 	char_class['^'] = 16
 	char_class['~'] = 16
 	char_class['['] = left_bracket_class
 	char_class[']'] = right_bracket_class
-	char_class['{'] =19
-	char_class['}'] =19
-	for k:=0; k<= ' '-1; k++ {
-	    char_class[k] = invalid_class
+	char_class['{'] = 19
+	char_class['}'] = 19
+	for k := 0; k <= ' '-1; k++ {
+		char_class[k] = invalid_class
 	}
-	for k:=127; k<=255; k++ {
-	    char_class[k] = invalid_class
+	for k := 127; k <= 255; k++ {
+		char_class[k] = invalid_class
 	}
 }

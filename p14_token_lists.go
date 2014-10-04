@@ -19,7 +19,49 @@ package metatrue
 import (
 //"fmt"
 )
+// s214
+type sym_tok struct{
+    p halfword
+}
+func (node sym_tok) Type() quarterword{
+    return symbolic
+}
+type num_tok struct {
+    name_type quarterword
+    value scaled
+}
+func (node num_tok) Type() quarterword{
+    return known
+}
 
+// s215
+func new_num_tok(v scaled) pointer {
+    node := num_tok{value:v, name_type: token}
+    return get_avail(node)
+}
+
+func Type(p pointer) quarterword{
+    return mem[p].Type()
+}
+
+// s216
+func flush_token_list(p pointer) {
+    var q pointer
+    for p!=null {
+        q = p
+        p = link(p)
+        switch Type(q) {
+            case vauous, boolean_type, known:
+            case string_type: delete_str_ref(value(q))
+            case unknown_boolean, unknown_string, unknown_pen, unknown_picture, unknown_path,
+            pen_type, path_type, future_pen, picture_type, transform_type, dependent,
+            proto_dependent, independent: g_pointer = q; token_recycle()
+            default: confusion("token")
+        }
+        free_node(q)
+    }
+}
+    
 // S217
 func show_token_list(p pointer, q integer, l, null_tally integer){
     fatal_error("show_token_list not implemented")

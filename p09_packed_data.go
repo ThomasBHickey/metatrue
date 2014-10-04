@@ -66,8 +66,8 @@ type (
 		b0, b1, b2, b3 quarterword
 	}
 )
-func (Node two_halves) Type() string {
-    return "two_halves"
+func (Node two_halves) Type() quarterword {
+    return undefined
 }
 
 // s157
