@@ -48,7 +48,7 @@ var var_used, dyn_used integer
 // s161
 // we hope Go inlines this sort of thing!
 func link(p pointer) pointer {
-	return pointer(mem[p].(num_tok).Link)
+	return pointer(mem[p].(num_tok).link)
 }
 
 func info(mw two_halves) halfword {

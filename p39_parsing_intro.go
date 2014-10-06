@@ -33,7 +33,7 @@ func stash_cur_exp() pointer {
 		transform_type, pair_type, dependent, proto_dependent, independent:
 		p = pointer(cur_exp)
 	default:
-	    p = get_avail(capsule_tok{name_type:capsule, capsule_type:cur_type, Value:cur_exp})
+	    p = get_avail(capsule_tok{name_type:capsule, capsule_type:cur_type, value:cur_exp})
 // 		p = get_node(value_node_size)
 // 		name_type(p) = capsule
 // 		Type(p) = cur_type
@@ -41,7 +41,8 @@ func stash_cur_exp() pointer {
 	}
 	cur_type = vacuous
 	//link(p) = void
-	mem[p].(num_tok).Link = halfword(void)
+	//mem[p].(num_tok).Link = halfword(void)
+	mem[p].(num_tok).setLink(halfword(void))
 	return p
 }
 
