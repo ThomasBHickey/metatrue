@@ -19,3 +19,9 @@ package metatrue
 import (
 //"fmt"
 )
+
+// s324
+const (
+    zero_w = 4
+    void = null+1
+    )

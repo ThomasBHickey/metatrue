@@ -142,6 +142,10 @@ func slow_print(s string) {
 	print(s)
 }
 
+func slow_print_sn(sn str_number){
+    slow_print(pos_to_string[sn])
+}
+
 // s61
 func initialize_output_routines() {
 	wterm(banner)

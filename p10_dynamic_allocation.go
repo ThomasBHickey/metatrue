@@ -31,7 +31,7 @@ const null = mem_min
 
 // s159
 type Node interface {
-	Type() quarterword
+	Type() small_number
 }
 
 var (
@@ -48,7 +48,7 @@ var var_used, dyn_used integer
 // s161
 // we hope Go inlines this sort of thing!
 func link(p pointer) pointer {
-	return pointer(mem[p].(two_halves).rh)
+	return pointer(mem[p].(num_tok).Link)
 }
 
 func info(mw two_halves) halfword {

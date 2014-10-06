@@ -30,6 +30,11 @@ var (
     pos_to_string []string
 )
 
+// s43
+func delete_str_ref(p str_number){
+    // does nothing right now
+}
+
 // s44
 func make_string(s string) str_number {
     pos, ok := string_to_pos[s]

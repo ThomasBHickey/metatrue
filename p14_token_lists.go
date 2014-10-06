@@ -21,26 +21,42 @@ import (
 )
 // s214
 type sym_tok struct{
-    p halfword
+    P halfword
 }
-func (node sym_tok) Type() quarterword{
+func (node sym_tok) Type() small_number{
     return symbolic
 }
 type num_tok struct {
-    name_type quarterword
-    value scaled
+    Value scaled
+    Link halfword
 }
-func (node num_tok) Type() quarterword{
+func (node num_tok) Type() small_number{
     return known
 }
 
+type string_tok struct {
+    Value  str_number
+}
+
+func (node string_tok) Type() small_number {
+    return string_type
+}
+
+type capsule_tok struct {
+    name_type small_number
+    capsule_type small_number
+    Value integer
+}
+func (node capsule_tok) Type() small_number {
+    return node.capsule_type
+}
 // s215
 func new_num_tok(v scaled) pointer {
-    node := num_tok{value:v, name_type: token}
+    node := num_tok{Value:v}
     return get_avail(node)
 }
 
-func Type(p pointer) quarterword{
+func Type(p pointer) small_number {
     return mem[p].Type()
 }
 
@@ -51,8 +67,8 @@ func flush_token_list(p pointer) {
         q = p
         p = link(p)
         switch Type(q) {
-            case vauous, boolean_type, known:
-            case string_type: delete_str_ref(value(q))
+            case vacuous, boolean_type, known:
+            case string_type: delete_str_ref(mem[q].(string_tok).Value)
             case unknown_boolean, unknown_string, unknown_pen, unknown_picture, unknown_path,
             pen_type, path_type, future_pen, picture_type, transform_type, dependent,
             proto_dependent, independent: g_pointer = q; token_recycle()
@@ -66,3 +82,18 @@ func flush_token_list(p pointer) {
 func show_token_list(p pointer, q integer, l, null_tally integer){
     fatal_error("show_token_list not implemented")
 }
+
+// s224
+func print_capsule(){
+    print_char('(')
+    print_exp(g_pointer, 0)
+    print_char(')')
+}
+
+func token_recycle(){
+    recycle_value(g_pointer)
+}
+
+// s225
+var g_pointer pointer
+
