@@ -19,3 +19,8 @@ package metatrue
 import (
 //"fmt"
 )
+
+// s257
+func print_path(h pointer, s str_number, nuline bool) {
+    fatal_error("print_path not implemented")
+}

@@ -50,6 +50,7 @@ func stash_cur_exp() pointer {
 
 func print_exp(p pointer, verbosity small_number) {
 	var (
+	    restore_cur_exp bool
 		t small_number
 		v integer
 		q pointer
@@ -107,7 +108,7 @@ func print_exp(p pointer, verbosity small_number) {
 			}
 			switch t {
 			case pen_type:
-				print_pen(v, "", false)
+				print_pen(pointer(v), "", false)
 			case future_pen:
 				print_path(v, " (future_pen)", false)
 			path_type:

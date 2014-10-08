@@ -50,11 +50,9 @@ type (
 	// for integer int32
 	quarterword byte
 	halfword    uint16
-	// if integer int64
+	// for integer int64
 	//quarterword uint16
 	//halfword uint32
-	//two_choices   byte
-	//three_choices byte
 	two_halves    struct {
 		lh, rh halfword
 	}

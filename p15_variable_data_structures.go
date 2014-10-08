@@ -19,3 +19,8 @@ package metatrue
 import (
 //"fmt"
 )
+
+// s235
+func print_variable_name(p pointer){
+    fatal_error("print_variable_name undefined")
+}

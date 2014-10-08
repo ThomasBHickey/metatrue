@@ -19,3 +19,11 @@ package metatrue
 import (
 //"fmt"
 )
+
+// s587
+func dep_list(p pointer) pointer {
+    return link(value_loc(p))
+}
+func prev_dep(p pointer) pointer {
+    return info(value_loc(p))
+}

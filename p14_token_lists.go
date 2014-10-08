@@ -20,12 +20,14 @@ import (
 //"fmt"
 )
 // s214
+// Pascal MetaFont stores these in the one-word section of mem
 type sym_tok struct{
     p halfword
 }
 func (node sym_tok) Type() small_number{
     return symbolic
 }
+
 type num_tok struct {
     value scaled
     link halfword
@@ -53,6 +55,15 @@ type capsule_tok struct {
 func (node capsule_tok) Type() small_number {
     return node.capsule_type
 }
+
+func value_loc(p pointer) pointer {
+    return p+1
+}
+
+func value(p pointer) pointer {
+    return mem[value_loc(p)]
+}
+
 // s215
 func new_num_tok(v scaled) pointer {
     node := num_tok{value:v}
