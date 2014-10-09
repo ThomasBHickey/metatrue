@@ -60,8 +60,8 @@ func value_loc(p pointer) pointer {
     return p+1
 }
 
-func value(p pointer) pointer {
-    return mem[value_loc(p)]
+func value(p pointer) scaled {
+    return mem[p].(num_tok).value
 }
 
 // s215
