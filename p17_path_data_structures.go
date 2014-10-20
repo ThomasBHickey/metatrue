@@ -21,6 +21,10 @@ import (
 )
 
 // s257
-func print_path(h pointer, s str_number, nuline bool) {
-    fatal_error("print_path not implemented")
+func print_path_sn(h pointer, sn str_number, nuline bool) {
+    print_path(h, pos_to_string[sn], nuline)
+}
+
+func print_path(h pointer, s string, nuline bool){
+    fatal_error("print_path not implemented"+s)
 }

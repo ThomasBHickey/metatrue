@@ -25,3 +25,17 @@ const (
     zero_w = 4
     void = null+1
     )
+    
+// s327
+var cur_edges pointer
+var cur_wt integer
+
+
+// s 332
+func print_edges_sn(sn str_number, nuline bool, x_off, y_off integer) {
+    print_edges(pos_to_string[sn], nuline, x_off, y_off)
+}
+
+func print_edges(s string, nuline bool, x_off, y_off integer) {
+    fatal_error("print_edges not defined "+s)
+}

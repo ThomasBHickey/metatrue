@@ -31,10 +31,17 @@ func (node sym_tok) Type() small_number{
 type num_tok struct {
     value scaled
     link halfword
+    info halfword
+    name_type quarterword
 }
 func (node num_tok) Type() small_number{
     return known
 }
+
+func name_type(p pointer) quarterword {
+    return mem[p].(num_tok).name_type
+}
+
 func (node num_tok) setLink(l halfword){
     node.link = l
 }
@@ -60,8 +67,8 @@ func value_loc(p pointer) pointer {
     return p+1
 }
 
-func value(p pointer) scaled {
-    return mem[p].(num_tok).value
+func value(p pointer) integer {
+    return integer(mem[p].(num_tok).value)
 }
 
 // s215

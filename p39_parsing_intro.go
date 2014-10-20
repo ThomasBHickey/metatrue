@@ -46,6 +46,19 @@ func stash_cur_exp() pointer {
 	return p
 }
 
+// s802
+func unstash_cur_exp(p pointer) {
+    cur_type = Type(p)
+    switch cur_type {
+        case unknown_boolean, unknown_string, unknown_pen, unknown_picture, unknown_path,
+            transform_type, pair_type, dependent, proto_dependent, independent:
+            cur_exp = integer(p)
+        default:
+            cur_exp = value(p)
+            free_node(p)
+    }
+}
+
 // s801
 
 func print_exp(p pointer, verbosity small_number) {
@@ -53,7 +66,7 @@ func print_exp(p pointer, verbosity small_number) {
 	    restore_cur_exp bool
 		t small_number
 		v integer
-		q pointer
+		//q pointer  // not needed until s803 Display a big node implemented
 	)
 	if p != null {
 		restore_cur_exp = false
@@ -66,7 +79,7 @@ func print_exp(p pointer, verbosity small_number) {
 		v = value(p)
 	} else {
 		if t < independent {
-			v = dep_list(p)
+			v = integer(dep_list(p))
 		}
 	}
 	// s802  // Print an abbreviated value of v with format depending on t
@@ -84,10 +97,10 @@ func print_exp(p pointer, verbosity small_number) {
 		print_type(t)
 		if v != null {
 			print_char(' ')
-			for (name_type(v) == capsule) || (pointer(v) != p) {
-				v = value(v)
+			for (name_type(pointer(v)) == capsule) || (pointer(v) != p) {
+				v = value(pointer(v))
 			}
-			print_variable_name(v)
+			print_variable_name(pointer(v))
 		}
 	case string_type:
 		print_char('"')
@@ -110,11 +123,11 @@ func print_exp(p pointer, verbosity small_number) {
 			case pen_type:
 				print_pen(pointer(v), "", false)
 			case future_pen:
-				print_path(v, " (future_pen)", false)
-			path_type:
-				print_path(v, "", false)
-			picture_type:
-				cur_edges = v
+				print_path(pointer(v), " (future_pen)", false)
+			case path_type:
+				print_path(pointer(v), "", false)
+			case picture_type:
+				cur_edges = pointer(v)
 				print_edges("", false, 0, 0)
 			}
 		}
@@ -128,9 +141,9 @@ func print_exp(p pointer, verbosity small_number) {
 			print_char(')')
 		}
 	case known:
-		print_scaled(v)
+		scaled(v).Print() // print_scaled(v)
 	case dependent, proto_dependent:
-		print_dp(t, v, verbosity)
+		print_dp(t, pointer(v), verbosity)
 	case independent:
 		print_variable_name(p)
 	default:
@@ -141,20 +154,27 @@ func print_exp(p pointer, verbosity small_number) {
 	}
 }
 
+
+// s805
+func print_dp(t small_number, p pointer, verbosity small_number){
+    fatal_error("print_dp not implemented")
+}
+    
 // s807
-func exp_err(s str_number) {
-	disp_err(null, s)
+func exp_err_sn(s str_number) {
+	disp_err_sn(null, s)
 }
 
-func disp_err(p pointer, s str_number) {
+func disp_err_sn(p pointer, sn str_number) {
 	if interaction == error_stop_mode {
-		wake_up_termnal()
+		wake_up_terminal()
 	}
 	print_nl(">> ")
 	print_exp(p, 1)
+	s := pos_to_string[sn]
 	if s != "" {
 		print_nl("! ")
-		print_ns(s)
+		print(s)
 	}
 }
 

@@ -51,8 +51,8 @@ func link(p pointer) pointer {
 	return pointer(mem[p].(num_tok).link)
 }
 
-func info(mw two_halves) halfword {
-	return mw.lh
+func info(p pointer) halfword {
+	return mem[p].(num_tok).info
 }
 
 var avail pointer
