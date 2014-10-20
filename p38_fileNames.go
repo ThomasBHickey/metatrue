@@ -27,7 +27,31 @@ var (
     log_name string
     )
     
+// s784
+func pack_job_name_sn(sn pointer){
+    pack_job_name(pos_to_string[sn])
+}
+
+func pack_job_name(s string) {
+    cur_area = ""
+    cur_ext = s
+    cur_name = job_name
+    pack_file_name(cur_name, cur_area, cur_ext)
+}
+    
 // s788
 func open_log_file(){
     print_err("open_log_file not implemented yet")
+    var (
+        old_setting int
+        k, l, m int
+)
+    const months = "JANFEBMARAPRMAYJUNJULAUGSEPOCTNOVDEC"
+    
+    old_setting = selector
+    if job_name=="" {job_name = "mfput"}
+    pack_job_name(".log")
+    for !a_open_out(log_file) {
+    }
+    
 }
