@@ -52,10 +52,16 @@ type eight_bits byte
 // don't think we need alpha_file and byte_file
 
 // s 25
-// try to do without name_of_file and name_length
+var name_of_file string
 
-// s 26, 27 opening/closing files
-// just use os.Open
+// s 26
+
+func open_out() *bufio.Writer  {
+    fo, err := os.Create(name_of_file)
+    if err!=nil {return nil}
+    w := bufio.NewWriter(fo)
+    return w
+}
 
 // s29
 var (
@@ -98,7 +104,8 @@ var (
 func t_open_in() {
 }
 
-func t_open_out() {
+func t_open_out() *bufio.Writer {
+    return bufio.NewWriter(os.Stdout)
 }
 
 // s33
