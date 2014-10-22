@@ -59,6 +59,7 @@ func wterm_cr() {
 	write_ln(term_out)
 }
 func wlog(msg string) {
+    fmt.Println("in wlog", msg)
 	write(log_file, msg)
 }
 func wlog_ln(msg string) {
@@ -90,6 +91,8 @@ func print_ln() {
 // s58
 func print_char(r rune) {
 	sr := string(r)
+	fmt.Println("print_char", sr)
+	fmt.Println("selector", selector)
 	switch selector {
 	case term_and_log:
 		wterm(sr)
@@ -105,6 +108,7 @@ func print_char(r rune) {
 			file_offset = 0
 		}
 	case log_only:
+	    fmt.Println("log_only")
 		wlog(sr)
 		file_offset++
 		if file_offset == max_print_line {
@@ -128,6 +132,7 @@ func print_char(r rune) {
 
 // s59
 func print(s string) {
+    fmt.Println("in print()", s)
 	for _, r := range s {
 		print_char(r)
 	}

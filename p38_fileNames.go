@@ -29,6 +29,7 @@ var cur_name,
 
 // s780
 func make_name_string(f *os.File) {
+    fmt.Println("in make_name_string", f)
 	fileInfo, err := f.Stat()
 	if err != nil {
 		fatal_error("fileInfo error in make_name_string")
@@ -38,6 +39,7 @@ func make_name_string(f *os.File) {
 		fatal_error("filepath failed in make_name_string")
 	}
 	name_of_file = fullPath
+	fmt.Println("name_of_file in make_name_string", name_of_file)
 }
 
 // s774
@@ -70,7 +72,7 @@ func pack_job_name(s string) {
 
 // s788
 func open_log_file() {
-	print_err("in open_log_file()")
+	fmt.Println("in open_log_file()")
 	var (
 		old_setting int
 		k, l integer //, m     int
@@ -82,7 +84,7 @@ func open_log_file() {
 	}
 	pack_job_name("log")
 	for {
-	    print_err("in open loop")
+	    fmt.Println("in open loop")
 		fp := open_out()
 		if fp != nil {
 			log_file = fp
@@ -92,12 +94,16 @@ func open_log_file() {
 		}
 		fatal_error("unable to open " + name_of_file)
 	}
-	print_err("name_of_file: "+name_of_file)
+	fmt.Println("opened up: "+name_of_file)
 	//make_name_string(log_file)  // happens in open_out
 	log_name = name_of_file
 	selector = log_only
 	log_opened = true
 	print_banner_line()
+	fmt.Println("called print_banner_line")
+	fmt.Println("input_ptr", input_ptr)
+	fmt.Println("len of input_stack", len(input_stack))
+	return
 	input_stack[input_ptr] = cur_input
 	print_nl("**")
 	l = input_stack[0].limit - 1
@@ -111,10 +117,18 @@ func open_log_file() {
 // s790
 func print_banner_line() {
 	const months = "JANFEBMARAPRMAYJUNJULAUGSEPOCTNOVDEC"
+	fmt.Println("print_banner_line()", banner)
 	wlog(banner)
+	fmt.Println("passed wlog in print_banner_line")
 	slow_print(base_ident)
+	fmt.Println("passed slow_print in print_banner_line")
 	print("  ")
+	fmt.Println("passed double blank in print_banner_line")
+	fmt.Println("value of day", day)
+	fmt.Println("length of internal", len(internal))
+	fmt.Println("internal[day]", internal[day])
 	print_int(round_unscaled(internal[day]))
+	fmt.Println("passed print_int in print_banner_line")
 	print_char(' ')
 	m := round_unscaled(internal[month])
 	wlog(months[3*m : 3*m+3])
@@ -125,4 +139,5 @@ func print_banner_line() {
 	print_dd(m / 60)
 	print_char(':')
 	print_dd(m % 60)
+	fmt.Println("finishing print_banner_line")
 }

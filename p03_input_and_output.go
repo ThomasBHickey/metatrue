@@ -27,7 +27,9 @@ import (
 )
 
 func write(w *bufio.Writer, msgs ...string) {
+    fmt.Println("in write()", msgs)
 	for _, msg := range msgs {
+	    fmt.Println("msg in msg loop:", msg)
 		_, err := w.WriteString(msg)
 		if err != nil {
 			jump_out(err)
@@ -57,7 +59,7 @@ var name_of_file string
 // s 26
 
 func open_out() *bufio.Writer  {
-    print_err("open_out() "+name_of_file)
+    fmt.Println("open_out() ", name_of_file)
     fo, err := os.Create(name_of_file)
     fmt.Println("fo, err", fo, err)
     if err!=nil {
@@ -65,7 +67,6 @@ func open_out() *bufio.Writer  {
         jump_out(err)
     }
     make_name_string(fo)
-    if err!=nil {return nil}
     w := bufio.NewWriter(fo)
     return w
 }

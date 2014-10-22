@@ -17,7 +17,7 @@
 package metatrue
 
 import (
-//"fmt"
+    "fmt"
 )
 
 // s2
@@ -27,6 +27,7 @@ var banner = "This is METATRUE, Version 1"
 //Don't think we need to pull everthing together in Go, but do
 // need an initialization routine
 func initialize() {
+    fmt.Println("initialize called")
     set_initial_values_of_key_variables()
     get_strings_started()
     set_up_internals()
