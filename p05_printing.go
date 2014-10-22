@@ -188,13 +188,13 @@ func print_the_digs(k int) {
 
 // s64
 // not sure this will pass Trap, but worth a try!
-func print_int(n int) {
+func print_int(n integer) {
 	print(fmt.Sprintf("%d", n))
 }
 
 // s65
-func print_dd(n int) {
-	print_int(Abs(n) % 100)
+func print_dd(n integer) {
+	print_int(integer(Abs(int(n)) % 100))
 }
 
 // s66

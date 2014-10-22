@@ -27,7 +27,7 @@ type in_state_record struct {
 	index,
 	start,
 	loc,
-	limit int
+	limit integer
 	name string
 }
 
@@ -40,6 +40,14 @@ var (
 )
 
 // s631
+var (
+	in_open     integer
+	open_parens integer
+	input_file  [max_in_open + 1]*bufio.Reader
+	line        integer
+	line_stack  [max_in_open + 1]integer
+)
+
 func terminal_input() bool {
 	return cur_input.name == ""
 }
@@ -47,14 +55,6 @@ func terminal_input() bool {
 func cur_file() *bufio.Reader {
 	return input_file[cur_input.index]
 }
-
-var (
-	in_open     int
-	open_parens int
-	input_file  []*bufio.Reader
-	line        int
-	line_stack  [max_in_open + 1]int
-)
 
 // s 632
 func file_state() bool {

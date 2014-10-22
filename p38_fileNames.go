@@ -17,37 +17,40 @@
 package metatrue
 
 import (
-    "os"
-    "path/filepath"
+    "fmt"
+	"os"
+	"path/filepath"
 )
 
 // s767
 var cur_name,
 	cur_area,
 	cur_ext string
-	
+
 // s780
 func make_name_string(f *os.File) {
-    fileInfo, err := f.Stat()
-     if err != nil {
-         fatal_error("fileInfo error in make_name_string")
-     }
-     fullPath, err :=  filepath.Abs(fileInfo.Name())
-     if err != nil {
-         fatal_error("filepath failed in make_name_string")
-     }
-     name_of_file = fullPath
+	fileInfo, err := f.Stat()
+	if err != nil {
+		fatal_error("fileInfo error in make_name_string")
+	}
+	fullPath, err := filepath.Abs(fileInfo.Name())
+	if err != nil {
+		fatal_error("filepath failed in make_name_string")
+	}
+	name_of_file = fullPath
 }
 
 // s774
 func pack_file_name(name, area, extension string) {
-    name_of_file = area+"/"+name+"."+extension
-    }
-    
+    name_of_file = ""
+    if len(area)>0 {name_of_file = area+"/"}
+    name_of_file = name_of_file+name
+    if len(extension)>0 {name_of_file = name_of_file+"."+extension}
+}
 
 // s782
 var (
-	job_name   string
+	job_name   = ""
 	log_opened bool
 	log_name   string
 )
@@ -61,56 +64,65 @@ func pack_job_name(s string) {
 	cur_area = ""
 	cur_ext = s
 	cur_name = job_name
+	fmt.Println("pack_job_name", cur_name, cur_ext)
 	pack_file_name(cur_name, cur_area, cur_ext)
 }
 
 // s788
 func open_log_file() {
-	print_err("open_log_file not implemented yet")
+	print_err("in open_log_file()")
 	var (
 		old_setting int
-		//k, l, m     int
+		k, l integer //, m     int
 	)
 
 	old_setting = selector
 	if job_name == "" {
 		job_name = "mfput"
 	}
-	pack_job_name(".log")
+	pack_job_name("log")
 	for {
-	    fp  := open_out()
-	    if fp!=nil {
-	        log_file = fp
-	        break}
-	    fatal_error("unable to open "+name_of_file)
+	    print_err("in open loop")
+		fp := open_out()
+		if fp != nil {
+			log_file = fp
+			break
+		}else{
+		    fatal_error("open_log_file failed")
+		}
+		fatal_error("unable to open " + name_of_file)
 	}
-	log_name = make_name_string(log_file)
+	print_err("name_of_file: "+name_of_file)
+	//make_name_string(log_file)  // happens in open_out
+	log_name = name_of_file
 	selector = log_only
 	log_opened = true
 	print_banner_line()
 	input_stack[input_ptr] = cur_input
 	print_nl("**")
-	l := input_stack[0].limit_field-1
-	print(buffer)
+	l = input_stack[0].limit - 1
+	for k = 1; k <= l; k++ {
+		print_char(buffer[k])
+	}
 	print_ln()
 	selector = old_setting + 2 // log_only or term_and_log
 }
 
 // s790
-func print_banner_line(){
+func print_banner_line() {
 	const months = "JANFEBMARAPRMAYJUNJULAUGSEPOCTNOVDEC"
-    wlog(banner)
-    slow_print(base_ident)
-    print("  ")
-    print_int(round_unscaled(internal[day]))
-    print_char(' ')
-    m := round_unscaled(internal[month])
-    wlog(months[3*m:3*m+3])
-    print_char(' ')
-    print_int(round_unscaled(internal[year]))
-    print_char(' ')
-    m = round_unscaled(internal[time])
-    print_dd(m/60)
-    print_char(':')
-    print_dd(m%60)
+	wlog(banner)
+	slow_print(base_ident)
+	print("  ")
+	print_int(round_unscaled(internal[day]))
+	print_char(' ')
+	m := round_unscaled(internal[month])
+	wlog(months[3*m : 3*m+3])
+	print_char(' ')
+	print_int(round_unscaled(internal[year]))
+	print_char(' ')
+	m = round_unscaled(internal[time])
+	print_dd(m / 60)
+	print_char(':')
+	print_dd(m % 60)
 }

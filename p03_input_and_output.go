@@ -57,7 +57,14 @@ var name_of_file string
 // s 26
 
 func open_out() *bufio.Writer  {
+    print_err("open_out() "+name_of_file)
     fo, err := os.Create(name_of_file)
+    fmt.Println("fo, err", fo, err)
+    if err!=nil {
+        print_err("problem opening in open_out()")
+        jump_out(err)
+    }
+    make_name_string(fo)
     if err!=nil {return nil}
     w := bufio.NewWriter(fo)
     return w
@@ -67,7 +74,7 @@ func open_out() *bufio.Writer  {
 var (
 	buffer [buf_size + 1]rune
 	first,
-	last int
+	last integer
 	max_buf_stack = 0
 )
 
@@ -82,7 +89,7 @@ func input_ln(r *bufio.Reader, bypass_eoln bool) bool {
 	}
 	//line = bytes.Trim(line, " \t\n")
 	runes := []rune(line)
-	if len(runes)+last >= max_buf_stack {
+	if len(runes)+int(last) >= max_buf_stack {
 		// s 34
 		overflow("buffer_size", buf_size) // this won't return
 	}
@@ -123,7 +130,7 @@ func bufferText(s string){
         buffer[pos] = r
     }
     cur_input.loc = first
-    last  = len(rs)
+    last  = integer(len(rs))
 }
 
 func init_terminal() error {
