@@ -27,9 +27,9 @@ import (
 )
 
 func write(w *bufio.Writer, msgs ...string) {
-    fmt.Println("in write()", msgs)
+    //fmt.Println("in write()", msgs)
 	for _, msg := range msgs {
-	    fmt.Println("msg in msg loop:", msg)
+	    //fmt.Println("msg in msg loop:", msg)
 		_, err := w.WriteString(msg)
 		if err != nil {
 			jump_out(err)

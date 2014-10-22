@@ -18,7 +18,7 @@ package metatrue
 
 import (
 	"bufio"
-	//"fmt"
+	"fmt"
 )
 
 // s627
@@ -73,5 +73,5 @@ var file_ptr int
 
 // s635
 func show_context() {
-	print_err("showContext not yet implemented")
+    fmt.Println("showContext not yet implemented")
 }

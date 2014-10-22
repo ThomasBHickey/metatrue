@@ -91,8 +91,8 @@ func print_ln() {
 // s58
 func print_char(r rune) {
 	sr := string(r)
-	fmt.Println("print_char", sr)
-	fmt.Println("selector", selector)
+	//fmt.Println("print_char", sr)
+	//fmt.Println("selector", selector)
 	switch selector {
 	case term_and_log:
 		wterm(sr)
@@ -132,7 +132,7 @@ func print_char(r rune) {
 
 // s59
 func print(s string) {
-    fmt.Println("in print()", s)
+    //fmt.Println("in print()", s)
 	for _, r := range s {
 		print_char(r)
 	}

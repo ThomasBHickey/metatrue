@@ -285,6 +285,8 @@ func succumb() {
 }
 
 func fatal_error(s string) {
+    panic("in fatal error (needs fixing): "+s)
+    jump_out(nil)
 	normalize_selector()
 	print_err("Emergency stop")
 	help(s)
