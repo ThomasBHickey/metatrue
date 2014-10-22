@@ -282,11 +282,13 @@ func succumb() {
 		}
 	}
 	history = fatal_error_stop
+	jump_out(nil)
 }
 
 func fatal_error(s string) {
-    panic("in fatal error (needs fixing): "+s)
-    jump_out(nil)
+    //panic("in fatal error (needs fixing): "+s)
+    //jump_out(nil)
+    fmt.Println("fatal_error "+s)
 	normalize_selector()
 	print_err("Emergency stop")
 	help(s)

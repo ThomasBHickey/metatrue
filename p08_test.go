@@ -18,10 +18,11 @@ package metatrue
 
 import (
     "testing"
-    //"fmt"
+    "fmt"
 )
 
 func TestS121(t *testing.T) {
+    fmt.Println("TestS121 in p08")
 // 	if square_rt(three+unity) != two {
 // 		t.Error("bad sqrt?", square_rt(three+unity))
 // 		}

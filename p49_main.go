@@ -78,7 +78,32 @@ final_end:
 // s1205
 func close_files_and_terminate() error {
 	fmt.Println("close_files_and_terminate")
+	if stat && internal[tracing_stats]>0 {
+	    output_job_statistics()
+	}
+	wake_up_terminal()
+	finish_TFM_and_GF_files()
+	if log_opened {
+	    wlog_cr();
+	    log_file.Flush()
+	    selector = selector-2
+	    if selector == term_only {
+	        print_nl("Transcript written on ")
+	        slow_print(log_name)
+	        print_char('.')
+	    }
+	}
 	return nil
+}
+
+// s1206
+func finish_TFM_and_GF_files(){
+    fmt.Println("finish_TFM_and_GF_files not implemented")
+}
+
+// s1208
+func output_job_statistics(){
+    fmt.Println("output_job_statistics not implemented")
 }
 
 // s 1209

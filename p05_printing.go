@@ -108,7 +108,7 @@ func print_char(r rune) {
 			file_offset = 0
 		}
 	case log_only:
-	    fmt.Println("log_only")
+	    //fmt.Println("log_only")
 		wlog(sr)
 		file_offset++
 		if file_offset == max_print_line {
