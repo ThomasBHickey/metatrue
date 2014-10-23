@@ -20,7 +20,7 @@ import (
     "fmt"
 )
 // s1203
-//var ready_already int
+var ready_already = 0
 
 // s1204
 func Start() error {
@@ -37,7 +37,11 @@ func Start() error {
 // 		goto final_end
 // 	}
 	initialize()
-	//ready_already = 314159
+	get_strings_started()
+	init_tab()
+	init_prim()
+	
+	ready_already = 314159
 //start_of_MT:
 	fmt.Println("mt start_of_MT")
 	if err != nil {
@@ -110,6 +114,15 @@ func output_job_statistics(){
 func final_cleanup() error {
 	fmt.Println("final_cleanup")
 	return nil
+}
+
+// s1210
+func init_prim() {
+    putPrimitivesIn_1()
+}
+
+func init_tab(){
+    initialize_table_entries()  // s176
 }
 
 // Section 1211

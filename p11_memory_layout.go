@@ -38,7 +38,7 @@ const (
 )
 
 
-// a176
+// s176
 func initialize_table_entries () {
     var_used = integer(len(mem)+1)
     for len(int_name)<=max_given_internal {

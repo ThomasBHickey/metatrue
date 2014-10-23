@@ -17,7 +17,7 @@
 package metatrue
 
 import (
-//"fmt"
+    "fmt"
 )
 
 // s186, mostly pulled in directly from the MF source
@@ -570,6 +570,7 @@ func putPrimitivesIn_1() {
 
 // s193
 func initialize_table_entries_A() {
+    fmt.Println("initialize_table_entries_A")
 	// int_name has been pre-extended to accommodate these entries
 	int_name[tracing_titles] = make_string("tracingtitles")
 	int_name[tracing_equations] = make_string("tracingequations")
@@ -620,6 +621,7 @@ func fix_date_and_time() {
 	internal[day] = 4 * unity
 	internal[month] = 7 * unity
 	internal[year] = 1776 * unity
+	fmt.Println("internal[day]", internal[day])
 }
 
 // s195

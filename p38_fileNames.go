@@ -125,7 +125,7 @@ func print_banner_line() {
 	print("  ")
 	fmt.Println("passed double blank in print_banner_line")
 	fmt.Println("value of day", day)
-	fmt.Println("length of internal", len(internal))
+	fmt.Println("len(internal)", len(internal))
 	fmt.Println("internal[day]", internal[day])
 	print_int(round_unscaled(internal[day]))
 	fmt.Println("passed print_int in print_banner_line")
