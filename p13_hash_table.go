@@ -17,7 +17,7 @@
 package metatrue
 
 import (
-//"fmt"
+    //"fmt"
 )
 
 var eqtb [] two_halves

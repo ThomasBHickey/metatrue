@@ -514,13 +514,17 @@ const (
 var (
 	internal []scaled
 	int_name []str_number
+	internals_set_up bool
 )
 
 // s191
 func set_up_internals() {
+    fmt.Println("in set_up_internals()", internals_set_up)
+    if internals_set_up { return }
 	for k := 0; k <= max_given_internal; k++ {
 		internal = append(internal, 0)
 	}
+	internals_set_up = true
 }
 
 // s192

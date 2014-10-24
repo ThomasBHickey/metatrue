@@ -59,7 +59,7 @@ func wterm_cr() {
 	write_ln(term_out)
 }
 func wlog(msg string) {
-    fmt.Println("in wlog", msg)
+    //fmt.Println("in wlog", msg)
 	write(log_file, msg)
 }
 func wlog_ln(msg string) {

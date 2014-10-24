@@ -116,7 +116,7 @@ func open_log_file() {
 
 // s790
 func print_banner_line() {
-	const months = "JANFEBMARAPRMAYJUNJULAUGSEPOCTNOVDEC"
+	const months = "   JANFEBMARAPRMAYJUNJULAUGSEPOCTNOVDEC"
 	fmt.Println("print_banner_line()", banner)
 	wlog(banner)
 	fmt.Println("passed wlog in print_banner_line")

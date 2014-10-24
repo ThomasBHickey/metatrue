@@ -40,6 +40,7 @@ func Start() error {
 	get_strings_started()
 	init_tab()
 	init_prim()
+	fix_date_and_time()
 	
 	ready_already = 314159
 //start_of_MT:

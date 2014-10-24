@@ -29,8 +29,10 @@ var banner = "This is METATRUE, Version 1"
 func initialize() {
     fmt.Println("initialize called")
     set_initial_values_of_key_variables()
+    fmt.Println("key variables set up!")
     //get_strings_started()
-    //set_up_internals()
+    set_up_internals()
+    fmt.Println("set_up_internals done")
     //putPrimitivesIn_1()
     //initialize_table_entries()
 }
