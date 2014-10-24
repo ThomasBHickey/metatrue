@@ -270,6 +270,7 @@ func normalize_selector() {
 
 // s88
 func succumb() {
+    fmt.Println("In succumb()")
 	if interaction == error_stop_mode {
 		interaction = scroll_mode
 	}

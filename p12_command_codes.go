@@ -18,6 +18,7 @@ package metatrue
 
 import (
     "fmt"
+    "time"
 )
 
 // s186, mostly pulled in directly from the MF source
@@ -483,7 +484,7 @@ const (
 	year
 	month
 	day
-	time
+	Time
 	char_code
 	char_ext
 	char_wd
@@ -545,7 +546,7 @@ func putPrimitivesIn_1() {
 	primitive("year", internal_quantity, year)
 	primitive("month", internal_quantity, month)
 	primitive("day", internal_quantity, day)
-	primitive("time", internal_quantity, time)
+	primitive("time", internal_quantity, Time)
 	primitive("charcode", internal_quantity, char_code)
 	primitive("charext", internal_quantity, char_ext)
 	primitive("charwd", internal_quantity, char_wd)
@@ -592,7 +593,7 @@ func initialize_table_entries_A() {
 	int_name[year] = make_string("year")
 	int_name[month] = make_string("month")
 	int_name[day] = make_string("day")
-	int_name[time] = make_string("time")
+	int_name[Time] = make_string("time")
 	int_name[char_code] = make_string("charcode")
 	int_name[char_ext] = make_string("charext")
 	int_name[char_wd] = make_string("charwd")
@@ -621,10 +622,15 @@ func initialize_table_entries_A() {
 
 // s194
 func fix_date_and_time() {
-	internal[time] = 12 * 60 * unity
-	internal[day] = 4 * unity
-	internal[month] = 7 * unity
-	internal[year] = 1776 * unity
+    now := time.Now()
+    cyear, cmonth, cday := now.Date()
+    chour := now.Hour()
+    cminute := now.Minute()
+    //csecond := now.Second()
+	internal[Time] = scaled(chour*60 + cminute) * unity // 12 * 60 * unity
+	internal[day] = scaled(cday) * unity // 4 * unity
+	internal[month] = scaled(cmonth) * unity //7 * unity
+	internal[year] = scaled(cyear) * unity //1776 * unity
 	fmt.Println("internal[day]", internal[day])
 }
 

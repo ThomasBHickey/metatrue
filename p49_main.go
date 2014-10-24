@@ -92,11 +92,13 @@ func close_files_and_terminate() error {
 	    wlog_cr();
 	    log_file.Flush()
 	    selector = selector-2
+	    fmt.Println("selector in close_files_and_terminate ", selector, term_only)
 	    if selector == term_only {
 	        print_nl("Transcript written on ")
 	        slow_print(log_name)
 	        print_char('.')
 	    }
+	    fmt.Println("finishing log_opened in close_files_and_terminate")
 	}
 	return nil
 }
