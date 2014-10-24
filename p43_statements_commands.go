@@ -17,12 +17,14 @@
 package metatrue
 
 import (
-	//"fmt"
+	"fmt"
 )
 
 // s989
 func do_statement(){
-    fatal_error("do_statement in 43/s989 not implemented")
+    fmt.Println("in do_statement in 43/s989")
+    cur_cmd = stop
+    fmt.Println("finished do_statement")
 }
 
 // s1017

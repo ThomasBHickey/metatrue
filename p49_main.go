@@ -62,6 +62,7 @@ func Start() error {
 		back_input()
 	}
 	//goto end_of_MT
+	fmt.Println("Calling main_control()")
 	main_control()
 	err = final_cleanup()
 	if err != nil {
@@ -77,6 +78,7 @@ func Start() error {
 
 final_end:
 	fmt.Println("at final_end")
+	ready_already = 0
 	return err
 }
 
