@@ -17,5 +17,10 @@
 package metatrue
 
 import (
-//"fmt"
+    "fmt"
 )
+
+// s755
+func begin_iteration() {
+    fmt.Println("s755 begin_iteration not implemented")
+}

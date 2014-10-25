@@ -39,7 +39,7 @@ func TestS191(t *testing.T){
     if len(internal)!=max_given_internal+1 {
         t.Error("S191 internal length wrong", len(internal), max_given_internal)
     }
-    putPrimitivesIn_1()
+    putPrimitivesIn_s192()
     rs := "boundarychar"
     fmt.Println("primitive", rs, make_string(rs), pos_to_string[make_string(rs)])
     fmt.Println("eqtb[296]", eqtb[296])

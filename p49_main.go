@@ -123,7 +123,8 @@ func final_cleanup() error {
 
 // s1210
 func init_prim() {
-    putPrimitivesIn_1()
+    putPrimitivesIn_s192()
+    putPrimitivesIn_s683()
 }
 
 func init_tab(){

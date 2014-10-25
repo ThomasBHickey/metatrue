@@ -17,5 +17,10 @@
 package metatrue
 
 import (
-//"fmt"
+    "fmt"
 )
+
+// s748
+func conditional(){
+    fmt.Println("s748 Conditional not implemented")
+}

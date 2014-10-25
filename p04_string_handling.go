@@ -22,6 +22,7 @@ import (
 
 // s37...
 type (
+    pool_pointer pointer
     str_number halfword
 )
 

@@ -101,3 +101,4 @@ var bad int
 // most of these we won't need since
 // we don't have to worry about as many
 // portability issues
+func do_nothing(){}

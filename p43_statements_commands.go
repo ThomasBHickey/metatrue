@@ -23,7 +23,18 @@ import (
 // s989
 func do_statement(){
     fmt.Println("in do_statement in 43/s989")
-    cur_cmd = stop
+    cur_type = vacuous
+    get_x_next()
+    if cur_cmd > max_statement_command {
+        // do s993 equation, assignment, title or <expression> endgroup
+        fmt.Println("s993 not implemented")
+    } else {
+        // do s992 a statement that doesn't begin with an expression
+    }
+    if cur_cmd<semicolon {
+        // s991 Flush unparable junk that was found after the statment
+    }
+    error_count = 0
     fmt.Println("finished do_statement")
 }
 

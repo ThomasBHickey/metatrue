@@ -529,7 +529,7 @@ func set_up_internals() {
 }
 
 // s192
-func putPrimitivesIn_1() {
+func putPrimitivesIn_s192() {
 	primitive("tracingtitles", internal_quantity, tracing_titles)
 	primitive("tracingequations", internal_quantity, tracing_equations)
 	primitive("tracingcapsules", internal_quantity, tracing_capsules)
