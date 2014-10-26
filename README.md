@@ -32,3 +32,5 @@ to avoid limitations like not being able to enter 4096 as a number.  Looks like
 that is (probably deliberately) coded in lots of places.  Probably not that
 hard to eliminate, but I expect that makes it not a compliant MetaFont at that
 point.
+
+October 2014: Still working on it!  Currently working trying to get the parser to actually parse something!
