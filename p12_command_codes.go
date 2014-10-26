@@ -694,6 +694,7 @@ var char_class [256]byte
 // names, etc.
 
 func setup_char_class() {
+	fmt.Println("setup_char_class()")
 	for k := 0; k < 256; k++ {
 		char_class[k] = invalid_class
 	}
@@ -734,4 +735,5 @@ func setup_char_class() {
 	for k := 127; k <= 255; k++ {
 		char_class[k] = invalid_class
 	}
+	fmt.Println("rune and char_class of backslash: ", '\\', char_class['\\'])
 }

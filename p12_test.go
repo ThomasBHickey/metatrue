@@ -50,3 +50,8 @@ func TestS198(t *testing.T) {
         t.Error("right_paren_class", right_paren_class)
     }
 }
+
+func TestS199(t *testing.T) {
+	fmt.Println("char_class['\\']", char_class['\\'])
+	}
+	

@@ -124,7 +124,9 @@ func final_cleanup() error {
 // s1210
 func init_prim() {
     putPrimitivesIn_s192()
+    putPrimitivesIn_s211()
     putPrimitivesIn_s683()
+    fmt.Println("end of primitives end_for:", end_for, "cur_sym", cur_sym, "len(eqtb)", len(eqtb))
 }
 
 func init_tab(){

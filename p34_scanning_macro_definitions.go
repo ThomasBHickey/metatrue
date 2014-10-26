@@ -36,9 +36,13 @@ func putPrimitivesIn_s683() {
     primitive("secondarydef", macro_def, tertiary_secondary_macro)
     primitive("tertiarydef", macro_def, expression_tertiary_macro)
     primitive("enddef", macro_def, end_def)
-    eqtb[frozen_end_def] = eqtb[cur_sym]
+    //eqtb[frozen_end_def] = eqtb[cur_sym]
     primitive("for", iteration, expr_base)
     primitive("forsuffixes", iteration, suffix_base)
     primitive("forever", iteration, start_forever)
     primitive("endfor", iteration, end_for)
 }
+
+// s699
+var bg_loc, eg_loc halfword
+    

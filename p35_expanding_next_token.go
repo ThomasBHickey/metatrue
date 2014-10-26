@@ -23,9 +23,9 @@ import (
 // s707
 func expand(){
     var (
-        p pointer
-        k integer
-        j pool_pointer
+        //p pointer
+        //k integer
+        //j pool_pointer
     )
     if internal[tracing_commands]>unity {
         if cur_cmd!=defined_macro {
@@ -44,14 +44,14 @@ func expand(){
             }
         case repeat_loop: //s 712 Repeat a loop
             fmt.Println("s 712 repeat_loop not implemented")
-        exit_test: // s713 Exit loop if the proper time has come
+        case exit_test: // s713 Exit loop if the proper time has come
             fmt.Println("s 713 not implemented")
-        relax: do_nothing()
-        expand_after: //s715 Expand token after next token
+        case relax: do_nothing()
+        case expand_after: //s715 Expand token after next token
             fmt.Println("s 715 not implemented")
-        scan_tokens: // s716 put string into input buffer
+        case scan_tokens: // s716 put string into input buffer
             fmt.Println("s 716 not implemented")
-        defined_macro: macro_call(pointer(cur_mod), null, pointer(cur_sym))
+        case defined_macro: macro_call(pointer(cur_mod), null, pointer(cur_sym))
     }
 }
 
