@@ -79,7 +79,7 @@ func help(msgs ...string) {
 // s 76
 func jump_out(err error) {
 	if err != nil {
-		fmt.Println("MF Terminating", err)
+		fmt.Println("MF Terminating:", err)
 	}
 	close_files_and_terminate()
 	os.Exit(1)

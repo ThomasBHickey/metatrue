@@ -17,7 +17,8 @@
 package metatrue
 
 import (
-//"fmt"
+	"errors"
+	"fmt"
 )
 
 // s214
@@ -32,7 +33,7 @@ func (node sym_tok) Type() small_number {
 
 type num_tok struct {
 	value     scaled
-	link      halfword
+	link      pointer
 	info      halfword
 	name_type quarterword
 }
@@ -45,8 +46,9 @@ func name_type(p pointer) quarterword {
 	return mem[p].(num_tok).name_type
 }
 
-func (node num_tok) setLink(l halfword) {
+func (node num_tok) setLink(l pointer) Node {
 	node.link = l
+	return node
 }
 
 type string_tok struct {
@@ -57,14 +59,31 @@ func (node string_tok) Type() small_number {
 	return string_type
 }
 
-type capsule_tok struct {
-	name_type    small_number
-	capsule_type small_number
-	value        integer
+func (node string_tok) setLink(p pointer) Node{
+	jump_out(errors.New("Tried to call setLink of a string_tok!"))
+	return node
 }
 
-func (node capsule_tok) Type() small_number {
-	return node.capsule_type
+type value_tok struct {
+	kind      small_number
+	name_type small_number
+	link      pointer
+	value     integer
+}
+
+func (node value_tok) Type() small_number {
+	return node.kind
+}
+
+func (node value_tok) setLink(p pointer) Node{
+	fmt.Println("setting link in value_tok", p, node)
+	node.link = p
+	fmt.Println("value after setting link", node)
+	return node
+}
+
+func (node value_tok) getLink() pointer {
+	return node.link
 }
 
 func value_loc(p pointer) pointer {

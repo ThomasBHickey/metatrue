@@ -17,7 +17,7 @@
 package metatrue
 
 import (
-//"fmt"
+    "fmt"
 )
 
 // s796, s797
@@ -33,7 +33,8 @@ func stash_cur_exp() pointer {
 		transform_type, pair_type, dependent, proto_dependent, independent:
 		p = pointer(cur_exp)
 	default:
-	    p = get_avail(capsule_tok{name_type:capsule, capsule_type:cur_type, value:cur_exp})
+	    fmt.Println("name_type", capsule, "kind", cur_type, "value", cur_exp)
+	    p = get_avail(value_tok{name_type:capsule, kind:cur_type, value:cur_exp, link:133})
 // 		p = get_node(value_node_size)
 // 		name_type(p) = capsule
 // 		Type(p) = cur_type
@@ -41,8 +42,15 @@ func stash_cur_exp() pointer {
 	}
 	cur_type = vacuous
 	//link(p) = void
-	//mem[p].(num_tok).Link = halfword(void)
-	mem[p].(num_tok).setLink(halfword(void))
+	fmt.Printf("About to set link to void at %d: %T, %#v\n", p, mem[p], mem[p])
+	//mem[p].(value_tok).link = void
+	mem[p] = mem[p].setLink(1)
+	//mem[p].setLink(void)
+	fmt.Println("void is", void)
+	fmt.Println("mem[p].(value_tok).getLink()", mem[p].(value_tok).getLink())
+	fmt.Printf("Node is now %#v\n", mem[p])
+	//fmt.Println("Skippig void assignment in p39, s799")
+	//mem[p].(num_tok).setLink(halfword(void))
 	return p
 }
 

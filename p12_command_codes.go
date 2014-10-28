@@ -729,11 +729,11 @@ func setup_char_class() {
 	char_class[']'] = right_bracket_class
 	char_class['{'] = 19
 	char_class['}'] = 19
-	for k := 0; k <= ' '-1; k++ {
-		char_class[k] = invalid_class
-	}
-	for k := 127; k <= 255; k++ {
-		char_class[k] = invalid_class
-	}
+// 	for k := 0; k <= ' '-1; k++ {
+// 		char_class[k] = invalid_class
+// 	}
+// 	for k := 127; k <= 255; k++ {
+// 		char_class[k] = invalid_class
+// 	}
 	fmt.Println("rune and char_class of backslash: ", '\\', char_class['\\'])
 }

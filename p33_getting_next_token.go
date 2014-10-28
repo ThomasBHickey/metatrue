@@ -18,7 +18,7 @@ package metatrue
 
 import (
 	"errors"
-	//"fmt"
+	"fmt"
 )
 
 // s661
@@ -62,6 +62,7 @@ restart:
 		c := buffer[cur_input.loc]
 		cur_input.loc++
 		class := char_class[c]
+		fmt.Println("char and class in get_next s667:", c, class)
 		switch class {
 		case digit_class:
 			goto start_numeric_token
@@ -93,10 +94,12 @@ restart:
 			//fmt.Println("char_class['\\']", char_class['\\'])
 			jump_out(errors.New("s670 not implemented"))
 		default:
+		    fmt.Println("do_nothing() for class", class)
 			do_nothing()
 		}
 		k = cur_input.loc - 1
 		for ; char_class[buffer[cur_input.loc]] == class; cur_input.loc++ {
+		    fmt.Println("skipping chars in class", class)
 		}
 		goto found
 	start_numeric_token:
@@ -107,14 +110,17 @@ restart:
 		jump_out(errors.New("s675 not implemented"))
 	found:
 		//cur_sym = id_lookup(k, cur_input.loc-k)
+		fmt.Println("found: ", k, cur_input.loc, buffer[k:cur_input.loc])
 		cur_sym = halfword(string_to_pos[string(buffer[k:cur_input.loc])])
 	} else {
 		// s 676 input from token list
 		jump_out(errors.New("s676 not implemented"))
 	}
 	// s668
+	fmt.Printf("made it to s668 in get_next(). eqtb[cur_sym]:%T: %s\n", eqtb[cur_sym], eqtb[cur_sym])
 	cur_cmd = eqtb[cur_sym].eq_type
 	cur_mod = integer(eqtb[cur_sym].equiv)
+	fmt.Println("s668 cur_cmd", cur_cmd, "cur_mod", cur_mod)
 	if cur_cmd >= outer_tag {
 		if check_outer_validity() {
 			cur_cmd = cur_cmd - outer_tag

@@ -17,7 +17,7 @@
 package metatrue
 
 import (
-//"fmt"
+    "fmt"
 )
 
 // The dynamic memory in MetaTrue has been reorganized from MetaFont
@@ -32,7 +32,9 @@ const null = mem_min
 // s159
 type Node interface {
 	Type() small_number
+	setLink(pointer) Node
 }
+
 
 var (
 	mem     = []Node{}
@@ -77,6 +79,7 @@ func get_avail(node Node) pointer {
 	if stat {
 		dyn_used++
 	}
+	fmt.Printf("get_avail adding node type %T at pos %d %s", node, pos, node)
 	return pos
 }
 
