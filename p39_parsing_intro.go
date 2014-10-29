@@ -34,7 +34,7 @@ func stash_cur_exp() pointer {
 		p = pointer(cur_exp)
 	default:
 	    fmt.Println("name_type", capsule, "kind", cur_type, "value", cur_exp)
-	    p = get_avail(value_tok{name_type:capsule, kind:cur_type, value:cur_exp, link:133})
+	    p = get_avail(&value_tok{name_type:capsule, kind:cur_type, value:cur_exp, link:133})
 // 		p = get_node(value_node_size)
 // 		name_type(p) = capsule
 // 		Type(p) = cur_type
@@ -44,10 +44,9 @@ func stash_cur_exp() pointer {
 	//link(p) = void
 	fmt.Printf("About to set link to void at %d: %T, %#v\n", p, mem[p], mem[p])
 	//mem[p].(value_tok).link = void
-	mem[p] = mem[p].setLink(1)
-	//mem[p].setLink(void)
-	fmt.Println("void is", void)
-	fmt.Println("mem[p].(value_tok).getLink()", mem[p].(value_tok).getLink())
+	mem[p].setLink(void)
+	//fmt.Println("mem[p].(value_tok).getLink()", mem[p].(&value_tok).link)
+	fmt.Println("mem[p].(value_tok).getLink()", mem[p].getLink())
 	fmt.Printf("Node is now %#v\n", mem[p])
 	//fmt.Println("Skippig void assignment in p39, s799")
 	//mem[p].(num_tok).setLink(halfword(void))

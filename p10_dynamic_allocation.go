@@ -32,7 +32,7 @@ const null = mem_min
 // s159
 type Node interface {
 	Type() small_number
-	setLink(pointer) Node
+	setLink(pointer)
 }
 
 
@@ -49,13 +49,13 @@ var var_used, dyn_used integer
 
 // s161
 // we hope Go inlines this sort of thing!
-func link(p pointer) pointer {
-	return pointer(mem[p].(num_tok).link)
-}
+// func link(p pointer) pointer {
+// 	return pointer(mem[p].(num_tok).link)
+// }
 
-func info(p pointer) halfword {
-	return mem[p].(num_tok).info
-}
+// func info(p pointer) halfword {
+// 	return mem[p].(num_tok).info
+// }
 
 var avail pointer
 var mem_end pointer
@@ -67,7 +67,7 @@ func get_avail(node Node) pointer {
     if len(free_mem)>0 {
         pos = free_mem[len(free_mem)-1]
         free_mem = free_mem[:len(free_mem)-1]
-        mem[pos] = node
+        mem[pos] = &value_tok{}
     }else{
         pos = pointer(len(mem))
         mem = append(mem, node)

@@ -27,7 +27,7 @@ type sym_tok struct {
 	p halfword
 }
 
-func (node sym_tok) Type() small_number {
+func (node *sym_tok) Type() small_number {
 	return symbolic
 }
 
@@ -38,30 +38,28 @@ type num_tok struct {
 	name_type quarterword
 }
 
-func (node num_tok) Type() small_number {
+func (node *num_tok) Type() small_number {
 	return known
 }
 
-func name_type(p pointer) quarterword {
-	return mem[p].(num_tok).name_type
+func (node *num_tok) setLink(l pointer){
+	node.link = l
 }
 
-func (node num_tok) setLink(l pointer) Node {
-	node.link = l
-	return node
-}
+// func name_type(p pointer) quarterword {
+// 	return mem[p].(num_tok).name_type
+// }
 
 type string_tok struct {
 	value str_number
 }
 
-func (node string_tok) Type() small_number {
+func (node *string_tok) Type() small_number {
 	return string_type
 }
 
-func (node string_tok) setLink(p pointer) Node{
+func (node *string_tok) setLink(p pointer){
 	jump_out(errors.New("Tried to call setLink of a string_tok!"))
-	return node
 }
 
 type value_tok struct {
@@ -71,18 +69,17 @@ type value_tok struct {
 	value     integer
 }
 
-func (node value_tok) Type() small_number {
+func (node *value_tok) Type() small_number {
 	return node.kind
 }
 
-func (node value_tok) setLink(p pointer) Node{
-	fmt.Println("setting link in value_tok", p, node)
-	node.link = p
+func (node *value_tok) setLink(link pointer){
+	fmt.Println("setting link in value_tok", link, node)
+	node.link = link
 	fmt.Println("value after setting link", node)
-	return node
 }
 
-func (node value_tok) getLink() pointer {
+func (node *value_tok) getLink() pointer {
 	return node.link
 }
 
@@ -90,9 +87,9 @@ func value_loc(p pointer) pointer {
 	return p + 1
 }
 
-func value(p pointer) integer {
-	return integer(mem[p].(num_tok).value)
-}
+// func value(p pointer) integer {
+// 	return integer(mem[p].(num_tok).value)
+// }
 
 var expr_base, suffix_base, text_base halfword
 
@@ -113,7 +110,7 @@ func setup_expr_base() {
 
 // s215
 func new_num_tok(v scaled) pointer {
-	node := num_tok{value: v}
+	node := &num_tok{value: v}
 	return get_avail(node)
 }
 
@@ -130,7 +127,7 @@ func flush_token_list(p pointer) {
 		switch Type(q) {
 		case vacuous, boolean_type, known:
 		case string_type:
-			delete_str_ref(mem[q].(string_tok).value)
+			delete_str_ref(mem[q].(*string_tok).value)
 		case unknown_boolean, unknown_string, unknown_pen, unknown_picture, unknown_path,
 			pen_type, path_type, future_pen, picture_type, transform_type, dependent,
 			proto_dependent, independent:
