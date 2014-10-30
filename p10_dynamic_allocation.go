@@ -31,8 +31,10 @@ const null = mem_min
 
 // s159
 type Node interface {
-	Type() small_number
+	getType() small_number
 	setLink(pointer)
+	getLink() pointer
+	getName_type() quarterword
 }
 
 
@@ -52,6 +54,24 @@ var var_used, dyn_used integer
 // func link(p pointer) pointer {
 // 	return pointer(mem[p].(num_tok).link)
 // }
+func getLink(p pointer) pointer {
+    return mem[p].getLink()
+}
+func setLink(p, link pointer) {
+    mem[p].setLink(link)
+}
+
+func getName_type(p pointer) quarterword{
+    return mem[p].getName_type()
+}
+
+func getInfo(p pointer) halfword {
+    return mem[p].(*num_tok).info
+}
+
+func getValue(p pointer) scaled {
+    return mem[p].(*num_tok).value
+}
 
 // func info(p pointer) halfword {
 // 	return mem[p].(num_tok).info

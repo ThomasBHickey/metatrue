@@ -64,7 +64,7 @@ type (
 		b0, b1, b2, b3 quarterword
 	}
 )
-func (Node two_halves) Type() quarterword {
+func (Node two_halves) getType() small_number {
     return undefined
 }
 

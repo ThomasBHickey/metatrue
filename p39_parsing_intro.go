@@ -45,7 +45,9 @@ func stash_cur_exp() pointer {
 	fmt.Printf("About to set link to void at %d: %T, %#v\n", p, mem[p], mem[p])
 	//mem[p].(value_tok).link = void
 	mem[p].setLink(void)
-	//fmt.Println("mem[p].(value_tok).getLink()", mem[p].(&value_tok).link)
+	fmt.Println("mem[p].(value_tok).getLink()", mem[p].(*value_tok).link)
+	//var value_tok = mem[p]
+	//fmt.Println("value_tok", value_tok)
 	fmt.Println("mem[p].(value_tok).getLink()", mem[p].getLink())
 	fmt.Printf("Node is now %#v\n", mem[p])
 	//fmt.Println("Skippig void assignment in p39, s799")
@@ -55,13 +57,13 @@ func stash_cur_exp() pointer {
 
 // s802
 func unstash_cur_exp(p pointer) {
-    cur_type = Type(p)
+    cur_type = getType(p)
     switch cur_type {
         case unknown_boolean, unknown_string, unknown_pen, unknown_picture, unknown_path,
             transform_type, pair_type, dependent, proto_dependent, independent:
             cur_exp = integer(p)
         default:
-            cur_exp = value(p)
+            cur_exp = integer(getValue(p))
             free_node(p)
     }
 }
@@ -81,9 +83,9 @@ func print_exp(p pointer, verbosity small_number) {
 		p = stash_cur_exp()
 		restore_cur_exp = true
 	}
-	t = mem[p].Type()
+	t = mem[p].getType()
 	if t < dependent {
-		v = value(p)
+		v = integer(getValue(p))
 	} else {
 		if t < independent {
 			v = integer(dep_list(p))
@@ -104,8 +106,8 @@ func print_exp(p pointer, verbosity small_number) {
 		print_type(t)
 		if v != null {
 			print_char(' ')
-			for (name_type(pointer(v)) == capsule) || (pointer(v) != p) {
-				v = value(pointer(v))
+			for (getName_type(pointer(v)) == capsule) || (pointer(v) != p) {
+				v = integer(getValue(pointer(v)))
 			}
 			print_variable_name(pointer(v))
 		}

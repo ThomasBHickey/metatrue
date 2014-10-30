@@ -43,7 +43,7 @@ func runaway() {
 			print("loop?")
 		}
 		print_ln()
-		show_token_list(link(hold_head), null, error_line-10, 0)
+		show_token_list(getLink(hold_head), null, error_line-10, 0)
 	}
 }
 

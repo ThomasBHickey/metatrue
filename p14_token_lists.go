@@ -27,7 +27,7 @@ type sym_tok struct {
 	p halfword
 }
 
-func (node *sym_tok) Type() small_number {
+func (node *sym_tok) getType() small_number {
 	return symbolic
 }
 
@@ -38,12 +38,20 @@ type num_tok struct {
 	name_type quarterword
 }
 
-func (node *num_tok) Type() small_number {
+func (node *num_tok) getType() small_number {
 	return known
+}
+
+func (node *num_tok) getName_type() quarterword {
+    return node.name_type
 }
 
 func (node *num_tok) setLink(l pointer){
 	node.link = l
+}
+
+func (node *num_tok) getLink() pointer{
+	return node.link
 }
 
 // func name_type(p pointer) quarterword {
@@ -54,23 +62,37 @@ type string_tok struct {
 	value str_number
 }
 
-func (node *string_tok) Type() small_number {
+func (node *string_tok) getType() small_number {
 	return string_type
 }
 
+func (node *string_tok) getName_type() quarterword {
+    jump_out(errors.New("Tried to call getName_type on a string_tok!"))
+    return 0
+}
+
 func (node *string_tok) setLink(p pointer){
-	jump_out(errors.New("Tried to call setLink of a string_tok!"))
+	jump_out(errors.New("Tried to call setLink on a string_tok!"))
+}
+
+func (node *string_tok) getLink() pointer{
+    jump_out(errors.New("string_tok does not implement getLink!"))
+    return void
 }
 
 type value_tok struct {
 	kind      small_number
-	name_type small_number
+	name_type quarterword
 	link      pointer
 	value     integer
 }
 
-func (node *value_tok) Type() small_number {
+func (node *value_tok) getType() small_number {
 	return node.kind
+}
+
+func (node *value_tok) getName_type() quarterword {
+    return node.name_type
 }
 
 func (node *value_tok) setLink(link pointer){
@@ -114,8 +136,8 @@ func new_num_tok(v scaled) pointer {
 	return get_avail(node)
 }
 
-func Type(p pointer) small_number {
-	return mem[p].Type()
+func getType(p pointer) small_number {
+	return mem[p].getType()
 }
 
 // s216
@@ -123,8 +145,8 @@ func flush_token_list(p pointer) {
 	var q pointer
 	for p != null {
 		q = p
-		p = link(p)
-		switch Type(q) {
+		p = getLink(p)
+		switch getType(q) {
 		case vacuous, boolean_type, known:
 		case string_type:
 			delete_str_ref(mem[q].(*string_tok).value)
