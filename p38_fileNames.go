@@ -75,7 +75,7 @@ func open_log_file() {
 	fmt.Println("in open_log_file()")
 	var (
 		old_setting int
-		k, l integer //, m     int
+		k, l halfword //, m     int
 	)
 
 	old_setting = selector
@@ -103,7 +103,7 @@ func open_log_file() {
 	fmt.Println("called print_banner_line")
 	fmt.Println("input_ptr", input_ptr)
 	fmt.Println("len of input_stack", len(input_stack))
-	return
+	//return
 	input_stack[input_ptr] = cur_input
 	print_nl("**")
 	l = input_stack[0].limit - 1

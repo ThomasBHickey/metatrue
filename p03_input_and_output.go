@@ -75,7 +75,7 @@ func open_out() *bufio.Writer  {
 var (
 	buffer [buf_size + 1]rune
 	first,
-	last integer
+	last halfword
 	max_buf_stack = 0
 )
 
@@ -132,7 +132,7 @@ func bufferText(s string){
         buffer[pos] = r
     }
     cur_input.loc = first
-    last  = integer(len(rs))
+    last  = halfword(len(rs))
 }
 
 func init_terminal() error {

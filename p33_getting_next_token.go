@@ -51,7 +51,7 @@ func runaway() {
 func get_next() {
 	//mterror("get_next not implemented yet!")
 	//jump_out(errors.New("get_next not implemented yet!"))
-	var k integer
+	var k halfword
 	//var n integer
 restart:
 	cur_sym = 0
@@ -83,7 +83,32 @@ restart:
 		case space_class:
 			goto switch_label
 		case percent_class:
-			jump_out(errors.New("s679 not implemented"))
+			// s679 move to next line of file or goto restart if there is
+			// no next line
+			if cur_input.name>2 {
+			    // s681 read next line of file into buffer or goto restart 
+			    // if file has ended
+			    jump_out(errors.New("s681 not implemented"))
+			} else {
+			    if input_ptr>0 {
+			        end_file_reading(); goto restart
+			    }
+			    if selector<log_only { open_log_file()}
+			    if interaction > nonstop_mode {
+			        if cur_input.limit==cur_input.start {
+			            print_nl("(Please type a command or say 'end')")
+			        }
+			        print_ln()
+			        first = cur_input.start
+			        prompt_input("*")
+			        cur_input.limit = last
+			        buffer[cur_input.limit] = '%'
+			        first = cur_input.limit +1
+			        cur_input.loc = cur_input.start
+			    } else {
+			        fatal_error("*** (job aborted, no legal end found)")
+			    }
+			    }
 			check_interrupt()
 			goto switch_label
 		case string_class:

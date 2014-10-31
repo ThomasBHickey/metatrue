@@ -24,11 +24,11 @@ import (
 // s627
 // dropped the trailing "_field" for each field
 type in_state_record struct {
-	index,
+	index quarterword
 	start,
 	loc,
-	limit integer
-	name string
+	limit halfword
+	name str_number
 }
 
 // s628
@@ -41,7 +41,7 @@ var (
 
 // s631
 var (
-	in_open     integer
+	in_open     quarterword
 	open_parens integer
 	input_file  [max_in_open + 1]*bufio.Reader
 	line        integer
@@ -49,7 +49,7 @@ var (
 )
 
 func terminal_input() bool {
-	return cur_input.name == ""
+	return cur_input.name == make_string("")
 }
 
 func cur_file() *bufio.Reader {

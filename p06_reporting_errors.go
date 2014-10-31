@@ -123,7 +123,7 @@ func get_users_advice() {
 			continue
 		case 'E' == c && file_ptr > 0:
 			print_nl("You want to edit file ")
-			slow_print(input_stack[file_ptr].name)
+			slow_print_sn(input_stack[file_ptr].name)
 			print(" at line ")
 			print_int(line)
 			interaction = scroll_mode
