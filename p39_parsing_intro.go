@@ -48,7 +48,7 @@ func stash_cur_exp() pointer {
 	fmt.Println("mem[p].(value_tok).getLink()", mem[p].(*value_tok).link)
 	//var value_tok = mem[p]
 	//fmt.Println("value_tok", value_tok)
-	fmt.Println("mem[p].(value_tok).getLink()", mem[p].getLink())
+	fmt.Println("mem[p].getLink()", mem[p].getLink())
 	fmt.Printf("Node is now %#v\n", mem[p])
 	//fmt.Println("Skippig void assignment in p39, s799")
 	//mem[p].(num_tok).setLink(halfword(void))

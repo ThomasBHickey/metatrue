@@ -32,6 +32,7 @@ func expand(){
             show_cur_cmd_mod()
         }
     }
+    fmt.Println("in expand, cur_cmd=", cur_cmd)
     switch cur_cmd {
         case if_test: conditional()
         case fi_or_else: // s751 terminate current conditional and skip to fi
@@ -46,7 +47,9 @@ func expand(){
             fmt.Println("s 712 repeat_loop not implemented")
         case exit_test: // s713 Exit loop if the proper time has come
             fmt.Println("s 713 not implemented")
-        case relax: do_nothing()
+        case relax: 
+            fmt.Println("found relax!")
+            do_nothing()
         case expand_after: //s715 Expand token after next token
             fmt.Println("s 715 not implemented")
         case scan_tokens: // s716 put string into input buffer
@@ -58,14 +61,18 @@ func expand(){
 // s718
 func get_x_next(){
     var save_exp pointer
+    fmt.Println("calling get_next from get_x_next")
     get_next()
+    fmt.Println("just called get_next in get_x_next, cur_cmd:", cur_cmd, "min_command", min_command)
     if cur_cmd<min_command {
         save_exp = stash_cur_exp()
         for cur_cmd<min_command {
             if cur_cmd==defined_macro {
                 macro_call(pointer(cur_mod), null, pointer(cur_sym))
             } else { expand() }
+            fmt.Println("2d call to get_next in get_x_next")
             get_next()
+            fmt.Println("cur_cmd", cur_cmd)
         }
         unstash_cur_exp(save_exp)
     }

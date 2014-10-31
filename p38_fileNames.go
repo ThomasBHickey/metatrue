@@ -141,3 +141,8 @@ func print_banner_line() {
 	print_dd(m % 60)
 	//fmt.Println("finishing print_banner_line")
 }
+
+// s793
+func start_input() {
+    fmt.Println("START_INPUT NOT FINISHED (s793)!")
+}

@@ -40,7 +40,6 @@ func Start() error {
 	get_strings_started()
 	init_tab()
 	init_prim()
-	fix_date_and_time()
 	
 	ready_already = 314159
 //start_of_MT:
@@ -136,5 +135,17 @@ func init_tab(){
 // Section 1211
 func getFirstLineOfInputAndPrepareToStart() error {
 	fmt.Println("getFirstLineOfInputAndPrepareToStart()")
-	return initializeTheInputRoutines()
+	err := initializeTheInputRoutines()
+	if err!=nil { return err }
+	fmt.Println("adding % to end of line, limit:", cur_input.limit)
+	buffer[cur_input.limit] = '%'
+	fix_date_and_time()
+    init_randoms((internal[Time]/unity)+internal[day])
+    initialize_print_selector()  // s70
+    if cur_input.loc<cur_input.limit {
+        if buffer[cur_input.loc]!='\\' {
+            start_input()
+        }
+    }
+    return nil
 }

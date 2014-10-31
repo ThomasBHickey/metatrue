@@ -59,7 +59,10 @@ restart:
 		// s 669 input from external file
 		//jump_out(errors.New("s669 not implemented yet"))
 	switch_label:
+	    fmt.Println("buffer[:20]", buffer[:20])
+	    fmt.Println("cur_input.loc", cur_input.loc)
 		c := buffer[cur_input.loc]
+		fmt.Println("c from buffer", string(c))
 		cur_input.loc++
 		class := char_class[c]
 		fmt.Println("char and class in get_next s667:", c, class)
@@ -89,10 +92,17 @@ restart:
 			k = cur_input.loc - 1
 			goto found
 		case invalid_class:
-			//fmt.Println("case invalid_class", string(rune(c)), class)
+			fmt.Println("case invalid_class", string(rune(c)), class)
+			print_err("Test line contains an invalid character")
+			help("A funny symbol that I can't read has just been input.",
+			    "Continue, and I'll forget that it ever happened.");
+			    deletions_allowed = false
+			    mterror()
+			    deletions_allowed = true
+			    goto restart
 			//fmt.Println("char_class['/']", char_class['/'])
 			//fmt.Println("char_class['\\']", char_class['\\'])
-			jump_out(errors.New("s670 not implemented"))
+			//jump_out(errors.New("s670 not implemented"))
 		default:
 		    fmt.Println("do_nothing() for class", class)
 			do_nothing()

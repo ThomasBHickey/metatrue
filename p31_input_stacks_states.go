@@ -58,6 +58,7 @@ func cur_file() *bufio.Reader {
 
 // s 632
 func file_state() bool {
+    fmt.Println("file_state <=?", cur_input.index, max_in_open)
 	return cur_input.index <= max_in_open
 }
 

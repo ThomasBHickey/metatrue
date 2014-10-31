@@ -17,7 +17,7 @@
 package metatrue
 
 import (
-//"fmt"
+    "fmt"
 )
 
 // s 121
@@ -74,3 +74,9 @@ func square_rt(x scaled) scaled {
 	}
 	return scaled(q >> 1)
 }
+
+// s150
+func init_randoms(seed scaled) {
+    fmt.Println("init_randoms not implemented")
+}
+

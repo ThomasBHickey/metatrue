@@ -82,6 +82,7 @@ var (
 // s30
 func input_ln(r *bufio.Reader, bypass_eoln bool) bool {
 	line, err := r.ReadString('\n') //r.ReadBytes('\n')
+	fmt.Println("input_ln s30:", len(line), line, err)
 	if err != nil && err != io.EOF {
 		return false
 	}
