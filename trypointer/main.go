@@ -76,6 +76,7 @@ const stack_size=32
 var (
 	mem     = []Node{}
 	input_stack  [stack_size + 1]InputStateRec
+	cur_input InputStateRec
 	)
 func main() {
     fmt.Println("starting main()")
@@ -90,5 +91,9 @@ func main() {
     test := input_stack[0].(*inStateFileRec)
     test.loc = 7
     fmt.Printf("test %#v\n", test)
+    cur_input = input_stack[0]
+    //test = cur_input.(*inStateFileRec)
+    cur_input.(*inStateFileRec).loc = 8
+    fmt.Printf("input_stack[0]: %#v\n", input_stack[0])
     }
     

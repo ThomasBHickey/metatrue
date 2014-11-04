@@ -132,6 +132,7 @@ func bufferText(s string) {
 		buffer[pos] = r
 	}
 	cur_input.(*inStateFileRec).loc = first
+	
 	last = halfword(len(rs))
 }
 
