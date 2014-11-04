@@ -23,7 +23,12 @@ import (
 
 // s627
 // dropped the trailing "_field" for each field
-type in_state_record struct {
+type InputStateRec interface {
+    getIndex() quarterword
+    getName() str_number
+}
+
+type inStateFileRec struct {
 	index quarterword
 	start,
 	loc,
@@ -31,12 +36,20 @@ type in_state_record struct {
 	name str_number
 }
 
+func (input_state inStateFileRec) getIndex() quarterword {
+    return input_state.index
+}
+
+func (input_state inStateFileRec) getName() str_number {
+    return input_state.name
+}
+
 // s628
 var (
-	input_stack  [stack_size + 1]in_state_record
+	input_stack  [stack_size + 1]*InputStateRec
 	input_ptr    = 0
 	max_in_stack = 0
-	cur_input    in_state_record
+	cur_input    InputStateRec
 )
 
 // s631
@@ -57,14 +70,27 @@ func cur_file() *bufio.Reader {
 }
 
 // s 632
+
+type inStateListRec struct {
+    token_type quarterword
+    start pointer  // first  node of the token list
+    loc,    // poiinter to current node in token list
+    param_start halfword
+    name str_number
+}
+
+func (input_state *inStateListRec) getIndex() quarterword {
+    return input_state.token_type
+}
+
 func file_state() bool {
-    fmt.Println("file_state <=?", cur_input.index, max_in_open)
-	return cur_input.index <= max_in_open
+    fmt.Println("file_state <=?", cur_input.index(), max_in_open)
+	return cur_input.getIndex() <= max_in_open
 }
 
 // s633
 var (
-	param_stack     [param_size + 1]int
+	param_stack     [param_size + 1]pointer
 	param_ptr       int
 	max_param_stack int
 )
@@ -75,4 +101,38 @@ var file_ptr int
 // s635
 func show_context() {
     fmt.Println("show_context not yet implemented")
+    var old_setting quarterword
+    // s641 local variables
+    var (
+        i halfword
+        l, m integer
+        n halfword
+        p, q integer
+        )
+    file_ptr = input_ptr
+    input_stack[file_ptr] = cur_input
+    for {
+        cur_input = input_stack[file_ptr]
+        // s 636 display the current context
+        if (file_ptr==input_ptr)|| file_state() || (token_type!=backed_up) || (cur_input.loc!=null){
+            tally = 0
+            old_setting = selector
+            if file_state() {
+                //s 637 print location of current line
+                fmt.Println("s637 not implemented yet")
+                // s644 pseudoprint the line
+                fmt.Println("s644 not implemented yet")
+            } else {
+                // s638 print type of token list
+                // s 645 pseudoprint the token list
+            }
+                
+        if file_state() {
+            if (name>2) || (file_ptr==0) { break}
+        }
+        file_ptr--
+    }
+    // done label
+    cur_input = input_stack[input_ptr]
+}
 }

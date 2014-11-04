@@ -27,9 +27,9 @@ import (
 )
 
 func write(w *bufio.Writer, msgs ...string) {
-    //fmt.Println("in write()", msgs)
+	//fmt.Println("in write()", msgs)
 	for _, msg := range msgs {
-	    //fmt.Println("msg in msg loop:", msg)
+		//fmt.Println("msg in msg loop:", msg)
 		_, err := w.WriteString(msg)
 		if err != nil {
 			jump_out(err)
@@ -58,17 +58,17 @@ var name_of_file string
 
 // s 26
 
-func open_out() *bufio.Writer  {
-    fmt.Println("open_out() ", name_of_file)
-    fo, err := os.Create(name_of_file)
-    fmt.Println("fo, err", fo, err)
-    if err!=nil {
-        print_err("problem opening in open_out()")
-        jump_out(err)
-    }
-    make_name_string(fo)
-    w := bufio.NewWriter(fo)
-    return w
+func open_out() *bufio.Writer {
+	fmt.Println("open_out() ", name_of_file)
+	fo, err := os.Create(name_of_file)
+	fmt.Println("fo, err", fo, err)
+	if err != nil {
+		print_err("problem opening in open_out()")
+		jump_out(err)
+	}
+	make_name_string(fo)
+	w := bufio.NewWriter(fo)
+	return w
 }
 
 // s29
@@ -114,25 +114,25 @@ func t_open_in() {
 }
 
 func t_open_out() *bufio.Writer {
-    return bufio.NewWriter(os.Stdout)
+	return bufio.NewWriter(os.Stdout)
 }
 
 // s33
-func update_terminal()  {
-    term_out.Flush()
-    }
+func update_terminal() {
+	term_out.Flush()
+}
 func clear_terminal()   {}
 func wake_up_terminal() {}
 
 // s36
-func bufferText(s string){
-    s = strings.Trim(s, " \n\t")
-    rs := ([]rune)(s)
-    for pos, r := range rs{
-        buffer[pos] = r
-    }
-    cur_input.loc = first
-    last  = halfword(len(rs))
+func bufferText(s string) {
+	s = strings.Trim(s, " \n\t")
+	rs := ([]rune)(s)
+	for pos, r := range rs {
+		buffer[pos] = r
+	}
+	cur_input.(*inStateFileRec).loc = first
+	last = halfword(len(rs))
 }
 
 func init_terminal() error {
@@ -140,11 +140,11 @@ func init_terminal() error {
 	t_open_in()
 	//fmt.Println("len of args:", len(os.Args), "args:", os.Args[1:])
 	if len(os.Args) > 1 {
-	    text := strings.Join(os.Args[1:], " ")
-	    bufferText(text)
-	    if cur_input.loc<last {
-	        return nil
-	    }
+		text := strings.Join(os.Args[1:], " ")
+		bufferText(text)
+		if cur_input.loc < last {
+			return nil
+		}
 
 	}
 	for {
@@ -152,13 +152,13 @@ func init_terminal() error {
 		fmt.Print("**")
 		update_terminal()
 		text, err := term_in.ReadString('\n')
-		if err!=nil {
-		    fmt.Fprintln(term_out, "! End of file on the terminal... why?")
-		    return err
+		if err != nil {
+			fmt.Fprintln(term_out, "! End of file on the terminal... why?")
+			return err
 		}
 		bufferText(text)
-		if cur_input.loc<last{
-		    return nil
+		if cur_input.loc < last {
+			return nil
 		}
 	}
 }
