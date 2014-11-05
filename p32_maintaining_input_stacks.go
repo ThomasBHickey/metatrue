@@ -73,12 +73,16 @@ var (
 )
 
 func initializeTheInputRoutines() error {
-	fmt.Println("initializeTheInputRoutines")
+	fmt.Println("initializeTheInputRoutines!")
+	cur_input = &inStateFileRec{}
 	err := init_terminal()
+	fmt.Println("return of init_terminal", err)
 	if err != nil {
+	    fmt.Println("initializeTheInputRoutines error", err)
 		return err
 	}
 	cur_input.(*inStateFileRec).limit = last
+	fmt.Printf("initializeTheInputRoutines %#v", cur_input)
 	first = last + 1
 	fmt.Println("initializeTheInputRoutines returning OK")
 	return nil

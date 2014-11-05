@@ -49,7 +49,7 @@ var (
 	input_stack  [stack_size + 1]InputStateRec
 	input_ptr    = 0
 	max_in_stack = 0
-	cur_input    InputStateRec
+	cur_input InputStateRec
 )
 
 // s631

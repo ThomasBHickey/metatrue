@@ -19,7 +19,7 @@ package metatrue
 import (
 	"bufio"
 	//"bytes"
-	//"errors"
+	"errors"
 	"fmt"
 	"io"
 	"os"
@@ -131,6 +131,11 @@ func bufferText(s string) {
 	for pos, r := range rs {
 		buffer[pos] = r
 	}
+	fmt.Printf("in bufferText %s %#v", s, cur_input)
+	if cur_input==nil {
+	    jump_out(errors.New("nil cur_input in bufferText()"))
+	}
+	fmt.Printf("in bufferText %s %#v", s, cur_input)
 	cur_input.(*inStateFileRec).loc = first
 	
 	last = halfword(len(rs))
