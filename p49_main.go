@@ -54,7 +54,7 @@ func Start() error {
 		return err
 	}
 	fmt.Println("first:", first,", last:", last)
-	fmt.Println("first line of input", string(buffer[cur_input.loc:last]))
+	fmt.Println("first line of input", string(buffer[cur_input.(*inStateFileRec).loc:last]))
 	history = spotless
 	if start_sym > 0 {
 		cur_sym = start_sym
@@ -137,13 +137,13 @@ func getFirstLineOfInputAndPrepareToStart() error {
 	fmt.Println("getFirstLineOfInputAndPrepareToStart()")
 	err := initializeTheInputRoutines()
 	if err!=nil { return err }
-	fmt.Println("adding % to end of line, limit:", cur_input.limit)
-	buffer[cur_input.limit] = '%'
+	fmt.Println("adding % to end of line, limit:", cur_input.(*inStateFileRec).limit)
+	buffer[cur_input.(*inStateFileRec).limit] = '%'
 	fix_date_and_time()
     init_randoms((internal[Time]/unity)+internal[day])
     initialize_print_selector()  // s70
-    if cur_input.loc<cur_input.limit {
-        if buffer[cur_input.loc]!='\\' {
+    if cur_input.(*inStateFileRec).loc<cur_input.(*inStateFileRec).limit {
+        if buffer[cur_input.(*inStateFileRec).loc]!='\\' {
             start_input()
         }
     }

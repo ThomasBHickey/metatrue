@@ -60,17 +60,17 @@ restart:
 		//jump_out(errors.New("s669 not implemented yet"))
 	switch_label:
 	    fmt.Println("buffer[:20]", buffer[:20])
-	    fmt.Println("cur_input.loc", cur_input.loc)
-		c := buffer[cur_input.loc]
+	    fmt.Println("cur_input.loc", cur_input.(*inStateFileRec).loc)
+		c := buffer[cur_input.(*inStateFileRec).loc]
 		fmt.Println("c from buffer", string(c))
-		cur_input.loc++
+		cur_input.(*inStateFileRec).loc++
 		class := char_class[c]
 		fmt.Println("char and class in get_next s667:", c, class)
 		switch class {
 		case digit_class:
 			goto start_numeric_token
 		case period_class:
-			class = char_class[buffer[cur_input.loc]]
+			class = char_class[buffer[cur_input.(*inStateFileRec).loc]]
 			if class > period_class {
 				goto switch_label
 			} else {
@@ -85,7 +85,7 @@ restart:
 		case percent_class:
 			// s679 move to next line of file or goto restart if there is
 			// no next line
-			if cur_input.name>2 {
+			if cur_input.getName()>2 {
 			    // s681 read next line of file into buffer or goto restart 
 			    // if file has ended
 			    jump_out(errors.New("s681 not implemented"))
@@ -95,16 +95,16 @@ restart:
 			    }
 			    if selector<log_only { open_log_file()}
 			    if interaction > nonstop_mode {
-			        if cur_input.limit==cur_input.start {
+			        if cur_input.(*inStateFileRec).limit==cur_input.(*inStateFileRec).start {
 			            print_nl("(Please type a command or say 'end')")
 			        }
 			        print_ln()
-			        first = cur_input.start
+			        first = cur_input.(*inStateFileRec).start
 			        prompt_input("*")
-			        cur_input.limit = last
-			        buffer[cur_input.limit] = '%'
-			        first = cur_input.limit +1
-			        cur_input.loc = cur_input.start
+			        cur_input.(*inStateFileRec).limit = last
+			        buffer[cur_input.(*inStateFileRec).limit] = '%'
+			        first = cur_input.(*inStateFileRec).limit +1
+			        cur_input.(*inStateFileRec).loc = cur_input.(*inStateFileRec).start
 			    } else {
 			        fatal_error("*** (job aborted, no legal end found)")
 			    }
@@ -114,7 +114,7 @@ restart:
 		case string_class:
 			jump_out(errors.New("s671 not implemented"))
 		case 5, 6, 7, 8: //isolated_classes
-			k = cur_input.loc - 1
+			k = cur_input.(*inStateFileRec).loc - 1
 			goto found
 		case invalid_class:
 			fmt.Println("case invalid_class", string(rune(c)), class)
@@ -132,8 +132,8 @@ restart:
 		    fmt.Println("do_nothing() for class", class)
 			do_nothing()
 		}
-		k = cur_input.loc - 1
-		for ; char_class[buffer[cur_input.loc]] == class; cur_input.loc++ {
+		k = cur_input.(*inStateFileRec).loc - 1
+		for ; char_class[buffer[cur_input.(*inStateFileRec).loc]] == class; cur_input.(*inStateFileRec).loc++ {
 		    fmt.Println("skipping chars in class", class)
 		}
 		goto found
@@ -145,8 +145,8 @@ restart:
 		jump_out(errors.New("s675 not implemented"))
 	found:
 		//cur_sym = id_lookup(k, cur_input.loc-k)
-		fmt.Println("found: ", k, cur_input.loc, buffer[k:cur_input.loc])
-		cur_sym = halfword(string_to_pos[string(buffer[k:cur_input.loc])])
+		fmt.Println("found: ", k, cur_input.(*inStateFileRec).loc, buffer[k:cur_input.(*inStateFileRec).loc])
+		cur_sym = halfword(string_to_pos[string(buffer[k:cur_input.(*inStateFileRec).loc])])
 	} else {
 		// s 676 input from token list
 		jump_out(errors.New("s676 not implemented"))

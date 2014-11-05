@@ -74,7 +74,7 @@ func pack_job_name(s string) {
 func open_log_file() {
 	fmt.Println("in open_log_file()")
 	var (
-		old_setting int
+		old_setting quarterword
 		k, l halfword //, m     int
 	)
 
@@ -106,7 +106,7 @@ func open_log_file() {
 	//return
 	input_stack[input_ptr] = cur_input
 	print_nl("**")
-	l = input_stack[0].limit - 1
+	l = input_stack[0].(*inStateFileRec).limit - 1
 	for k = 1; k <= l; k++ {
 		print_char(buffer[k])
 	}

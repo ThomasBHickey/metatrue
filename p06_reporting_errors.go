@@ -123,7 +123,7 @@ func get_users_advice() {
 			continue
 		case 'E' == c && file_ptr > 0:
 			print_nl("You want to edit file ")
-			slow_print_sn(input_stack[file_ptr].name)
+			slow_print_sn(input_stack[file_ptr].getName())
 			print(" at line ")
 			print_int(line)
 			interaction = scroll_mode
@@ -181,14 +181,14 @@ func change_interaction_level(c rune) {
 // s82
 func introduce_new_material() {
 	if last > first+1 {
-		cur_input.loc = first + 1
+		cur_input.(*inStateFileRec).loc = first + 1
 		buffer[first] = ' '
 	} else {
 		prompt_input("insert>")
-		cur_input.loc = first
+		cur_input.(*inStateFileRec).loc = first
 	}
 	first = last + 1
-	cur_input.limit = last
+	cur_input.(*inStateFileRec).limit = last
 }
 
 // s83

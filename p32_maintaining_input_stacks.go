@@ -34,12 +34,12 @@ func back_input() {
 // s655
 func end_file_reading() {
 	fmt.Println("end_file_reading()", cur_input)
-	first = cur_input.start
+	first = cur_input.(*inStateFileRec).start
 	fmt.Println("first", first)
-	fmt.Println("cur_input.index", cur_input.index)
+	fmt.Println("cur_input.index", cur_input.(*inStateFileRec).index)
 	fmt.Println("line_stack", line_stack)
-	line = line_stack[cur_input.index]
-	if cur_input.index != in_open {
+	line = line_stack[cur_input.(*inStateFileRec).index]
+	if cur_input.(*inStateFileRec).index != in_open {
 		confusion("endinput")
 	}
 	pop_input()
@@ -48,7 +48,9 @@ func end_file_reading() {
 
 // s656
 func clear_for_error_prompt() {
-	for file_state() && terminal_input() && (input_ptr > 0) && (cur_input.loc == cur_input.limit) {
+	for file_state() && terminal_input() && 
+	    (input_ptr > 0) && 
+	    (cur_input.(*inStateFileRec).loc == cur_input.(*inStateFileRec).limit) {
 		//fmt.Println("clear_for_error file_state", file_state())
 		//fmt.Println("terminal_input", terminal_input())
 		//fmt.Println("input_ptr", input_ptr)
@@ -76,7 +78,7 @@ func initializeTheInputRoutines() error {
 	if err != nil {
 		return err
 	}
-	cur_input.limit = last
+	cur_input.(*inStateFileRec).limit = last
 	first = last + 1
 	fmt.Println("initializeTheInputRoutines returning OK")
 	return nil

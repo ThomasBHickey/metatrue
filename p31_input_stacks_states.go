@@ -62,15 +62,22 @@ var (
 )
 
 func terminal_input() bool {
-	return cur_input.name == make_string("")
+	return cur_input.(*inStateFileRec).name == make_string("")
 }
 
 func cur_file() *bufio.Reader {
-	return input_file[cur_input.index]
+	return input_file[cur_input.(*inStateFileRec).index]
 }
 
 // s 632
-
+const (
+    forever_text = iota+max_in_open
+    loop_text
+    parameter
+    backed_up
+    inserted
+    macro
+    )
 type inStateListRec struct {
     token_type quarterword
     start pointer  // first  node of the token list
@@ -79,12 +86,17 @@ type inStateListRec struct {
     name str_number
 }
 
+func (input_state inStateListRec) getName() str_number {
+    return input_state.name
+}
+
+
 func (input_state *inStateListRec) getIndex() quarterword {
     return input_state.token_type
 }
 
 func file_state() bool {
-    fmt.Println("file_state <=?", cur_input.index(), max_in_open)
+    fmt.Println("file_state <=?", cur_input.getIndex(), max_in_open)
 	return cur_input.getIndex() <= max_in_open
 }
 
@@ -101,20 +113,20 @@ var file_ptr int
 // s635
 func show_context() {
     fmt.Println("show_context not yet implemented")
-    var old_setting quarterword
+    //var old_setting quarterword
     // s641 local variables
     var (
-        i halfword
-        l, m integer
-        n halfword
-        p, q integer
+        //i halfword
+        //l, m integer
+        //n halfword
+        //p, q integer
         )
     file_ptr = input_ptr
     input_stack[file_ptr] = cur_input
     for {
         cur_input = input_stack[file_ptr]
         // s 636 display the current context
-        if (file_ptr==input_ptr)|| file_state() || (token_type!=backed_up) || (cur_input.loc!=null){
+        if (file_ptr==input_ptr)|| file_state() || (cur_input.(*inStateListRec).token_type!=backed_up) || (cur_input.(*inStateFileRec).loc!=null){
             tally = 0
             old_setting = selector
             if file_state() {
@@ -128,7 +140,7 @@ func show_context() {
             }
                 
         if file_state() {
-            if (name>2) || (file_ptr==0) { break}
+            if (cur_input.getName()>2) || (file_ptr==0) { break}
         }
         file_ptr--
     }

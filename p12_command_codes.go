@@ -654,7 +654,7 @@ func end_diagnostic(blank_line bool) {
 }
 
 // s196
-var old_setting int
+var old_setting quarterword
 
 // s197
 func print_diagnostic(s, t str_number, nuline bool) {

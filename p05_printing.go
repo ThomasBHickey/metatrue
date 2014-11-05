@@ -35,7 +35,7 @@ const (
 
 var (
 	log_file    *bufio.Writer
-	selector    int = term_only
+	selector    quarterword = term_only
 	dig         [23]int
 	tally       int = 0 // s55
 	term_offset int = 0
@@ -174,7 +174,7 @@ func Abs(x int) int {
 }
 
 func print_nl(s string) {
-	if ((term_offset > 0) && (odd(selector))) || ((file_offset > 0) && (selector >= log_only)) {
+	if ((term_offset > 0) && (odd(int(selector)))) || ((file_offset > 0) && (selector >= log_only)) {
 		print_ln()
 	}
 	print(s)

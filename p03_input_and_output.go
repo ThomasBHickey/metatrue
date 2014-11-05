@@ -143,7 +143,7 @@ func init_terminal() error {
 	if len(os.Args) > 1 {
 		text := strings.Join(os.Args[1:], " ")
 		bufferText(text)
-		if cur_input.loc < last {
+		if cur_input.(*inStateFileRec).loc < last {
 			return nil
 		}
 
@@ -158,7 +158,7 @@ func init_terminal() error {
 			return err
 		}
 		bufferText(text)
-		if cur_input.loc < last {
+		if cur_input.(*inStateFileRec).loc < last {
 			return nil
 		}
 	}
