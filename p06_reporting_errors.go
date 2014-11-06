@@ -21,6 +21,7 @@ import (
 	"os"
 	"unicode"
 )
+
 var help_string string
 
 // s68
@@ -162,7 +163,7 @@ func print_menu_of_available_options() {
 // s81
 func change_interaction_level(c rune) {
 	error_count = 0
-	interaction = batch_mode + int(c - 'Q')
+	interaction = batch_mode + int(c-'Q')
 	print("OK, entering")
 	switch c {
 	case 'Q':
@@ -199,7 +200,7 @@ func delete_tokens(c rune) {
 		s3 = cur_sym
 	)
 	OK_to_interrupt = false
-	if (last > first+1) && (buffer[first+1] >= '0')&&(buffer[first+1] <= '9') {
+	if (last > first+1) && (buffer[first+1] >= '0') && (buffer[first+1] <= '9') {
 		c = c*10 + buffer[first+1] - '0'*11
 	} else {
 		c = c - '0'
@@ -270,7 +271,7 @@ func normalize_selector() {
 
 // s88
 func succumb() {
-    fmt.Println("In succumb()")
+	fmt.Println("In succumb()")
 	if interaction == error_stop_mode {
 		interaction = scroll_mode
 	}
@@ -287,9 +288,9 @@ func succumb() {
 }
 
 func fatal_error(s string) {
-    //panic("in fatal error (needs fixing): "+s)
-    //jump_out(nil)
-    fmt.Println("fatal_error "+s)
+	//panic("in fatal error (needs fixing): "+s)
+	//jump_out(nil)
+	fmt.Println("fatal_error " + s)
 	normalize_selector()
 	print_err("Emergency stop")
 	help(s)
@@ -353,8 +354,8 @@ func pause_for_instructions() {
 }
 
 // s94
-func missing_err(s string){
-    print_err("missing '")
-    print(s)
-    print("' has been inserted")
+func missing_err(s string) {
+	print_err("missing '")
+	print(s)
+	print("' has been inserted")
 }

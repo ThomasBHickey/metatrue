@@ -59,8 +59,8 @@ restart:
 		// s 669 input from external file
 		//jump_out(errors.New("s669 not implemented yet"))
 	switch_label:
-	    fmt.Println("buffer[:20]", buffer[:20])
-	    fmt.Println("cur_input.loc", cur_input.(*inStateFileRec).loc)
+		fmt.Println("buffer[:20]", buffer[:20])
+		fmt.Println("cur_input.loc", cur_input.(*inStateFileRec).loc)
 		c := buffer[cur_input.(*inStateFileRec).loc]
 		fmt.Println("c from buffer", string(c))
 		cur_input.(*inStateFileRec).loc++
@@ -85,30 +85,37 @@ restart:
 		case percent_class:
 			// s679 move to next line of file or goto restart if there is
 			// no next line
-			if cur_input.getName()>2 {
-			    // s681 read next line of file into buffer or goto restart 
-			    // if file has ended
-			    jump_out(errors.New("s681 not implemented"))
+			if cur_input.getName() > 2 {
+				// s681 read next line of file into buffer or goto restart
+				// if file has ended
+				jump_out(errors.New("s681 not implemented"))
 			} else {
-			    if input_ptr>0 {
-			        end_file_reading(); goto restart
-			    }
-			    if selector<log_only { open_log_file()}
-			    if interaction > nonstop_mode {
-			        if cur_input.(*inStateFileRec).limit==cur_input.(*inStateFileRec).start {
-			            print_nl("(Please type a command or say 'end')")
-			        }
-			        print_ln()
-			        first = cur_input.(*inStateFileRec).start
-			        prompt_input("*")
-			        cur_input.(*inStateFileRec).limit = last
-			        buffer[cur_input.(*inStateFileRec).limit] = '%'
-			        first = cur_input.(*inStateFileRec).limit +1
-			        cur_input.(*inStateFileRec).loc = cur_input.(*inStateFileRec).start
-			    } else {
-			        fatal_error("*** (job aborted, no legal end found)")
-			    }
-			    }
+				if input_ptr > 0 {
+					end_file_reading()
+					goto restart
+				}
+				if selector < log_only {
+					open_log_file()
+				}
+				if interaction > nonstop_mode {
+					if cur_input.(*inStateFileRec).limit == cur_input.(*inStateFileRec).start {
+						print_nl("(Please type a command or say 'end')")
+					}
+					print_ln()
+					first = cur_input.(*inStateFileRec).start
+					fmt.Println("calling prompt_input")
+					prompt_input("*")
+					fmt.Println("back from prompt_input")
+					cur_input.(*inStateFileRec).limit = last
+					buffer[cur_input.(*inStateFileRec).limit] = '%'
+					first = cur_input.(*inStateFileRec).limit + 1
+					cur_input.(*inStateFileRec).loc = cur_input.(*inStateFileRec).start
+		            fmt.Println("buffer[:10]", buffer[:20])
+		            fmt.Println("cur_input", cur_input)
+				} else {
+					fatal_error("*** (job aborted, no legal end found)")
+				}
+			}
 			check_interrupt()
 			goto switch_label
 		case string_class:
@@ -120,21 +127,22 @@ restart:
 			fmt.Println("case invalid_class", string(rune(c)), class)
 			print_err("Test line contains an invalid character")
 			help("A funny symbol that I can't read has just been input.",
-			    "Continue, and I'll forget that it ever happened.");
-			    deletions_allowed = false
-			    mterror()
-			    deletions_allowed = true
-			    goto restart
+				"Continue, and I'll forget that it ever happened.")
+			deletions_allowed = false
+			mterror()
+			deletions_allowed = true
+			goto restart
 			//fmt.Println("char_class['/']", char_class['/'])
 			//fmt.Println("char_class['\\']", char_class['\\'])
 			//jump_out(errors.New("s670 not implemented"))
 		default:
-		    fmt.Println("do_nothing() for class", class)
+			fmt.Println("do_nothing() for class", class)
 			do_nothing()
 		}
+		fmt.Println("in get_next()", cur_input, cur_input)
 		k = cur_input.(*inStateFileRec).loc - 1
 		for ; char_class[buffer[cur_input.(*inStateFileRec).loc]] == class; cur_input.(*inStateFileRec).loc++ {
-		    fmt.Println("skipping chars in class", class)
+			//fmt.Println("counting over chars in class", class)
 		}
 		goto found
 	start_numeric_token:
@@ -147,6 +155,7 @@ restart:
 		//cur_sym = id_lookup(k, cur_input.loc-k)
 		fmt.Println("found: ", k, cur_input.(*inStateFileRec).loc, buffer[k:cur_input.(*inStateFileRec).loc])
 		cur_sym = halfword(string_to_pos[string(buffer[k:cur_input.(*inStateFileRec).loc])])
+		fmt.Println("cur_sym", cur_sym)
 	} else {
 		// s 676 input from token list
 		jump_out(errors.New("s676 not implemented"))

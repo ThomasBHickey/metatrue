@@ -17,8 +17,8 @@
 package metatrue
 
 import (
-    "fmt"
-    "time"
+	"fmt"
+	"time"
 )
 
 // s186, mostly pulled in directly from the MF source
@@ -513,15 +513,17 @@ const (
 )
 
 var (
-	internal []scaled
-	int_name []str_number
+	internal         []scaled
+	int_name         []str_number
 	internals_set_up bool
 )
 
 // s191
 func set_up_internals() {
-    fmt.Println("in set_up_internals()", internals_set_up)
-    if internals_set_up { return }
+	fmt.Println("in set_up_internals()", internals_set_up)
+	if internals_set_up {
+		return
+	}
 	for k := 0; k <= max_given_internal; k++ {
 		internal = append(internal, 0)
 	}
@@ -575,7 +577,7 @@ func putPrimitivesIn_s192() {
 
 // s193
 func initialize_table_entries_A() {
-    fmt.Println("initialize_table_entries_A")
+	fmt.Println("initialize_table_entries_A")
 	// int_name has been pre-extended to accommodate these entries
 	int_name[tracing_titles] = make_string("tracingtitles")
 	int_name[tracing_equations] = make_string("tracingequations")
@@ -622,15 +624,15 @@ func initialize_table_entries_A() {
 
 // s194
 func fix_date_and_time() {
-    now := time.Now()
-    cyear, cmonth, cday := now.Date()
-    chour := now.Hour()
-    cminute := now.Minute()
-    //csecond := now.Second()
-	internal[Time] = scaled(chour*60 + cminute) * unity // 12 * 60 * unity
-	internal[day] = scaled(cday) * unity // 4 * unity
-	internal[month] = scaled(cmonth) * unity //7 * unity
-	internal[year] = scaled(cyear) * unity //1776 * unity
+	now := time.Now()
+	cyear, cmonth, cday := now.Date()
+	chour := now.Hour()
+	cminute := now.Minute()
+	//csecond := now.Second()
+	internal[Time] = scaled(chour*60+cminute) * unity // 12 * 60 * unity
+	internal[day] = scaled(cday) * unity              // 4 * unity
+	internal[month] = scaled(cmonth) * unity          //7 * unity
+	internal[year] = scaled(cyear) * unity            //1776 * unity
 	fmt.Println("internal[day]", internal[day])
 }
 
@@ -705,11 +707,22 @@ func setup_char_class() {
 	char_class[' '] = space_class
 	char_class['%'] = percent_class
 	char_class['"'] = string_class
+	char_class[','] = 5
+	char_class[';'] = 6
+	char_class['('] = 7
+	char_class[')'] = right_paren_class
+	for k := 'A'; k<= 'Z'; k++ {
+	    char_class[k] = letter_class
+	}
+	for k := 'a'; k<= 'z'; k++ {
+	    char_class[k] = letter_class
+	}
 	char_class['_'] = letter_class
 	char_class['<'] = 10
 	char_class['='] = 10
 	char_class['>'] = 10
 	char_class[':'] = 10
+	char_class['|'] = 10
 	char_class['`'] = 11
 	char_class['\''] = 11
 	char_class['+'] = 12
@@ -729,11 +742,11 @@ func setup_char_class() {
 	char_class[']'] = right_bracket_class
 	char_class['{'] = 19
 	char_class['}'] = 19
-// 	for k := 0; k <= ' '-1; k++ {
-// 		char_class[k] = invalid_class
-// 	}
-// 	for k := 127; k <= 255; k++ {
-// 		char_class[k] = invalid_class
-// 	}
-	fmt.Println("rune and char_class of backslash: ", '\\', char_class['\\'])
+	// 	for k := 0; k <= ' '-1; k++ {
+	// 		char_class[k] = invalid_class
+	// 	}
+	// 	for k := 127; k <= 255; k++ {
+	// 		char_class[k] = invalid_class
+	// 	}
+	//fmt.Println("rune and char_class of backslash: ", '\\', char_class['\\'])
 }

@@ -17,7 +17,7 @@
 package metatrue
 
 import (
-    "fmt"
+	"fmt"
 	"os"
 	"path/filepath"
 )
@@ -29,7 +29,7 @@ var cur_name,
 
 // s780
 func make_name_string(f *os.File) {
-    fmt.Println("in make_name_string", f)
+	fmt.Println("in make_name_string", f)
 	fileInfo, err := f.Stat()
 	if err != nil {
 		fatal_error("fileInfo error in make_name_string")
@@ -44,10 +44,14 @@ func make_name_string(f *os.File) {
 
 // s774
 func pack_file_name(name, area, extension string) {
-    name_of_file = ""
-    if len(area)>0 {name_of_file = area+"/"}
-    name_of_file = name_of_file+name
-    if len(extension)>0 {name_of_file = name_of_file+"."+extension}
+	name_of_file = ""
+	if len(area) > 0 {
+		name_of_file = area + "/"
+	}
+	name_of_file = name_of_file + name
+	if len(extension) > 0 {
+		name_of_file = name_of_file + "." + extension
+	}
 }
 
 // s782
@@ -75,7 +79,7 @@ func open_log_file() {
 	fmt.Println("in open_log_file()")
 	var (
 		old_setting quarterword
-		k, l halfword //, m     int
+		k, l        halfword //, m     int
 	)
 
 	old_setting = selector
@@ -84,17 +88,17 @@ func open_log_file() {
 	}
 	pack_job_name("log")
 	for {
-	    fmt.Println("in open loop")
+		fmt.Println("in open loop")
 		fp := open_out()
 		if fp != nil {
 			log_file = fp
 			break
-		}else{
-		    fatal_error("open_log_file failed")
+		} else {
+			fatal_error("open_log_file failed")
 		}
 		fatal_error("unable to open " + name_of_file)
 	}
-	fmt.Println("opened up: "+name_of_file)
+	fmt.Println("opened up: " + name_of_file)
 	//make_name_string(log_file)  // happens in open_out
 	log_name = name_of_file
 	selector = log_only
@@ -144,5 +148,5 @@ func print_banner_line() {
 
 // s793
 func start_input() {
-    fmt.Println("START_INPUT NOT FINISHED (s793)!")
+	fmt.Println("START_INPUT NOT FINISHED (s793)!")
 }

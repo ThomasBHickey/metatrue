@@ -43,14 +43,14 @@ func (node *num_tok) getType() small_number {
 }
 
 func (node *num_tok) getName_type() quarterword {
-    return node.name_type
+	return node.name_type
 }
 
-func (node *num_tok) setLink(l pointer){
+func (node *num_tok) setLink(l pointer) {
 	node.link = l
 }
 
-func (node *num_tok) getLink() pointer{
+func (node *num_tok) getLink() pointer {
 	return node.link
 }
 
@@ -67,17 +67,17 @@ func (node *string_tok) getType() small_number {
 }
 
 func (node *string_tok) getName_type() quarterword {
-    jump_out(errors.New("Tried to call getName_type on a string_tok!"))
-    return 0
+	jump_out(errors.New("Tried to call getName_type on a string_tok!"))
+	return 0
 }
 
-func (node *string_tok) setLink(p pointer){
+func (node *string_tok) setLink(p pointer) {
 	jump_out(errors.New("Tried to call setLink on a string_tok!"))
 }
 
-func (node *string_tok) getLink() pointer{
-    jump_out(errors.New("string_tok does not implement getLink!"))
-    return void
+func (node *string_tok) getLink() pointer {
+	jump_out(errors.New("string_tok does not implement getLink!"))
+	return void
 }
 
 type value_tok struct {
@@ -92,10 +92,10 @@ func (node *value_tok) getType() small_number {
 }
 
 func (node *value_tok) getName_type() quarterword {
-    return node.name_type
+	return node.name_type
 }
 
-func (node *value_tok) setLink(link pointer){
+func (node *value_tok) setLink(link pointer) {
 	fmt.Println("setting link in value_tok", link, node)
 	node.link = link
 	fmt.Println("value after setting link", node)

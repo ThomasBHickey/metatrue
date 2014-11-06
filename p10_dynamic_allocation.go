@@ -17,7 +17,7 @@
 package metatrue
 
 import (
-    "fmt"
+	"fmt"
 )
 
 // The dynamic memory in MetaTrue has been reorganized from MetaFont
@@ -37,9 +37,8 @@ type Node interface {
 	getName_type() quarterword
 }
 
-
 var (
-	mem     = []Node{}
+	mem      = []Node{}
 	free_mem = []pointer{}
 	//hi_mem     []two_halves
 	//lo_mem_max pointer
@@ -55,22 +54,22 @@ var var_used, dyn_used integer
 // 	return pointer(mem[p].(num_tok).link)
 // }
 func getLink(p pointer) pointer {
-    return mem[p].getLink()
+	return mem[p].getLink()
 }
 func setLink(p, link pointer) {
-    mem[p].setLink(link)
+	mem[p].setLink(link)
 }
 
-func getName_type(p pointer) quarterword{
-    return mem[p].getName_type()
+func getName_type(p pointer) quarterword {
+	return mem[p].getName_type()
 }
 
 func getInfo(p pointer) halfword {
-    return mem[p].(*num_tok).info
+	return mem[p].(*num_tok).info
 }
 
 func getValue(p pointer) scaled {
-    return mem[p].(*num_tok).value
+	return mem[p].(*num_tok).value
 }
 
 // func info(p pointer) halfword {
@@ -83,19 +82,19 @@ var mem_end pointer
 // s 163
 // put node in mem
 func get_avail(node Node) pointer {
-    var pos pointer
-    if len(free_mem)>0 {
-        pos = free_mem[len(free_mem)-1]
-        free_mem = free_mem[:len(free_mem)-1]
-        mem[pos] = &value_tok{}
-    }else{
-        pos = pointer(len(mem))
-        mem = append(mem, node)
-    }
-    if pos>mem_max {
-        runaway()
-        overflow("mem memory size", mem_max)
-    }
+	var pos pointer
+	if len(free_mem) > 0 {
+		pos = free_mem[len(free_mem)-1]
+		free_mem = free_mem[:len(free_mem)-1]
+		mem[pos] = &value_tok{}
+	} else {
+		pos = pointer(len(mem))
+		mem = append(mem, node)
+	}
+	if pos > mem_max {
+		runaway()
+		overflow("mem memory size", mem_max)
+	}
 	if stat {
 		dyn_used++
 	}
@@ -105,5 +104,5 @@ func get_avail(node Node) pointer {
 
 // S172
 func free_node(p pointer) {
-    free_mem = append(free_mem, p)
+	free_mem = append(free_mem, p)
 }

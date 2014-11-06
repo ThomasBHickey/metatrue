@@ -76,13 +76,16 @@ var (
 	buffer [buf_size + 1]rune
 	first,
 	last halfword
-	max_buf_stack = 0
+	max_buf_stack halfword
 )
 
 // s30
 func input_ln(r *bufio.Reader, bypass_eoln bool) bool {
+    fmt.Println("starting input_ln")
 	line, err := r.ReadString('\n') //r.ReadBytes('\n')
-	fmt.Println("input_ln s30:", len(line), line, err)
+	line = strings.TrimSpace(line)
+	fmt.Printf("input_ln s30 line: %s \"%s\"\n", len(line), line)
+	fmt.Println("err", err)
 	if err != nil && err != io.EOF {
 		return false
 	}
@@ -91,8 +94,10 @@ func input_ln(r *bufio.Reader, bypass_eoln bool) bool {
 	}
 	//line = bytes.Trim(line, " \t\n")
 	runes := []rune(line)
-	if len(runes)+int(last) >= max_buf_stack {
+	fmt.Printf("len(runes) %d, last: %d, max_buf_stack: %d\n", len(runes), int(last), max_buf_stack)
+	if len(runes)+int(last) >= buf_size {
 		// s 34
+		fmt.Println("input_ln about to call overflow")
 		overflow("buffer_size", buf_size) // this won't return
 	}
 	last = first
@@ -100,6 +105,7 @@ func input_ln(r *bufio.Reader, bypass_eoln bool) bool {
 		buffer[last] = r
 		last++
 	}
+	max_buf_stack = last
 	return true
 }
 
@@ -132,12 +138,12 @@ func bufferText(s string) {
 		buffer[pos] = r
 	}
 	fmt.Printf("in bufferText %s %#v", s, cur_input)
-	if cur_input==nil {
-	    jump_out(errors.New("nil cur_input in bufferText()"))
+	if cur_input == nil {
+		jump_out(errors.New("nil cur_input in bufferText()"))
 	}
 	fmt.Printf("in bufferText %s %#v", s, cur_input)
 	cur_input.(*inStateFileRec).loc = first
-	
+
 	last = halfword(len(rs))
 }
 

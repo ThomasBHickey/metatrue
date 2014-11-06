@@ -207,9 +207,11 @@ func prompt_input(s string) {
     wake_up_terminal()
     print(s)
     term_input()
+    fmt.Println("prompt_input back from term_input()")
 }
 
 func term_input() {
+    fmt.Println("in term_input()")
     update_terminal()
     if ! input_ln(term_in, true) {
         fatal_error("end of file on the terminal!")

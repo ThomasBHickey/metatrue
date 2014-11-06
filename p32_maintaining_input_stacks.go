@@ -48,9 +48,9 @@ func end_file_reading() {
 
 // s656
 func clear_for_error_prompt() {
-	for file_state() && terminal_input() && 
-	    (input_ptr > 0) && 
-	    (cur_input.(*inStateFileRec).loc == cur_input.(*inStateFileRec).limit) {
+	for file_state() && terminal_input() &&
+		(input_ptr > 0) &&
+		(cur_input.(*inStateFileRec).loc == cur_input.(*inStateFileRec).limit) {
 		//fmt.Println("clear_for_error file_state", file_state())
 		//fmt.Println("terminal_input", terminal_input())
 		//fmt.Println("input_ptr", input_ptr)
@@ -74,17 +74,17 @@ var (
 
 func initializeTheInputRoutines() error {
 	fmt.Println("initializeTheInputRoutines!")
-	cur_input = &inStateFileRec{}
+	//cur_input = &inStateFileRec{}
 	err := init_terminal()
-	fmt.Println("return of init_terminal", err)
+	//fmt.Println("return of init_terminal", err)
 	if err != nil {
-	    fmt.Println("initializeTheInputRoutines error", err)
+		fmt.Println("initializeTheInputRoutines error", err)
 		return err
 	}
 	cur_input.(*inStateFileRec).limit = last
-	fmt.Printf("initializeTheInputRoutines %#v", cur_input)
+	//fmt.Printf("initializeTheInputRoutines %#v", cur_input)
 	first = last + 1
-	fmt.Println("initializeTheInputRoutines returning OK")
+	//fmt.Println("initializeTheInputRoutines returning OK")
 	return nil
 }
 
