@@ -85,6 +85,7 @@ restart:
 		case percent_class:
 			// s679 move to next line of file or goto restart if there is
 			// no next line
+			fmt.Println("in % class.  cur_input.getName()", cur_input.getName())
 			if cur_input.getName() > 2 {
 				// s681 read next line of file into buffer or goto restart
 				// if file has ended
@@ -155,7 +156,7 @@ restart:
 		//cur_sym = id_lookup(k, cur_input.loc-k)
 		fmt.Println("found: ", k, cur_input.(*inStateFileRec).loc, buffer[k:cur_input.(*inStateFileRec).loc])
 		cur_sym = halfword(string_to_pos[string(buffer[k:cur_input.(*inStateFileRec).loc])])
-		fmt.Println("cur_sym", cur_sym)
+		fmt.Println("cur_sym", cur_sym, pos_to_string[cur_sym])
 	} else {
 		// s 676 input from token list
 		jump_out(errors.New("s676 not implemented"))
@@ -173,3 +174,6 @@ restart:
 		}
 	}
 }
+
+// s 680
+var forc_eof bool

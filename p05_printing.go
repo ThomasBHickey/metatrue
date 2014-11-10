@@ -211,17 +211,22 @@ func prompt_input(s string) {
 }
 
 func term_input() {
-    fmt.Println("in term_input()")
+    fmt.Println("in term_input(), calling update_terminal")
     update_terminal()
+    fmt.Println("past update_terminal in term_input, calling input_ln")
     if ! input_ln(term_in, true) {
         fatal_error("end of file on the terminal!")
     }
+    fmt.Println("past input_ln in term_input")
     term_offset = 0
     selector--
     if last != first{
+        fmt.Println("about to print", buffer[first:last])
         print(string(buffer[first:last]))
     }
+    fmt.Println("calling print_ln")
     print_ln()
     buffer[last] = '%'
     selector++
+    fmt.Println("ending term_input")
 }

@@ -89,6 +89,10 @@ func input_ln(r *bufio.Reader, bypass_eoln bool) bool {
 	if err != nil && err != io.EOF {
 		return false
 	}
+	if line=="end" {
+	    fmt.Println("found end, exiting")
+	    jump_out(errors.New("input_ln in p03 exiting on 'end'"))
+	}
 	if err == io.EOF && len(line) == 0 {
 		return false
 	}

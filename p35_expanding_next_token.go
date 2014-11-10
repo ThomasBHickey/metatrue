@@ -58,6 +58,12 @@ func expand(){
     }
 }
 
+// s709
+func putPrimitivesIn_s709() {
+    primitive("input", input, 0)
+    primitive("endinput", input, 1)
+}
+
 // s718
 func get_x_next(){
     var save_exp pointer
