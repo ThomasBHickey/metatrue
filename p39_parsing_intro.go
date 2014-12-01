@@ -55,14 +55,16 @@ func stash_cur_exp() pointer {
 	return p
 }
 
-// s802
+// s800
 func unstash_cur_exp(p pointer) {
     cur_type = getType(p)
+    fmt.Println("unstash_cur_exp s802, cur_type:", cur_type)
     switch cur_type {
         case unknown_boolean, unknown_string, unknown_pen, unknown_picture, unknown_path,
             transform_type, pair_type, dependent, proto_dependent, independent:
             cur_exp = integer(p)
         default:
+            fmt.Println("unstash_cur_exp default case:", p)
             cur_exp = integer(getValue(p))
             free_node(p)
     }

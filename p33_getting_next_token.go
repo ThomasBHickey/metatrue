@@ -52,7 +52,7 @@ func get_next() {
 	//mterror("get_next not implemented yet!")
 	//jump_out(errors.New("get_next not implemented yet!"))
 	var k halfword
-	//var n integer
+	var n, f integer
 restart:
 	cur_sym = 0
 	if file_state() {
@@ -147,11 +147,38 @@ restart:
 		}
 		goto found
 	start_numeric_token:
-		jump_out(errors.New("s673 not implemented"))
+		//jump_out(errors.New("s673 not implemented"))
+		n = integer(c)-'0'
+		for char_class[buffer[cur_input.(*inStateFileRec).loc]]==digit_class {
+		    if n<4096 {
+		        n = 10*n + integer(buffer[cur_input.(*inStateFileRec).loc])-'0'
+		    }
+		    cur_input.(*inStateFileRec).loc++
+		}
+		if buffer[cur_input.(*inStateFileRec).loc]=='.' {
+		    if char_class[buffer[cur_input.(*inStateFileRec).loc+1]]==digit_class {
+		        goto done
+		    }
+		}
+		f = 0
+		goto fin_numeric_token
+	done: cur_input.(*inStateFileRec).loc++
 	start_decimal_token:
 		jump_out(errors.New("s674 not implemented"))
-		//fin_numeric_token:
-		jump_out(errors.New("s675 not implemented"))
+    fin_numeric_token:
+        // Pack the numeric and fraction parts of a numer token and return
+        if n<4096 { cur_mod = n*unity+f
+        }else{
+            print_err("Enormous number has been reduced")
+            help("I can't handle numbers bigger than about 4095.99998;",
+                "so I've changed your constant to that maximum amount.")
+            deletions_allowed = false
+            mterror()
+            deletions_allowed = true
+            cur_mod = 01777777777
+        }
+        cur_cmd = numeric_token
+		return
 	found:
 		//cur_sym = id_lookup(k, cur_input.loc-k)
 		fmt.Println("found: ", k, cur_input.(*inStateFileRec).loc, buffer[k:cur_input.(*inStateFileRec).loc])

@@ -17,6 +17,7 @@
 package metatrue
 
 import (
+    "errors"
 	"fmt"
 )
 
@@ -69,7 +70,14 @@ func getInfo(p pointer) halfword {
 }
 
 func getValue(p pointer) scaled {
-	return mem[p].(*num_tok).value
+    switch pt := mem[p].(type) {
+        default: fmt.Printf("unexpected type %T\n", pt)
+        case *value_tok: return scaled(mem[p].(*value_tok).value)
+        case *num_tok: return mem[p].(*num_tok).value
+    }
+	//return mem[p].(*num_tok).value
+	jump_out(errors.New("getValue unexpected type?"))
+	return 0
 }
 
 // func info(p pointer) halfword {
