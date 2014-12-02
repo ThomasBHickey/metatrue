@@ -17,7 +17,7 @@
 package metatrue
 
 import (
-    "fmt"
+	"fmt"
 )
 
 // s2
@@ -27,14 +27,14 @@ var banner = "This is METATRUE, Version 1"
 //Don't think we need to pull everthing together in Go, but do
 // need an initialization routine
 func initialize() {
-    fmt.Println("initialize called")
-    set_initial_values_of_key_variables()
-    fmt.Println("key variables set up!")
-    //get_strings_started()
-    set_up_internals()
-    fmt.Println("set_up_internals done")
-    //putPrimitivesIn_1()
-    //initialize_table_entries()
+	fmt.Println("initialize called")
+	set_initial_values_of_key_variables()
+	fmt.Println("key variables set up!")
+	//get_strings_started()
+	set_up_internals()
+	fmt.Println("set_up_internals done")
+	//putPrimitivesIn_1()
+	//initialize_table_entries()
 }
 
 // s 6
@@ -85,7 +85,7 @@ const (
 	max_in_open = 6
 	param_size  = 150
 	mem_min     = 0
-	mem_top = 30000
+	mem_top     = 30000
 )
 
 // s13
@@ -101,4 +101,4 @@ var bad int
 // most of these we won't need since
 // we don't have to worry about as many
 // portability issues
-func do_nothing(){}
+func do_nothing() {}

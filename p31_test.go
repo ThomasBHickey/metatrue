@@ -17,11 +17,11 @@
 package metatrue
 
 import (
-    "testing"
-    //"fmt"
+	"testing"
+	//"fmt"
 )
 
 func TestX31(t *testing.T) {
-    //cur_input = input_stack[0]
-    //fmt.Println("cur_input.getIndex()", cur_input.getIndex())
+	//cur_input = input_stack[0]
+	//fmt.Println("cur_input.getIndex()", cur_input.getIndex())
 }

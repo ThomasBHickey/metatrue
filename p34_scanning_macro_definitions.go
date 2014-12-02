@@ -17,32 +17,42 @@
 package metatrue
 
 import (
-//"fmt"
+	"errors"
+	//"fmt"
 )
 
 // s683
 const (
-    start_def = 1
-    var_def = 2
-    end_def = 0
-    start_forever = 1
-    end_for = 0
-    )
+	start_def     = 1
+	var_def       = 2
+	end_def       = 0
+	start_forever = 1
+	end_for       = 0
+)
 
 func putPrimitivesIn_s683() {
-    primitive("def", macro_def, start_def)
-    primitive("vardef", macro_def, var_def)
-    primitive("primarydef", macro_def, secondary_primary_macro)
-    primitive("secondarydef", macro_def, tertiary_secondary_macro)
-    primitive("tertiarydef", macro_def, expression_tertiary_macro)
-    primitive("enddef", macro_def, end_def)
-    //eqtb[frozen_end_def] = eqtb[cur_sym]
-    primitive("for", iteration, expr_base)
-    primitive("forsuffixes", iteration, suffix_base)
-    primitive("forever", iteration, start_forever)
-    primitive("endfor", iteration, end_for)
+	primitive("def", macro_def, start_def)
+	primitive("vardef", macro_def, var_def)
+	primitive("primarydef", macro_def, secondary_primary_macro)
+	primitive("secondarydef", macro_def, tertiary_secondary_macro)
+	primitive("tertiarydef", macro_def, expression_tertiary_macro)
+	primitive("enddef", macro_def, end_def)
+	//eqtb[frozen_end_def] = eqtb[cur_sym]
+	primitive("for", iteration, expr_base)
+	primitive("forsuffixes", iteration, suffix_base)
+	primitive("forever", iteration, start_forever)
+	primitive("endfor", iteration, end_for)
+}
+
+// s694
+func make_op_def() {
+	jump_out(errors.New("make_op_def not implemented"))
+}
+
+// s697
+func scan_def() {
+	jump_out(errors.New("scan_def not implemented"))
 }
 
 // s699
 var bg_loc, eg_loc halfword
-    

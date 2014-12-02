@@ -37,12 +37,11 @@ const (
 	end_attr        = temp_val
 )
 
-
 // s176
-func initialize_table_entries () {
-    var_used = integer(len(mem)+1)
-    for len(int_name)<=max_given_internal {
-        int_name = append(int_name, 0)
-    }
-    initialize_table_entries_A()
+func initialize_table_entries() {
+	var_used = integer(len(mem) + 1)
+	for len(int_name) <= max_given_internal {
+		int_name = append(int_name, 0)
+	}
+	initialize_table_entries_A()
 }

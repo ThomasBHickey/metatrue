@@ -18,8 +18,8 @@ package metatrue
 
 import (
 	//"math/big"
-	"testing"
 	"fmt"
+	"testing"
 )
 
 func TestX07(t *testing.T) {
@@ -45,11 +45,11 @@ func TestS101(t *testing.T) {
 }
 
 func TestS103a(t *testing.T) {
-	var neg scaled 
-	neg = unity-two
+	var neg scaled
+	neg = unity - two
 	fmt.Println("neg", neg)
 	fmt.Println("neg as scaled", neg.floatString())
-	}
+}
 func TestS095(t *testing.T) {
 	bi := (int64(1) << 31) - 1
 	if el_gordo != bi {
@@ -119,19 +119,19 @@ func TestS112(t *testing.T) {
 	}
 }
 
-func TestS114(t *testing.T){
-    if make_scaled(1,2) != half_unit {
-        fmt.Printf("half_unit    %x\n", half_unit)
-        fmt.Printf("returned val %x\n", make_fraction(1,2))
-        t.Error("make_fraction", make_fraction(1,2))
-    }
+func TestS114(t *testing.T) {
+	if make_scaled(1, 2) != half_unit {
+		fmt.Printf("half_unit    %x\n", half_unit)
+		fmt.Printf("returned val %x\n", make_fraction(1, 2))
+		t.Error("make_fraction", make_fraction(1, 2))
+	}
 }
 
-func TestS117(t *testing.T){
-    if ab_vs_cd(1,2,3,4)!=-1 {
-        t.Error("1,2,3,4 failed ab_vs_cd")
-    }
-    if ab_vs_cd(1,2,1,2)!=0{
-        t.Error("1,2,1,2 failed ab_vs_cd", ab_vs_cd(1,2,1,2))
-    }
+func TestS117(t *testing.T) {
+	if ab_vs_cd(1, 2, 3, 4) != -1 {
+		t.Error("1,2,3,4 failed ab_vs_cd")
+	}
+	if ab_vs_cd(1, 2, 1, 2) != 0 {
+		t.Error("1,2,1,2 failed ab_vs_cd", ab_vs_cd(1, 2, 1, 2))
+	}
 }

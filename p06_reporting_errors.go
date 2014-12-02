@@ -206,7 +206,7 @@ func delete_tokens(c rune) {
 		c = c - '0'
 	}
 	for c > 0 {
-	    fmt.Println("calling get_next from delete_tokens")
+		fmt.Println("calling get_next from delete_tokens")
 		get_next()
 		c--
 	}

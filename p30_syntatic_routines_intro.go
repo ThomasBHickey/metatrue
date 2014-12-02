@@ -17,33 +17,34 @@
 package metatrue
 
 import (
-    "fmt"
+	"fmt"
 )
 
 // s624
 var (
-    cur_cmd halfword //eight_bits
+	cur_cmd halfword //eight_bits
 	cur_mod integer
 	cur_sym halfword
-	)
-	
+)
+
 // s625
-func print_cmd_mod(c, m integer){
-    switch c {
-        // s 212 symbolic printing of primitives
-        case 1: fmt.Println("s 212 not implemented")
-    }
+func print_cmd_mod(c, m integer) {
+	switch c {
+	// s 212 symbolic printing of primitives
+	case 1:
+		fmt.Println("s 212 not implemented")
+	}
 }
 
 // s626
 func show_cur_cmd_mod() {
-    show_cmd_mod(integer(cur_cmd), cur_mod)
+	show_cmd_mod(integer(cur_cmd), cur_mod)
 }
 
-func show_cmd_mod(c, m integer){
-    begin_diagnostic()
-    print_nl("{")
-    print_cmd_mod(c, m)
-    print_char('}')
-    end_diagnostic(false)
+func show_cmd_mod(c, m integer) {
+	begin_diagnostic()
+	print_nl("{")
+	print_cmd_mod(c, m)
+	print_char('}')
+	end_diagnostic(false)
 }

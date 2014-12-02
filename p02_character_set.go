@@ -23,6 +23,6 @@ import (
 // s21
 // It's going to be Unicode all the way, so we don't need the character encodings?
 // That's the plan, anyway!
-func set_initial_values_of_key_variables(){
-    setup_char_class()
+func set_initial_values_of_key_variables() {
+	setup_char_class()
 }

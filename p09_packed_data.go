@@ -53,7 +53,7 @@ type (
 	// for integer int64
 	//quarterword uint16
 	//halfword uint32
-	two_halves    struct {
+	two_halves struct {
 		lh, rh halfword
 	}
 	half_two_quarters struct {
@@ -64,8 +64,9 @@ type (
 		b0, b1, b2, b3 quarterword
 	}
 )
+
 func (Node two_halves) getType() small_number {
-    return undefined
+	return undefined
 }
 
 // s157

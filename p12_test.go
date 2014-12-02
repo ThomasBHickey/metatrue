@@ -17,41 +17,40 @@
 package metatrue
 
 import (
-    "testing"
-    "fmt"
+	"fmt"
+	"testing"
 )
 
-func TestS189(t *testing.T){
-    if pen_offset_of != 100 {
-        t.Error("S189 constants bad", pen_offset_of, y_scaled)
-    }
+func TestS189(t *testing.T) {
+	if pen_offset_of != 100 {
+		t.Error("S189 constants bad", pen_offset_of, y_scaled)
+	}
 }
 
-func TestS190(t *testing.T){
-    set_up_internals()
-    if max_given_internal!=41 {
-        fmt.Println("S190 constants bad", max_given_internal)
-    }
+func TestS190(t *testing.T) {
+	set_up_internals()
+	if max_given_internal != 41 {
+		fmt.Println("S190 constants bad", max_given_internal)
+	}
 }
 
-func TestS191(t *testing.T){
-    initialize() // should call set_up_internals
-    if len(internal)!=max_given_internal+1 {
-        t.Error("S191 internal length wrong", len(internal), max_given_internal)
-    }
-    putPrimitivesIn_s192()
-    rs := "boundarychar"
-    fmt.Println("primitive", rs, make_string(rs), pos_to_string[make_string(rs)])
-    fmt.Println("eqtb[296]", eqtb[296])
+func TestS191(t *testing.T) {
+	initialize() // should call set_up_internals
+	if len(internal) != max_given_internal+1 {
+		t.Error("S191 internal length wrong", len(internal), max_given_internal)
+	}
+	putPrimitivesIn_s192()
+	rs := "boundarychar"
+	fmt.Println("primitive", rs, make_string(rs), pos_to_string[make_string(rs)])
+	fmt.Println("eqtb[296]", eqtb[296])
 }
 
 func TestS198(t *testing.T) {
-    if string_class!=4 {
-        t.Error("right_paren_class", right_paren_class)
-    }
+	if string_class != 4 {
+		t.Error("right_paren_class", right_paren_class)
+	}
 }
 
 func TestS199(t *testing.T) {
 	fmt.Println("char_class['\\']", char_class['\\'])
-	}
-	
+}

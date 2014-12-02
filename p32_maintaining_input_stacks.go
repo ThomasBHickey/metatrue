@@ -42,9 +42,9 @@ func end_file_reading() {
 	if cur_input.(*inStateFileRec).index != in_open {
 		confusion("endinput")
 	}
-	if cur_input.getName()>2{
-	    fmt.Println("Should close file here!")
-	    //cur_file.Close()
+	if cur_input.getName() > 2 {
+		fmt.Println("Should close file here!")
+		//cur_file.Close()
 	}
 	pop_input()
 	in_open--

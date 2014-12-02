@@ -17,7 +17,7 @@
 package metatrue
 
 import (
-    "fmt"
+	"fmt"
 )
 
 // s796, s797
@@ -33,12 +33,12 @@ func stash_cur_exp() pointer {
 		transform_type, pair_type, dependent, proto_dependent, independent:
 		p = pointer(cur_exp)
 	default:
-	    fmt.Println("name_type", capsule, "kind", cur_type, "value", cur_exp)
-	    p = get_avail(&value_tok{name_type:capsule, kind:cur_type, value:cur_exp, link:133})
-// 		p = get_node(value_node_size)
-// 		name_type(p) = capsule
-// 		Type(p) = cur_type
-// 		value(p) = cur_exp
+		fmt.Println("name_type", capsule, "kind", cur_type, "value", cur_exp)
+		p = get_avail(&value_tok{name_type: capsule, kind: cur_type, value: cur_exp, link: 133})
+		// 		p = get_node(value_node_size)
+		// 		name_type(p) = capsule
+		// 		Type(p) = cur_type
+		// 		value(p) = cur_exp
 	}
 	cur_type = vacuous
 	//link(p) = void
@@ -57,26 +57,26 @@ func stash_cur_exp() pointer {
 
 // s800
 func unstash_cur_exp(p pointer) {
-    cur_type = getType(p)
-    fmt.Println("unstash_cur_exp s802, cur_type:", cur_type)
-    switch cur_type {
-        case unknown_boolean, unknown_string, unknown_pen, unknown_picture, unknown_path,
-            transform_type, pair_type, dependent, proto_dependent, independent:
-            cur_exp = integer(p)
-        default:
-            fmt.Println("unstash_cur_exp default case:", p)
-            cur_exp = integer(getValue(p))
-            free_node(p)
-    }
+	cur_type = getType(p)
+	fmt.Println("unstash_cur_exp s802, cur_type:", cur_type)
+	switch cur_type {
+	case unknown_boolean, unknown_string, unknown_pen, unknown_picture, unknown_path,
+		transform_type, pair_type, dependent, proto_dependent, independent:
+		cur_exp = integer(p)
+	default:
+		fmt.Println("unstash_cur_exp default case:", p)
+		cur_exp = integer(getValue(p))
+		free_node(p)
+	}
 }
 
 // s801
 
 func print_exp(p pointer, verbosity small_number) {
 	var (
-	    restore_cur_exp bool
-		t small_number
-		v integer
+		restore_cur_exp bool
+		t               small_number
+		v               integer
 		//q pointer  // not needed until s803 Display a big node implemented
 	)
 	if p != null {
@@ -165,24 +165,30 @@ func print_exp(p pointer, verbosity small_number) {
 	}
 }
 
-
 // s805
-func print_dp(t small_number, p pointer, verbosity small_number){
-    fatal_error("print_dp not implemented")
+func print_dp(t small_number, p pointer, verbosity small_number) {
+	fatal_error("print_dp not implemented")
 }
-    
+
 // s807
-func exp_err_sn(s str_number) {
-	disp_err_sn(null, s)
+func exp_err_sn(sn str_number) {
+	disp_err_sn(null, sn)
+}
+
+func exp_err(s string) {
+	disp_err(null, s)
 }
 
 func disp_err_sn(p pointer, sn str_number) {
+	disp_err(p, pos_to_string[sn])
+}
+
+func disp_err(p pointer, s string) {
 	if interaction == error_stop_mode {
 		wake_up_terminal()
 	}
 	print_nl(">> ")
 	print_exp(p, 1)
-	s := pos_to_string[sn]
 	if s != "" {
 		print_nl("! ")
 		print(s)
@@ -236,3 +242,6 @@ func put_get_flush_error(v scaled) {
 	//put_get_error()
 	//flush_cur_exp(v)
 }
+
+// s821
+var var_flag small_number

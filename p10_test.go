@@ -17,23 +17,23 @@
 package metatrue
 
 import (
-    "testing"
-    //"fmt"
+	"testing"
+	//"fmt"
 )
 
 func TestS163(t *testing.T) {
-    // p1 := get_avail(two_halves{})
-    // fmt.Println("get_avail()", p1)
-    // fmt.Println("Type: ", mem[p1].Type())
-    // fmt.Println("length of mem", len(mem))
-    // fmt.Println("length of free_mem", len(free_mem))
-    // p2 := get_avail(two_halves{})
-    // fmt.Println("p2", p2)
-    // fmt.Println("freeing p1")
-    // free_node(p1)
-    // fmt.Println("length of free_mem", len(free_mem))
-    // p3 := get_avail(two_halves{})
-    // fmt.Println("p3", p3)
-    // fmt.Println("length of mem", len(mem))
-    // fmt.Println("length of free_mem", len(mem))
+	// p1 := get_avail(two_halves{})
+	// fmt.Println("get_avail()", p1)
+	// fmt.Println("Type: ", mem[p1].Type())
+	// fmt.Println("length of mem", len(mem))
+	// fmt.Println("length of free_mem", len(free_mem))
+	// p2 := get_avail(two_halves{})
+	// fmt.Println("p2", p2)
+	// fmt.Println("freeing p1")
+	// free_node(p1)
+	// fmt.Println("length of free_mem", len(free_mem))
+	// p3 := get_avail(two_halves{})
+	// fmt.Println("p3", p3)
+	// fmt.Println("length of mem", len(mem))
+	// fmt.Println("length of free_mem", len(mem))
 }

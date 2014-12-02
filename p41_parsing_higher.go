@@ -17,5 +17,10 @@
 package metatrue
 
 import (
-//"fmt"
+	"errors"
+	//"fmt"
 )
+
+func scan_expression() {
+	jump_out(errors.New("s 868 scan_expression not implemented"))
+}

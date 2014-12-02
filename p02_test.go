@@ -17,10 +17,10 @@
 package metatrue
 
 import (
-    "testing"
-    //"fmt"
+	"testing"
+	//"fmt"
 )
 
 func TestX02(t *testing.T) {
-    set_initial_values_of_key_variables()
+	set_initial_values_of_key_variables()
 }

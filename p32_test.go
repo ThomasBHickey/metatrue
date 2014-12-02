@@ -17,8 +17,8 @@
 package metatrue
 
 import (
-    "testing"
-    //"fmt"
+	"testing"
+	//"fmt"
 )
 
 func TestX32(t *testing.T) {

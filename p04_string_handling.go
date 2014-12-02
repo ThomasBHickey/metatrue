@@ -17,54 +17,56 @@
 package metatrue
 
 import (
-    "fmt"
+	"fmt"
 )
 
 // s37...
 type (
-    pool_pointer pointer
-    str_number halfword
+	pool_pointer pointer
+	str_number   halfword
 )
 
 var (
-    string_to_pos = make(map[string] str_number)
-    pos_to_string []string
+	string_to_pos = make(map[string]str_number)
+	pos_to_string []string
 )
 
 // s43
-func delete_str_ref(p str_number){
-    // does nothing right now
+func delete_str_ref(p str_number) {
+	// does nothing right now
 }
 
 // s44
 func make_string(s string) str_number {
-    pos, ok := string_to_pos[s]
-    if ok {return pos}
-    string_to_pos[s] = str_number(len(pos_to_string))
-    pos_to_string = append(pos_to_string, s)
-    return str_number(len(pos_to_string)-1)
+	pos, ok := string_to_pos[s]
+	if ok {
+		return pos
+	}
+	string_to_pos[s] = str_number(len(pos_to_string))
+	pos_to_string = append(pos_to_string, s)
+	return str_number(len(pos_to_string) - 1)
 }
 
 // s47
 func get_strings_started() {
-    for r:= rune(0); r<rune(256); r++ {
-        if character_cannot_be_printed(r){
-            if r<0100 {
-                make_string("^^"+string(r+0100))
-            } else {
-                if r<0200 { 
-                    make_string("^^"+string(r-0100))
-                }else {
-                    make_string("^^"+fmt.Sprintf("%x", r))
-                }
-            }
-        } else {
-            make_string(string(r))
-        }
-    }
+	for r := rune(0); r < rune(256); r++ {
+		if character_cannot_be_printed(r) {
+			if r < 0100 {
+				make_string("^^" + string(r+0100))
+			} else {
+				if r < 0200 {
+					make_string("^^" + string(r-0100))
+				} else {
+					make_string("^^" + fmt.Sprintf("%x", r))
+				}
+			}
+		} else {
+			make_string(string(r))
+		}
+	}
 }
 
 // s49
 func character_cannot_be_printed(r rune) bool {
-    return r<' ' || r>'~'
+	return r < ' ' || r > '~'
 }

@@ -17,7 +17,7 @@
 package metatrue
 
 import (
-    "fmt"
+	"fmt"
 )
 
 // s 121
@@ -52,12 +52,12 @@ func square_rt(x scaled) scaled {
 			y++
 		}
 		x += x
-		y = y+y-q
+		y = y + y - q
 		q += q
-		if x>=fraction_four{
-			x -=fraction_four
+		if x >= fraction_four {
+			x -= fraction_four
 			y++
-			}
+		}
 		if y > q {
 			y -= q
 			q += 2
@@ -77,6 +77,5 @@ func square_rt(x scaled) scaled {
 
 // s150
 func init_randoms(seed scaled) {
-    fmt.Println("init_randoms not implemented")
+	fmt.Println("init_randoms not implemented")
 }
-

@@ -57,7 +57,6 @@ func clear_arith() {
 // To start we'll using int32 to match 'old' MetaFont
 type integer int32
 
-
 // s101
 const (
 	quarter_unit       = 040000  // 2^14 is 0.25

@@ -22,9 +22,9 @@ import (
 
 // s587
 func dep_list(p pointer) pointer {
-    return getLink(value_loc(p))
+	return getLink(value_loc(p))
 }
 
 func prev_dep(p pointer) halfword {
-    return getInfo(value_loc(p))
+	return getInfo(value_loc(p))
 }

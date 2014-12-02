@@ -81,7 +81,7 @@ var (
 
 // s30
 func input_ln(r *bufio.Reader, bypass_eoln bool) bool {
-    fmt.Println("starting input_ln")
+	fmt.Println("starting input_ln")
 	line, err := r.ReadString('\n') //r.ReadBytes('\n')
 	line = strings.TrimSpace(line)
 	fmt.Printf("input_ln s30 line: %s \"%s\"\n", len(line), line)
@@ -89,9 +89,9 @@ func input_ln(r *bufio.Reader, bypass_eoln bool) bool {
 	if err != nil && err != io.EOF {
 		return false
 	}
-	if line=="!q" || line=="!end" ||line=="quit()" {
-	    fmt.Println("found end, exiting")
-	    jump_out(errors.New("input_ln in p03 exiting on 'end'"))
+	if line == "!q" || line == "!end" || line == "quit()" {
+		fmt.Println("found end, exiting")
+		jump_out(errors.New("input_ln in p03 exiting on 'end'"))
 	}
 	if err == io.EOF && len(line) == 0 {
 		return false

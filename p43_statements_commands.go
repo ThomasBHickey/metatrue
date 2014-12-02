@@ -17,25 +17,85 @@
 package metatrue
 
 import (
+	"errors"
 	"fmt"
 )
 
 // s989
-func do_statement(){
-    fmt.Println("in do_statement in 43/s989")
-    cur_type = vacuous
-    get_x_next()
-    if cur_cmd > max_statement_command {
-        // do s993 equation, assignment, title or <expression> endgroup
-        fmt.Println("s993 not implemented")
-    } else {
-        // do s992 a statement that doesn't begin with an expression
-    }
-    if cur_cmd<semicolon {
-        // s991 Flush unparable junk that was found after the statment
-    }
-    error_count = 0
-    fmt.Println("finished do_statement")
+func do_statement() {
+	fmt.Println("in do_statement in 43/s989")
+	cur_type = vacuous
+	get_x_next()
+	if cur_cmd > max_statement_command {
+		// do s993 equation, assignment, title or <expression> endgroup
+		var_flag = assignment
+		scan_expression()
+		if cur_cmd == equals {
+			do_equation()
+		} else {
+			if cur_cmd == assignment {
+				do_assignment()
+			} else {
+				if cur_type == string_type {
+					// do a title 994
+					if internal[tracing_titles] > 0 {
+						print_nl("")
+						slow_print_sn(str_number(cur_exp))
+						update_terminal()
+					}
+					if internal[proofing] > 0 {
+						// send current expression as a title to the output file
+						jump_out(errors.New("1179 not implemented"))
+					}
+				} else {
+					if cur_type != vacuous {
+						exp_err("Isolated expression")
+						help("I couldn't find an '=' or ':=' after the",
+							"expression that is shown abovve this error message,",
+							"so I guess I'll just ignore it and carry on.")
+						put_get_error()
+					}
+				}
+			}
+		}
+		flush_cur_exp(0)
+		cur_type = vacuous
+	} else {
+		// do s992 a statement that doesn't begin with an expression
+		if internal[tracing_commands] > 0 {
+			show_cur_cmd_mod()
+		}
+		switch cur_cmd {
+		case type_name:
+			do_type_declaration()
+		case macro_def:
+			if cur_mod > var_def {
+				make_op_def()
+			} else {
+				if cur_mod > end_def {
+					scan_def()
+				}
+			}
+		// s1020 cases of do_statement for particular commands
+		default:
+			jump_out(errors.New("s1020 not implemented"))
+		}
+	}
+	if cur_cmd < semicolon {
+		// s991 Flush unparable junk that was found after the statment
+	}
+	error_count = 0
+	fmt.Println("finished do_statement")
+}
+
+// s995
+func do_equation() {
+	jump_out(errors.New("do_equation not implemented"))
+}
+
+// s996
+func do_assignment() {
+	jump_out(errors.New("do_assignment not implemented"))
 }
 
 // s1017
@@ -52,4 +112,9 @@ func main_control() {
 			break
 		}
 	}
+}
+
+// s1015
+func do_type_declaration() {
+	jump_out(errors.New("do_type_declaration not implemented"))
 }

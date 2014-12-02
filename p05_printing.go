@@ -17,7 +17,7 @@
 package metatrue
 
 import (
-    "bufio"
+	"bufio"
 	"fmt"
 	//"os"
 )
@@ -59,7 +59,7 @@ func wterm_cr() {
 	write_ln(term_out)
 }
 func wlog(msg string) {
-    //fmt.Println("in wlog", msg)
+	//fmt.Println("in wlog", msg)
 	write(log_file, msg)
 }
 func wlog_ln(msg string) {
@@ -108,7 +108,7 @@ func print_char(r rune) {
 			file_offset = 0
 		}
 	case log_only:
-	    //fmt.Println("log_only")
+		//fmt.Println("log_only")
 		wlog(sr)
 		file_offset++
 		if file_offset == max_print_line {
@@ -132,14 +132,14 @@ func print_char(r rune) {
 
 // s59
 func print(s string) {
-    //fmt.Println("in print()", s)
+	//fmt.Println("in print()", s)
 	for _, r := range s {
 		print_char(r)
 	}
 }
 
-func print_sn(sn str_number){
-    print(pos_to_string[sn])
+func print_sn(sn str_number) {
+	print(pos_to_string[sn])
 }
 
 // s60
@@ -147,8 +147,8 @@ func slow_print(s string) {
 	print(s)
 }
 
-func slow_print_sn(sn str_number){
-    slow_print(pos_to_string[sn])
+func slow_print_sn(sn str_number) {
+	slow_print(pos_to_string[sn])
 }
 
 // s61
@@ -181,7 +181,7 @@ func print_nl(s string) {
 }
 
 func print_nl_sn(sn str_number) {
-    print_nl(pos_to_string[sn])
+	print_nl(pos_to_string[sn])
 }
 
 // s63
@@ -204,29 +204,29 @@ func print_dd(n integer) {
 
 // s66
 func prompt_input(s string) {
-    wake_up_terminal()
-    print(s)
-    term_input()
-    fmt.Println("prompt_input back from term_input()")
+	wake_up_terminal()
+	print(s)
+	term_input()
+	fmt.Println("prompt_input back from term_input()")
 }
 
 func term_input() {
-    fmt.Println("in term_input(), calling update_terminal")
-    update_terminal()
-    fmt.Println("past update_terminal in term_input, calling input_ln")
-    if ! input_ln(term_in, true) {
-        fatal_error("end of file on the terminal!")
-    }
-    fmt.Println("past input_ln in term_input")
-    term_offset = 0
-    selector--
-    if last != first{
-        fmt.Println("about to print", buffer[first:last])
-        print(string(buffer[first:last]))
-    }
-    fmt.Println("calling print_ln")
-    print_ln()
-    buffer[last] = '%'
-    selector++
-    fmt.Println("ending term_input")
+	fmt.Println("in term_input(), calling update_terminal")
+	update_terminal()
+	fmt.Println("past update_terminal in term_input, calling input_ln")
+	if !input_ln(term_in, true) {
+		fatal_error("end of file on the terminal!")
+	}
+	fmt.Println("past input_ln in term_input")
+	term_offset = 0
+	selector--
+	if last != first {
+		fmt.Println("about to print", buffer[first:last])
+		print(string(buffer[first:last]))
+	}
+	fmt.Println("calling print_ln")
+	print_ln()
+	buffer[last] = '%'
+	selector++
+	fmt.Println("ending term_input")
 }

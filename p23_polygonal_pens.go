@@ -20,13 +20,12 @@ import (
 //"fmt"
 )
 
-
 // s487
-func add_pen_ref(pr pointer){
-    fatal_error("add_pen_ref not defined")
+func add_pen_ref(pr pointer) {
+	fatal_error("add_pen_ref not defined")
 }
 
 // s473
-func print_pen(p pointer, s string, nuline bool){
-    fatal_error("print_pen not implemented yet")
+func print_pen(p pointer, s string, nuline bool) {
+	fatal_error("print_pen not implemented yet")
 }

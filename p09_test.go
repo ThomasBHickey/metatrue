@@ -37,8 +37,14 @@ func TestS154(t *testing.T) {
 	}
 }
 
-func TestS155(t *testing.T){
-    if ho(2)!=2 { t.Error("s155 ho failed")}
-    if qo(2)!=2 { t.Error("s155 qo failed")}
-    if qi(2)!=2 { t.Error("s155 qi failed")}
+func TestS155(t *testing.T) {
+	if ho(2) != 2 {
+		t.Error("s155 ho failed")
+	}
+	if qo(2) != 2 {
+		t.Error("s155 qo failed")
+	}
+	if qi(2) != 2 {
+		t.Error("s155 qi failed")
+	}
 }

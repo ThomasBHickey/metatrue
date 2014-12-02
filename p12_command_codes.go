@@ -711,11 +711,11 @@ func setup_char_class() {
 	char_class[';'] = 6
 	char_class['('] = 7
 	char_class[')'] = right_paren_class
-	for k := 'A'; k<= 'Z'; k++ {
-	    char_class[k] = letter_class
+	for k := 'A'; k <= 'Z'; k++ {
+		char_class[k] = letter_class
 	}
-	for k := 'a'; k<= 'z'; k++ {
-	    char_class[k] = letter_class
+	for k := 'a'; k <= 'z'; k++ {
+		char_class[k] = letter_class
 	}
 	char_class['_'] = letter_class
 	char_class['<'] = 10
